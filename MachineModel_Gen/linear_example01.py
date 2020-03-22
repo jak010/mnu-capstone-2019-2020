@@ -41,4 +41,4 @@ for i in range(5001):
     if i % 500 == 0:  # 500개 마다 모니터링
         print(i, sess.run(cost, feed_dict={X: xData, Y: yData}), sess.run(W), sess.run(b))
 
-print(sess.run(H, feed_dict={X: [256]}))  # 장사꾼이 하루에 8시간 일했을때 매출 예상값
+print(sess.run(H, feed_dict={X: [256]}))  # 프로세스의 수가 256일 때 예측되는 쓰레드의 수

@@ -28,16 +28,15 @@ Y = tf.compat.v1.placeholder(tf.float32)
 H = W + X + b
 
 cost = tf.reduce_mean(tf.square(H-Y))
-a = tf.Variable(0.00025)
 
-optimizer = tf.train.GradientDescentOptimizer(a)
+optimizer =  tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.000122)
 
 train = optimizer.minimize(cost)
 init = tf.compat.v1.global_variables_initializer()
 sess = tf.compat.v1.Session()
 sess.run(init)
 
-for i in range(8001):
+for i in range(6001):
     sess.run(train, feed_dict={X: xData, Y: yData})
     if i % 1500 == 0:  # 500개 마다 모니터링
         print(i, sess.run(cost, feed_dict={X: xData, Y: yData}), sess.run(W), sess.run(b))

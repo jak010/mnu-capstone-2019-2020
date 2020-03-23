@@ -18,15 +18,20 @@ model = tf.compat.v1.global_variables_initializer()
 
 from random import randint
 
+import psutil
+all_process = [ x.pid for x in psutil.process_iter() ]
+
 with tf.compat.v1.Session() as sess:
     sess.run(model)
     save_path = "../LinerMachineGener/saved.cpkt"
     saver.restore(sess, save_path)
     print("===========")
 
+    thread_count = 0
+    for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
 
-
-    for x in range(100):
-        data = [randint(230,250)]
-        ret = sess.run(hypothesis,feed_dict={X:data})
-        print(data,ret)
+    print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+    all_process = [x.pid for x in psutil.process_iter()]
+    data = [len(all_process)]
+    ret = sess.run(hypothesis, feed_dict={X: data})
+    print(data, ret, "[", thread_count, "]")

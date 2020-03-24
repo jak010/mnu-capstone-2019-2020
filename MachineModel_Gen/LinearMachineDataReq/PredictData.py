@@ -19,19 +19,22 @@ model = tf.compat.v1.global_variables_initializer()
 from random import randint
 
 import psutil
-all_process = [ x.pid for x in psutil.process_iter() ]
+save_path = "../LinerMachineGener/saved.cpkt"
 
-with tf.compat.v1.Session() as sess:
-    sess.run(model)
-    save_path = "../LinerMachineGener/saved.cpkt"
-    saver.restore(sess, save_path)
-    print("===========")
+try:
+    for x in range(20):
+        with tf.compat.v1.Session() as sess:
+            sess.run(model)
+            saver.restore(sess, save_path)
 
-    thread_count = 0
-    for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
+            all_process = [x.pid for x in psutil.process_iter()]
+            thread_count = 0
+            for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
 
-    print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
-    all_process = [x.pid for x in psutil.process_iter()]
-    data = [len(all_process)]
-    ret = sess.run(hypothesis, feed_dict={X: data})
-    print(data, ret, "[", thread_count, "]")
+            print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+
+            data = [len(all_process)]
+            ret = sess.run(hypothesis, feed_dict={X: data})
+            print("[", data, thread_count, "]", "Predict:", ret)
+except:
+    pass

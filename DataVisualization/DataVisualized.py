@@ -25,8 +25,6 @@ for key,val in Counter(data["process"]).items():
 k_data =sorted(k_data,reverse=True)
 y_data = sorted(y_data,reverse=True)
 
-
-
 ax1.plot(k_data,y_data)
 
 # thread
@@ -45,7 +43,7 @@ k_data =sorted(k_data,reverse=True)
 y_data = sorted(y_data,reverse=True)
 
 
-ax2.plot(k_data,y_data)
+ax2.scatter(k_data,y_data,marker="*",s=20)
 
 # process, threads
 ax3 = fig.add_subplot(1,2,2)
@@ -53,6 +51,6 @@ ax3 = fig.add_subplot(1,2,2)
 data = pd.read_csv("../csvDIR/Example03.csv")
 data = pd.DataFrame(data)
 
-ax3.scatter(data["threads"],data["process"])
+ax3.scatter(data["threads"],data["process"],marker="*",s=20)
 
 plt.show()

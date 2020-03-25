@@ -8,7 +8,7 @@ import psutil
 f = open("../csvDIR/Example03.csv", "a+", newline='')
 wr = csv.writer(f)
 
-# wr.writerow(["time","process","threads"])
+wr.writerow(["time","process","threads"])
 while True:
     try:
         f = open("../csvDIR/Example03.csv", "a+", newline='')

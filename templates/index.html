@@ -6,13 +6,49 @@
     <title>Dash Board</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <script>
+    function test() {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4 && xhr.status ==200) {
+                var predict_data = xhr.responseText
+                var obj = document.getElementById("getPredictData");
+
+                obj.insertAdjacentHTML("beforeend",'<br>'+predict_data+'</br>');
+                obj.scrollTop = obj.scrollHeight;
+            }
+        }
+        xhr.open("Post", "./predict", true);
+        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	    xhr.send('predict='+1);
+    }
+
+    function startPredict() {
+        test();
+        timerId = setInterval(test, 2000);
+    }
+
+</script>
+
 </head>
 <body>
 
     <section class="page-content">
 
         <section class="grid">
-            <article>1</article>
+            <article>
+                <p>AJAX 데이터 호출</p>
+                    <input type="text" name="predict" id="predictData"/>
+                    <input type="button" value="예측" onclick="startPredict();" />
+
+                    <div id="getPredictData" style="overflow:auto; width:500px; height:500px;">
+
+                    </div>
+
+
+
+            </article>
             <article>2</article>
             <article>3</article>
             <article>4</article>
@@ -24,4 +60,6 @@
 
     </section>
 </body>
+
+
 </html>

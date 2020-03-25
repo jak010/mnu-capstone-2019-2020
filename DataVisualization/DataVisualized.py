@@ -9,7 +9,7 @@ y = list()
 z = list()
 
 fig = plt.figure()
-# process
+#  =======================  process ===========================
 ax1 = fig.add_subplot(2,2,1)
 
 data = pd.read_csv("../csvDIR/Example03.csv")
@@ -27,7 +27,7 @@ y_data = sorted(y_data,reverse=True)
 
 ax1.plot(k_data,y_data)
 
-# thread
+#  =======================  thread ===========================
 ax2 = fig.add_subplot(2,2,3)
 data = pd.read_csv("../csvDIR/Example03.csv")
 data = pd.DataFrame(data)
@@ -43,14 +43,14 @@ k_data =sorted(k_data,reverse=True)
 y_data = sorted(y_data,reverse=True)
 
 
-ax2.scatter(k_data,y_data,marker="*",s=20)
+ax2.scatter(k_data,y_data,marker="*",s=20,edgecolor="g")
 
-# process, threads
+#  =======================  process,thread ===========================
 ax3 = fig.add_subplot(1,2,2)
 
 data = pd.read_csv("../csvDIR/Example03.csv")
 data = pd.DataFrame(data)
 
-ax3.scatter(data["threads"],data["process"],marker="*",s=20)
+ax3.scatter(data["threads"],data["process"],color='1',marker="*",s=20,edgecolor="b")
 
 plt.show()

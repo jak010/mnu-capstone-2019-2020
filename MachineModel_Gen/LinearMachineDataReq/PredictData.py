@@ -1,17 +1,22 @@
+
 import os
+import numpy as np
+import math
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import tensorflow as tf
 
-W = tf.Variable(tf.random.uniform([1],-100,100))
+# Model test 3
 #가중치
-# 절편
-b = tf.Variable(tf.random.uniform([1],-100,100))
+W = tf.Variable(tf.random_uniform([1],-50,50))
+# 절편3
+b = tf.Variable(tf.random_uniform([1],-50,50))
 
-X =  tf.compat.v1.placeholder(tf.float32)
-Y =  tf.compat.v1.placeholder(tf.float32)
+X = tf.compat.v1.placeholder(tf.float32)
+Y = tf.compat.v1.placeholder(tf.float32)
+
 # 가설 검증식
-hypothesis = W + X + b
+hypothesis = (W + 0.025*X) + b
 
 saver = tf.compat.v1.train.Saver()
 model = tf.compat.v1.global_variables_initializer()
@@ -21,8 +26,8 @@ from random import randint
 import psutil
 save_path = "../LinerMachineGener/saved.cpkt"
 
-try:
-    for x in range(20):
+for x in range(20):
+    try:
         with tf.compat.v1.Session() as sess:
             sess.run(model)
             saver.restore(sess, save_path)
@@ -31,10 +36,11 @@ try:
             thread_count = 0
             for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
 
+            data = [thread_count]
+
             print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
 
-            data = [len(all_process)]
-            ret = sess.run(hypothesis, feed_dict={X: data})
-            print("[", data, thread_count, "]", "Predict:", ret)
-except:
-    pass
+            ret = int(np.round(sess.run(hypothesis, feed_dict={X: data})))  # 내림
+            print("[", len(all_process), thread_count, "]", "Predict:", ret, sess.run(hypothesis, feed_dict={X: data}))
+    except Exception as e:
+        continue

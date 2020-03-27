@@ -7,7 +7,7 @@ import tensorflow as tf
 total_process = []
 total_threads =[]
 
-with open("../../csvDataSet/Example03.csv","r") as read:
+with open("../../csvDataSet/TrainSet.csv","r") as read:
     for _ in read.readlines():
         if (len(_) < 21):
             tot_process,tot_threads = _.split(",")[1], _.split(",")[2]

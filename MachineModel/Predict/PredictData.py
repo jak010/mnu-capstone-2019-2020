@@ -1,14 +1,11 @@
-
 import os
-import numpy as np
-import math
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import tensorflow as tf
 
-# Model test 3
 #가중치
 W = tf.Variable(tf.random_uniform([1],seed=1))
+
 # 절편3
 b = tf.Variable(tf.random_uniform([1],seed=1))
 
@@ -21,10 +18,8 @@ hypothesis = (W + 0.025*X) + b
 saver = tf.compat.v1.train.Saver()
 model = tf.compat.v1.global_variables_initializer()
 
-from random import randint
-
 import psutil
-save_path = "../LinerMachineGener/saved.cpkt"
+save_path = "../Models/saved.cpkt"
 
 for x in range(20):
     try:

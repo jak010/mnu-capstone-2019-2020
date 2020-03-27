@@ -19,7 +19,7 @@ Y = tf.compat.v1.placeholder(tf.float32)
 # 가설식
 H = (W + 0.025 * X) + b
 
-save_path = "./MachineModel_Gen/LinerMachineGener/saved.cpkt"
+save_path = "./MachineModel/Models/saved.cpkt"
 saver = tf.compat.v1.train.Saver()
 model = tf.compat.v1.global_variables_initializer()
 

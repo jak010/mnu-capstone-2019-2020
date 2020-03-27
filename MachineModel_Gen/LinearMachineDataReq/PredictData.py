@@ -8,9 +8,9 @@ import tensorflow as tf
 
 # Model test 3
 #가중치
-W = tf.Variable(tf.random_uniform([1],-50,50))
+W = tf.Variable(tf.random_uniform([1],seed=1))
 # 절편3
-b = tf.Variable(tf.random_uniform([1],-50,50))
+b = tf.Variable(tf.random_uniform([1],seed=1))
 
 X = tf.compat.v1.placeholder(tf.float32)
 Y = tf.compat.v1.placeholder(tf.float32)
@@ -29,6 +29,9 @@ save_path = "../LinerMachineGener/saved.cpkt"
 for x in range(20):
     try:
         with tf.compat.v1.Session() as sess:
+            import os
+            get_pid = int(os.getpid())
+
             sess.run(model)
             saver.restore(sess, save_path)
 
@@ -36,11 +39,14 @@ for x in range(20):
             thread_count = 0
             for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
 
-            data = [thread_count]
+            relative_counter = psutil.Process(pid=get_pid).num_threads()
+            # data = [thread_count-relative_counter]
 
+            data = [thread_count]
             print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
 
-            ret = int(np.round(sess.run(hypothesis, feed_dict={X: data})))  # 내림
-            print("[", len(all_process), thread_count, "]", "Predict:", ret, sess.run(hypothesis, feed_dict={X: data}))
+            # ret = int(np.round(sess.run(hypothesis, feed_dict={X: data})))  # 내림
+            ret = sess.run(hypothesis, feed_dict={X: data})  # 내림
+            print("[",thread_count, len(all_process), "]", "Predict:", ret, sess.run(hypothesis, feed_dict={X: data}))
     except Exception as e:
         continue

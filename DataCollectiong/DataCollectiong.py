@@ -5,13 +5,13 @@ import time
 import csv
 import psutil
 
-f = open("../csvDIR/Example03.csv", "a+", newline='')
+f = open("../csvDataSet/DataSet.csv", "a+", newline='')
 wr = csv.writer(f)
 
-wr.writerow(["time","process","threads"])
+# wr.writerow(["time","process","threads"])
 while True:
     try:
-        f = open("../csvDIR/Example03.csv", "a+", newline='')
+        f = open("../csvDataSet/Example03.csv", "a+", newline='')
         wr = csv.writer(f)
 
         cur_date = str(time.localtime(time.time()).tm_year) + "-" + str(time.localtime(time.time()).tm_mon) + "-" + str(

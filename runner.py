@@ -9,9 +9,9 @@ from flask import *
 app = Flask(__name__)
 
 # 가중치
-W = tf.Variable(tf.random_uniform([1], -50, 50))
+W = tf.Variable(tf.random_uniform([1], seed=1))
 # 절편3
-b = tf.Variable(tf.random_uniform([1], -50, 50))
+b = tf.Variable(tf.random_uniform([1], seed=1))
 
 X = tf.compat.v1.placeholder(tf.float32)
 Y = tf.compat.v1.placeholder(tf.float32)
@@ -35,12 +35,15 @@ def hello():
 
 @app.route("/predict",methods=["POST","GET"])
 def predictAjax():
+    value = request.form['predict']
     try:
-        value = request.form['predict']
+        import os
 
+        get_pid = int(os.getpid())
         all_process = [x.pid for x in psutil.process_iter()]
         thread_count = 0
         for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
+
         data = [thread_count]
 
         cur_time = str(time.localtime(time.time()).tm_hour) + ":" + str(

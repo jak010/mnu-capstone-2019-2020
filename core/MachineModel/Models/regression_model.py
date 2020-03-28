@@ -1,6 +1,9 @@
 import os
+
+# tensorflow warning message removed !
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
+import psutil
 import numpy as np
 import tensorflow as tf
 
@@ -39,8 +42,6 @@ for i in range(1001):
     sess.run(train, feed_dict={X: xData, Y: yData})
     if i % 250 == 0:  # 500개 마다 모니터링
         print(i, sess.run(cost, feed_dict={X: xData, Y: yData}), sess.run(W), sess.run(b))
-
-import psutil
 
 try:
     all_process = [x.pid for x in psutil.process_iter()]

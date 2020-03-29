@@ -20,3 +20,4 @@ Data Visualization update
 Data Collection Source update    
 Linear Regression Model Initial update    
 Linear Regression Model Predict update
+ChartJs Graph UEBA plot update

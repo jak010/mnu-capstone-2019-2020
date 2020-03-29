@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dash Board</title>
 
+
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="{{ url_for('static' ,filename='js/util.js') }}"></script>
     <script>
     function test() {
         var xhr = new XMLHttpRequest();
@@ -34,29 +39,28 @@
 </head>
 <body>
 
-    <section class="page-content">
 
-        <section class="grid">
-            <article>
-                <p>AJAX 데이터 호출</p>
-                    <input type="text" name="predict" id="predictData"/>
-                    <input type="button" value="예측" onclick="startPredict();" />
+    <header>
 
-                    <div id="getPredictData" style="overflow:auto; width:500px; height:500px;">
+    </header>
 
-                    </div>
 
+    <section>
+
+        <article class="article_section_01">
+
+            <article class="article_section_01_1">
+                <canvas id="myChart"></canvas>
+
+            </article>
+
+            <article class="article_section_01_2">
 
 
             </article>
-            <article>2</article>
-            <article>3</article>
-            <article>4</article>
-            <article>5</article>
-            <article>6</article>
-            <article>7</article>
-            <article>8</article>
-        </section>
+        </article>
+
+
 
     </section>
 </body>

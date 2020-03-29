@@ -1,10 +1,11 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-import psutil
 import time
+import psutil
 import numpy as np
 import tensorflow as tf
+
 from flask import *
 app = Flask(__name__)
 
@@ -18,8 +19,9 @@ Y = tf.compat.v1.placeholder(tf.float32)
 
 # 가설식
 H = (W + 0.025 * X) + b
-
-save_path = "./MachineModel/Models/saved.cpkt"
+path = os.getcwd()
+save_path = path+"/core/MachineModel/Models/saved.cpkt"
+print(save_path)
 saver = tf.compat.v1.train.Saver()
 model = tf.compat.v1.global_variables_initializer()
 
@@ -29,35 +31,40 @@ sess.run(model)
 saver.restore(sess, save_path)
 
 @app.route("/")
-def hello():
-    return render_template("index.html", subject="안녕하세요 반갑습니다.")
+def index_root():
+    return render_template("index.html")
 
 
 @app.route("/predict",methods=["POST","GET"])
 def predictAjax():
-    value = request.form['predict']
+
     try:
         import os
+        # get_pid = int(os.getpid())
 
-        get_pid = int(os.getpid())
         all_process = [x.pid for x in psutil.process_iter()]
-        thread_count = 0
-        for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
+        all_process_number = len(all_process)
 
+        thread_count = 0
+
+        for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
         data = [thread_count]
 
         cur_time = str(time.localtime(time.time()).tm_hour) + ":" + str(
             time.localtime(time.time()).tm_min)
 
-        ret = np.round(sess.run(H, feed_dict={X: data}))  # 내림
-        return str(cur_time)+":"+"["+str(len(all_process))+"]:"+"[Predict:" +str(ret)+"]"
-    except:
+        ret = sess.run(H, feed_dict={X: data})  # 내림
+
+        result_prec = round(all_process_number - float(ret),2)
+
+        print(result_prec , all_process_number,ret)
+
+        # return str(cur_time)+":"+"["+str(len(all_process))+"]:"+"[Predict:" +str(ret)+"]"
+        return str(result_prec)
+    except Exception as e:
         pass
 
 if __name__ == "__main__":
-    host_addr = "127.0.0.1"
-    portNumber = "4040"
 
-    app.run(host=host_addr,port=portNumber)
-
+    app.run()
 

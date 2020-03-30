@@ -42,6 +42,7 @@ for x in range(20):
 
             # ret = int(np.round(sess.run(hypothesis, feed_dict={X: data})))  # 내림
             ret = sess.run(hypothesis, feed_dict={X: data})  # 내림
-            print("[",thread_count, len(all_process), "]", "Predict:", ret, sess.run(hypothesis, feed_dict={X: data}))
+            print("[",thread_count, len(all_process), "]", "Predict:", ret)
+
     except Exception as e:
         continue

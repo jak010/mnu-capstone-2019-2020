@@ -55,7 +55,6 @@ try:
 except:
     pass
 
-
 saver = tf.compat.v1.train.Saver()
 saver_path = saver.save(sess,"./saved.cpkt")
 

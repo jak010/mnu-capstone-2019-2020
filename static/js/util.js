@@ -7,20 +7,31 @@ function section01(param1) {
     var ctx = document.getElementById("myChart");
 
     var dateobj = new Date();
-
+    Hours = dateobj.getHours();
     Minutes = dateobj.getMinutes();
     Seconds = dateobj.getSeconds();
 
-    var cur_x = Minutes + ":" + Seconds+"초";
+    var cur_x = Hours + "시"+ Minutes +"분" + Seconds+"초";
+    var cur_x2 = Hours + ":"+ Minutes +":" + Seconds;
+
+
+    if( Number(param1) > 1 ||  Number(param1) < -1) {
+        var append_log = document.getElementById("article_section_01_3_dataView")
+        var append_string =  cur_x + "<br>";
+        append_log.insertAdjacentHTML("beforeend" ,append_string);
+   } else if( Number(param1) > 0.5  || Number(param1) > -0.5){
+        var append_log = document.getElementById("article_section_01_2_dataView")
+        var append_string =  cur_x + "<br>";
+        append_log.insertAdjacentHTML("beforeend" ,append_string);
+   }
 
     dataArray.push(now_prec);
-    xGroup.push(cur_x);
+    xGroup.push(cur_x2);
 
-    if (xGroup.length % 15 == 0) {
+    if (xGroup.length % 25 == 0) {
         xGroup.length = 0;
-
     }
-    console.log(now_prec);
+
 
     var myChart = new Chart(ctx, {
 
@@ -56,8 +67,8 @@ function section01(param1) {
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
-                        min: -4.5,
-                        max: 4.5,
+                        min: -2,
+                        max:2,
                         stepSize: 0.5,
                         fontSize: 12,
                     },
@@ -95,4 +106,4 @@ setInterval(function() {
 	    xhr.send("predict=","1");
 
 
-}, 2000);
+}, 200);

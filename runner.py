@@ -37,7 +37,6 @@ def index_root():
 
 @app.route("/predict",methods=["POST","GET"])
 def predictAjax():
-
     try:
         import os
         # get_pid = int(os.getpid())
@@ -50,19 +49,16 @@ def predictAjax():
         for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
         data = [thread_count]
 
-        cur_time = str(time.localtime(time.time()).tm_hour) + ":" + str(
-            time.localtime(time.time()).tm_min)
-
         ret = sess.run(H, feed_dict={X: data})  # 내림
-
-        result_prec = round(all_process_number - float(ret),2)
+        result_prec = round( (all_process_number-float(ret)) %2 ,2)
 
         print(result_prec , all_process_number,ret)
 
         # return str(cur_time)+":"+"["+str(len(all_process))+"]:"+"[Predict:" +str(ret)+"]"
         return str(result_prec)
+
     except Exception as e:
-        pass
+        return str(0)
 
 if __name__ == "__main__":
 

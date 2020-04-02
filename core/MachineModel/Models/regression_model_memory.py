@@ -42,17 +42,17 @@ H = X1 * W1 + X2*W2 +b
 
 cost = tf.reduce_mean(tf.square(H-Y))
 
-optimizer =  tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.0000001)
+optimizer =  tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.00000015)
 
 train = optimizer.minimize(cost)
 init = tf.compat.v1.global_variables_initializer()
 sess = tf.compat.v1.Session()
 sess.run(init)
 
-for i in range(1001):
+for i in range(10001):
     cost_,w1_,w2_,b_,_ = sess.run([cost,W1,W2,b,train] ,feed_dict={X1:xData,X2:yData,Y:zData})
 
-    if i % 200 == 0:  # 500개 마다 모니터링
+    if i % 1000 == 0:  # 500개 마다 모니터링
         print(cost_,w1_,w2_)
 
 try:
@@ -65,13 +65,13 @@ try:
     X1_process = [len(all_process)]
     #threads
     X2_threads = data
+    memory_percent_ = psutil.virtual_memory()
 
+    print("Current Memory Percent : " ,memory_percent_.percent)
     print("Predict :", sess.run(H, feed_dict={X1: X1_process, X2: X2_threads}))
 except:
     pass
 
-
-#
 saver = tf.compat.v1.train.Saver()
 saver_path = saver.save(sess,"./saved.cpkt")
 

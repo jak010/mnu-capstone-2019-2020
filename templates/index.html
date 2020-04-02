@@ -6,12 +6,62 @@
     <title>Dash Board</title>
 
 
-
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <script src="{{ url_for('static' ,filename='js/util.js') }}"></script>
-    <script>
+
+</head>
+<body>
+
+
+<header>
+
+    <a href="#"> 데이터 수집</a> /
+    <a href="#"> 데이터 학습</a>
+
+</header>
+
+<section>
+    <article class="article_section_01">
+        <canvas id="myChart"></canvas>
+    </article>
+
+    <article class="article_section_02">
+
+        <div id="caution_alarm">
+            <header>
+                Caution log
+            </header>
+
+            <section id="caution_data_view">
+
+            </section>
+
+        </div>
+
+        <div id="warning_alarm">
+            <header>
+                Warning log
+            </header>
+
+            <section id="warning_data_view">
+
+            </section>
+
+        </div>
+
+
+        <div id="pie_chart_frame">
+            <canvas id="myChart2"></canvas>
+        </div>
+
+
+    </article>
+</section>
+
+
+</body>
+
+<script>
     function test() {
         var xhr = new XMLHttpRequest();
 
@@ -34,56 +84,10 @@
         timerId = setInterval(test, 2000);
     }
 
-</script>
 
-</head>
-<body>
+    </script>
 
-     <header>
-
-    </header>
-
-
-    <section>
-
-        <article class="article_section_01">
-
-            <article class="article_section_01_1">
-                <canvas id="myChart"></canvas>
-            </article>
-
-
-              <div class="article_section_01_2">
-                <div id="article_section_01_2_1">
-                    Caution
-                </div>
-
-                <div id="article_section_01_2_dataView">
-                </div>
-
-            </div>
-
-
-            <div class="article_section_01_3">
-                <div id="article_section_01_3_1">
-                    warning
-                </div>
-
-                <div id="article_section_01_3_dataView">
-                </div>
-
-
-            </div>
-
-
-        </article>
-
-
-
-    </section>
-
-
-</body>
-
+<script src="{{ url_for('static' ,filename='js/util.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 </html>

@@ -20,27 +20,31 @@ with open("../../csvDataSet/TrainSet.csv","r") as read:
 xData = total_threads
 yData = total_process
 #가중치
-W = tf.Variable(tf.random_uniform([1],seed=1))
+W = tf.Variable(tf.random_normal([1],seed=1))
 # 절편3
-b = tf.Variable(tf.random_uniform([1],seed=1))
+b = tf.Variable(tf.random_normal([1],seed=1))
 
 X = tf.compat.v1.placeholder(tf.float32)
 Y = tf.compat.v1.placeholder(tf.float32)
 
 # 가설식
 H = (W + 0.025*X) + b
+
 cost = tf.reduce_mean(tf.square(H-Y))
 
-optimizer =  tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.004)
+optimizer =  tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.0004)
 
 train = optimizer.minimize(cost)
 init = tf.compat.v1.global_variables_initializer()
 sess = tf.compat.v1.Session()
+
+
 sess.run(init)
 
-for i in range(1001):
+for i in range(5001):
     sess.run(train, feed_dict={X: xData, Y: yData})
-    if i % 250 == 0:  # 500개 마다 모니터링
+
+    if i % 500 == 0:  # 500개 마다 모니터링
         print(i, sess.run(cost, feed_dict={X: xData, Y: yData}), sess.run(W), sess.run(b))
 
 try:
@@ -50,7 +54,7 @@ try:
 
     data = [thread_count]
 
-    # 프로세스의 수가 256일 때 예측되는 쓰레드의 수
+    # 프로세스 대비 예측되는 쓰레드의 수
     print(len(all_process),'[ Predict :',np.round(sess.run(H, feed_dict={X: data})[0]),']')
 except:
     pass

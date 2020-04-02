@@ -1,7 +1,6 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-import time
 import psutil
 import numpy as np
 import tensorflow as tf
@@ -49,10 +48,9 @@ def predictAjax():
         for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
         data = [thread_count]
 
-        ret = sess.run(H, feed_dict={X: data})  # 내림
-        result_prec = round( (all_process_number-float(ret)) %2 ,2)
-
-        print(result_prec , all_process_number,ret)
+        result_prec = (np.round( (np.float(len(all_process)) - sess.run(H, feed_dict={X: data})), 2)[0])
+        result_prec = np.round(result_prec %2 ,2)
+        print(result_prec,type(result_prec))
 
         # return str(cur_time)+":"+"["+str(len(all_process))+"]:"+"[Predict:" +str(ret)+"]"
         return str(result_prec)

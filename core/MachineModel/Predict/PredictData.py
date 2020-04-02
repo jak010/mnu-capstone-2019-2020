@@ -1,6 +1,7 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
+import numpy as np
 import tensorflow as tf
 
 #가중치
@@ -41,8 +42,13 @@ for x in range(20):
             print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
 
             # ret = int(np.round(sess.run(hypothesis, feed_dict={X: data})))  # 내림
-            ret = sess.run(hypothesis, feed_dict={X: data})  # 내림
-            print("[",thread_count, len(all_process), "]", "Predict:", ret)
+            # ret = sess.run(hypothesis, feed_dict={X: data})  # 내림
+            # ret = len(all_process) -  np.round(sess.run(hypothesis, feed_dict={X: data}))  # 내림
+            # print(len(all_process),sess.run(hypothesis, feed_dict={X: data}))
+
+            ret = np.round(np.float(len(all_process)) - sess.run(hypothesis, feed_dict={X: data}),2)
+
+            print("[",thread_count, len(all_process), "]", "Predict: [", ret,sess.run(hypothesis, feed_dict={X: data}),"]")
 
     except Exception as e:
         continue

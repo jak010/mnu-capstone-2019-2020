@@ -1,7 +1,16 @@
 var dataArray = new Array();
 var xGroup = new Array();
 
+
+// [0] 경고
+// [1] 주의
+// [2] 정상
+var pieChartSet = [0, 0, 0];
+
 function section01(param1) {
+    console.log(pieChartSet[0],pieChartSet[1],pieChartSet[2]);
+    console.log(param1);
+
     now_prec = Number(param1);
 
     var ctx = document.getElementById("myChart");
@@ -15,20 +24,24 @@ function section01(param1) {
     var cur_x2 = Hours + ":"+ Minutes +":" + Seconds;
 
 
-    if( Number(param1) > 1 ||  Number(param1) < -1) {
-        var append_log = document.getElementById("article_section_01_3_dataView")
+    if(Number(param1) > 0.7){
+        pieChartSet[0] += 1;
+        var append_log = document.getElementById("warning_data_view")
         var append_string =  cur_x + "<br>";
         append_log.insertAdjacentHTML("beforeend" ,append_string);
-   } else if( Number(param1) > 0.5  || Number(param1) > -0.5){
-        var append_log = document.getElementById("article_section_01_2_dataView")
+   } else if( Number(param1) > 0.5  || Number(param1) < 0) {
+        pieChartSet[1] += 1;
+        var append_log = document.getElementById("caution_data_view")
         var append_string =  cur_x + "<br>";
         append_log.insertAdjacentHTML("beforeend" ,append_string);
+   } else {
+    pieChartSet[2] += 1;
    }
 
     dataArray.push(now_prec);
     xGroup.push(cur_x2);
 
-    if (xGroup.length % 25 == 0) {
+    if (xGroup.length % 80 == 0) {
         xGroup.length = 0;
     }
 
@@ -78,13 +91,73 @@ function section01(param1) {
                     },
 
                 }],
+            },
+            animation: {
+                duration: 1,
+                onComplete: function() {
+                    var chartInstance = this.chart,
+                        ctx = chartInstance.ctx;
+                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    ctx.fillStyle = 'purple';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
 
+                    this.data.datasets.forEach(function(dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function(bar, index) {
+                            var data = dataset.data[index];
 
+                            if (data >= 0.5) {
+
+                                data = "경고";
+
+                            } else if ((data >0.4) || (data < 0)) {
+                                data = "주의";
+
+                            }else {
+                                data = "정상";
+                            }
+
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                        });
+                    });
+                }
             }
         }
     });
 
 }
+
+
+function section2() {
+    var ctx = document.getElementById("myChart2").getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ["경고", "정상", "주의"],
+            datasets: [{
+                label: '# of Votes',
+                data: pieChartSet,
+                backgroundColor: [
+                    'rgb(219, 15, 38,0.5)',
+                    'rgb(68, 219, 111,0.5)',
+                    'rgb(255, 255, 0,0.5)'
+                ],
+                borderColor: [
+                    'rgba(0, 0, 0, 0.5)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+
+        }
+    });
+}
+
+
+
 setInterval(function() {
     var result;
     var xhr = new XMLHttpRequest();
@@ -94,10 +167,6 @@ setInterval(function() {
                 var predict_data = xhr.responseText
                 result = predict_data;
 
-//                var obj = document.getElementById("getPredictData");
-//
-//                obj.insertAdjacentHTML("beforeend",'<br>'+predict_data+'</br>');
-//                obj.scrollTop = obj.scrollHeight;
                 section01(result)
             }
         }
@@ -105,5 +174,8 @@ setInterval(function() {
         xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	    xhr.send("predict=","1");
 
+}, 1500);
 
-}, 200);
+setInterval(function() {
+    section2();
+}, 6000);

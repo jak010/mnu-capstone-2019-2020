@@ -1,5 +1,6 @@
+
 # 2020 03 22
-# Feature : 데이터가 수집된 일시 ,총 프로세스 ,총 쓰레드 갯수
+# Feature : 데이터가 수집된 일시 ,총 프로세스 ,총 쓰레드 갯수,메모리 사용률
 
 import os
 import csv
@@ -26,9 +27,12 @@ if os.path.isfile(train_path):
             # 총 프로세스 , 총 쓰레드 갯수
             tot_process_number, tot_thread_number = len([x for x in psutil.pids()]), sum(
                 [x.num_threads() for x in psutil.process_iter()])
-            print(cur_date, tot_process_number, tot_thread_number)
+            # 메모리 이용율
+            cpu_mem = psutil.virtual_memory()
 
-            wr.writerow([cur_date, tot_process_number, tot_thread_number])
+            print(cur_date, tot_process_number, tot_thread_number,cpu_mem.percent)
+
+            wr.writerow([cur_date, tot_process_number, tot_thread_number,cpu_mem.percent])
 
             f.close()
         except Exception as e:
@@ -47,7 +51,7 @@ else :
     f = open("../csvDataSet/TrainSet.csv", "a+", newline='')
     wr = csv.writer(f)
 
-    wr.writerow(["time", "process", "threads"])
+    wr.writerow(["time", "process", "threads","memory_percent"])
     while True:
         try:
             f = open(train_path, "a+", newline='')
@@ -61,9 +65,11 @@ else :
             # 총 프로세스 , 총 쓰레드 갯수
             tot_process_number, tot_thread_number = len([x for x in psutil.pids()]), sum(
                 [x.num_threads() for x in psutil.process_iter()])
-            print(cur_date, tot_process_number, tot_thread_number)
+            cpu_mem = psutil.virtual_memory()
 
-            wr.writerow([cur_date, tot_process_number, tot_thread_number])
+            print(cur_date, tot_process_number, tot_thread_number, cpu_mem.percent)
+
+            wr.writerow([cur_date, tot_process_number, tot_thread_number, cpu_mem.percent])
 
             f.close()
         except Exception as e:

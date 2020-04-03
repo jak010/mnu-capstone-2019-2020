@@ -1,20 +1,25 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-import numpy as np
 import tensorflow as tf
 
+# process
+X1 = tf.compat.v1.placeholder(tf.float32,shape=[None])
+# threads
+X2 = tf.compat.v1.placeholder(tf.float32,shape=[None])
+
+# mem_percent
+Y = tf.compat.v1.placeholder(tf.float32,shape=[None])
+
 #가중치
-W = tf.Variable(tf.random_uniform([1],seed=1))
+W1 = tf.Variable(tf.random_normal([1],seed=1))
+W2 = tf.Variable(tf.random_normal([1],seed=1))
 
 # 절편3
-b = tf.Variable(tf.random_uniform([1],seed=1))
+b = tf.Variable(tf.random_normal([1],seed=1))
 
-X = tf.compat.v1.placeholder(tf.float32)
-Y = tf.compat.v1.placeholder(tf.float32)
-
-# 가설 검증식
-hypothesis = (W + 0.025*X) + b
+# 가설식
+H = X1 * W1 + X2*W2 +b
 
 saver = tf.compat.v1.train.Saver()
 model = tf.compat.v1.global_variables_initializer()
@@ -34,21 +39,22 @@ for x in range(20):
             all_process = [x.pid for x in psutil.process_iter()]
             thread_count = 0
             for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
-
-            relative_counter = psutil.Process(pid=get_pid).num_threads()
-            # data = [thread_count-relative_counter]
-
             data = [thread_count]
+
+            # process
+            X1_process = [len(all_process)]
+            # threads
+            X2_threads = data
+
+            # current Memory
+            memory_usage = psutil.virtual_memory()
+
+            predict_memory_usage = sess.run(H, feed_dict={X1: X1_process, X2: X2_threads})
+
+            returnValue = abs(memory_usage.percent - predict_memory_usage) % 2
+
             print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
-
-            # ret = int(np.round(sess.run(hypothesis, feed_dict={X: data})))  # 내림
-            # ret = sess.run(hypothesis, feed_dict={X: data})  # 내림
-            # ret = len(all_process) -  np.round(sess.run(hypothesis, feed_dict={X: data}))  # 내림
-            # print(len(all_process),sess.run(hypothesis, feed_dict={X: data}))
-
-            ret = np.round(np.float(len(all_process)) - sess.run(hypothesis, feed_dict={X: data}),2)
-
-            print("[",thread_count, len(all_process), "]", "Predict: [", ret,sess.run(hypothesis, feed_dict={X: data}),"]")
+            print("\nCurrent Usage: ", memory_usage.percent , "Predict :", sess.run(H, feed_dict={X1: X1_process, X2: X2_threads}) ,"returnvalue :" ,returnValue)
 
     except Exception as e:
-        continue
+        print(e)

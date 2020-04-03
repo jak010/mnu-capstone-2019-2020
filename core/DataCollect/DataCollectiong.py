@@ -26,9 +26,12 @@ if os.path.isfile(train_path):
             # 총 프로세스 , 총 쓰레드 갯수
             tot_process_number, tot_thread_number = len([x for x in psutil.pids()]), sum(
                 [x.num_threads() for x in psutil.process_iter()])
-            print(cur_date, tot_process_number, tot_thread_number)
+            # current_memory_usage data
+            memory_usage = psutil.virtual_memory()
 
-            wr.writerow([cur_date, tot_process_number, tot_thread_number])
+            print(cur_date, tot_process_number, tot_thread_number, memory_usage.percent)
+
+            wr.writerow([cur_date, tot_process_number, tot_thread_number, memory_usage.percent])
 
             f.close()
         except Exception as e:
@@ -47,7 +50,7 @@ else :
     f = open("../csvDataSet/TrainSet.csv", "a+", newline='')
     wr = csv.writer(f)
 
-    wr.writerow(["time", "process", "threads"])
+    wr.writerow(["time", "process", "threads","memory_usage"])
     while True:
         try:
             f = open(train_path, "a+", newline='')
@@ -61,9 +64,13 @@ else :
             # 총 프로세스 , 총 쓰레드 갯수
             tot_process_number, tot_thread_number = len([x for x in psutil.pids()]), sum(
                 [x.num_threads() for x in psutil.process_iter()])
-            print(cur_date, tot_process_number, tot_thread_number)
 
-            wr.writerow([cur_date, tot_process_number, tot_thread_number])
+            # current_memory_usage data
+            memory_usage = psutil.virtual_memory()
+
+            print(cur_date, tot_process_number, tot_thread_number,memory_usage.percent)
+
+            wr.writerow([cur_date, tot_process_number, tot_thread_number,memory_usage.percent])
 
             f.close()
         except Exception as e:
@@ -75,74 +82,3 @@ else :
 
             print(cur_date, cur_time)
             continue
-
-
-
-def data_collect_func():
-    # 파일이 있는 경우 헤더
-    if os.path.isfile(train_path):
-        print(" ============= [+] File Exist On Path ==================")
-
-        while True:
-            try:
-                f = open(train_path, "a+", newline='')
-                wr = csv.writer(f)
-
-                cur_date = str(time.localtime(time.time()).tm_year) + "-" + str(
-                    time.localtime(time.time()).tm_mon) + "-" + str(
-                    time.localtime(time.time()).tm_mday)
-
-
-                # 총 프로세스 , 총 쓰레드 갯수
-                tot_process_number, tot_thread_number = len([x for x in psutil.pids()]), sum(
-                    [x.num_threads() for x in psutil.process_iter()])
-                print(cur_date, tot_process_number, tot_thread_number)
-
-                wr.writerow([cur_date, tot_process_number, tot_thread_number])
-
-                f.close()
-            except Exception as e:
-                cur_date = str(time.localtime(time.time()).tm_year) + "-" + str(
-                    time.localtime(time.time()).tm_mon) + "-" + str(
-                    time.localtime(time.time()).tm_mday)
-                cur_time = str(time.localtime(time.time()).tm_hour - 12) + ":" + str(
-                    time.localtime(time.time()).tm_min)
-
-                print(cur_date, cur_time)
-                continue
-
-    # 파일이 없는 경우 헤더
-    else:
-        print(" ============= [+] File Not Exist On Path ==================")
-        f = open("../csvDataSet/TrainSet.csv", "a+", newline='')
-        wr = csv.writer(f)
-
-        wr.writerow(["time", "process", "threads"])
-        while True:
-            try:
-                f = open(train_path, "a+", newline='')
-                wr = csv.writer(f)
-
-                cur_date = str(time.localtime(time.time()).tm_year) + "-" + str(
-                    time.localtime(time.time()).tm_mon) + "-" + str(
-                    time.localtime(time.time()).tm_mday)
-                cur_time = str(time.localtime(time.time()).tm_hour - 12) + ":" + str(
-                    time.localtime(time.time()).tm_min)
-
-                # 총 프로세스 , 총 쓰레드 갯수
-                tot_process_number, tot_thread_number = len([x for x in psutil.pids()]), sum(
-                    [x.num_threads() for x in psutil.process_iter()])
-                print(cur_date, tot_process_number, tot_thread_number)
-
-                wr.writerow([cur_date, tot_process_number, tot_thread_number])
-
-                f.close()
-            except Exception as e:
-                cur_date = str(time.localtime(time.time()).tm_year) + "-" + str(
-                    time.localtime(time.time()).tm_mon) + "-" + str(
-                    time.localtime(time.time()).tm_mday)
-                cur_time = str(time.localtime(time.time()).tm_hour - 12) + ":" + str(
-                    time.localtime(time.time()).tm_min)
-
-                print(cur_date, cur_time)
-                continue

@@ -8,8 +8,6 @@ var xGroup = new Array();
 var pieChartSet = [0, 0, 0];
 
 function section01(param1) {
-    console.log(pieChartSet[0],pieChartSet[1],pieChartSet[2]);
-    console.log(param1);
 
     now_prec = Number(param1);
 
@@ -23,11 +21,11 @@ function section01(param1) {
     var curret_date = Hours + ":"+ Minutes +":" + Seconds;
 
     // 경고
-    if(Number(param1) > 1.3){
+    if(Number(param1) > 1){
         pieChartSet[0] += 1;
 
     // 주의
-   } else if( Number(param1) > 0.9  || Number(param1) < 0) {
+   } else if( Number(param1) > 0.8  || Number(param1) < 0) {
         pieChartSet[1] += 1;
 
    // 정상
@@ -97,7 +95,7 @@ function section01(param1) {
 
                 yAxes: [{
                     ticks: {
-                        min: -1,
+                        min: -0.5,
                         max: 2,
                         stepSize: 0.5,
                         fontSize: 12,
@@ -127,11 +125,11 @@ function section01(param1) {
                         meta.data.forEach(function(bar, index) {
                             var data = dataset.data[index];
 
-                            if (data > 0.7) {
+                            if (data > 1) {
 
                                 data = "경고";
 
-                            } else if ((data >0.6) || (data < 0)) {
+                            } else if ((data >0.8) || (data < 0)) {
                                 data = "주의";
 
                             }else {

@@ -45,14 +45,9 @@ def index_root():
 @app.route("/predict",methods=["POST","GET"])
 def predictAjax():
     try:
-        import os
-        # get_pid = int(os.getpid())
-
         all_process = [x.pid for x in psutil.process_iter()]
-        all_process_number = len(all_process)
 
         thread_count = 0
-
         for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
         data = [thread_count]
 
@@ -62,18 +57,19 @@ def predictAjax():
         X2_threads = data
 
         # current_memory_usage
-        cpu_percent_ = psutil.cpu_percent()
-        npCastring =np.float32(cpu_percent_)
+        memory_usage = psutil.virtual_memory()
 
         # predict_cpu_usage
-        predict_cpu_usage = sess.run(H, feed_dict={X1: X1_process, X2: X2_threads})
-        returnValue = round(npCastring - predict_cpu_usage[0] ,2) % 2
+        predict_memory_usage = sess.run(H, feed_dict={X1: X1_process, X2: X2_threads})
 
-        print(returnValue)
+        returnValue = abs(memory_usage.percent - predict_memory_usage) % 2
 
-        return str(returnValue)
+        print("\n Memory Usage : ",memory_usage.percent ,"Predict Memory Usage : ",predict_memory_usage)
+        print(str(returnValue[0]))
+        return str(returnValue[0])
 
     except Exception as e:
+        print(e)
         return str(0)
 
 if __name__ == "__main__":

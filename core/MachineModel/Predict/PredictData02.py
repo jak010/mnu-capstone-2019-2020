@@ -1,7 +1,6 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-import numpy as np
 import tensorflow as tf
 
 # process
@@ -46,11 +45,16 @@ for x in range(20):
             X1_process = [len(all_process)]
             # threads
             X2_threads = data
+
             # current Memory
-            cpu_mem = psutil.cpu_percent()
+            memory_usage = psutil.virtual_memory()
+
+            predict_memory_usage = sess.run(H, feed_dict={X1: X1_process, X2: X2_threads})
+
+            returnValue = abs(memory_usage.percent - predict_memory_usage) % 2
 
             print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
-            print("\nCurrent Usage: ", cpu_mem , "Predict :", sess.run(H, feed_dict={X1: X1_process, X2: X2_threads}))
+            print("\nCurrent Usage: ", memory_usage.percent , "Predict :", sess.run(H, feed_dict={X1: X1_process, X2: X2_threads}) ,"returnvalue :" ,returnValue)
 
     except Exception as e:
         print(e)

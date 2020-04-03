@@ -1,18 +1,12 @@
-import psutil
 
+total_process = []
+total_threads =[]
+cpu_usage = []
 
-all_process = [x.pid for x in psutil.process_iter()]
-thread_count = 0
-for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
-data = [thread_count]
-
-print(all_process, data)
-# process
-
-X1 = [len(all_process)]
-# threads
-X2 = data
-
-cpu_mem = psutil.cpu_percent()
-
-print(type(cpu_mem))
+with open("../../csvDataSet/TrainSet.csv","r") as read:
+    for _ in read.readlines():
+        if (len(_) < 34):
+            tot_process,tot_threads,memory_percentage = _.split(",")[1], _.split(",")[2], _.split(",")[3].replace("\n","")
+            print(tot_process)
+            print(tot_threads)
+            print(memory_percentage)

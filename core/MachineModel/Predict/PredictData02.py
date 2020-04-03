@@ -47,10 +47,10 @@ for x in range(20):
             # threads
             X2_threads = data
             # current Memory
-            cpu_mem = psutil.virtual_memory()
+            cpu_mem = psutil.cpu_percent()
 
             print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
-            print("\nCurrent Value: ", cpu_mem.percent , "Predict :", sess.run(H, feed_dict={X1: X1_process, X2: X2_threads}))
+            print("\nCurrent Usage: ", cpu_mem , "Predict :", sess.run(H, feed_dict={X1: X1_process, X2: X2_threads}))
 
     except Exception as e:
         print(e)

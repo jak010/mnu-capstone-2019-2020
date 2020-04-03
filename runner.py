@@ -8,19 +8,27 @@ import tensorflow as tf
 from flask import *
 app = Flask(__name__)
 
-# 가중치
-W = tf.Variable(tf.random_uniform([1], seed=1))
-# 절편3
-b = tf.Variable(tf.random_uniform([1], seed=1))
+# process
+X1 = tf.compat.v1.placeholder(tf.float32,shape=[None])
+# threads
+X2 = tf.compat.v1.placeholder(tf.float32,shape=[None])
 
-X = tf.compat.v1.placeholder(tf.float32)
-Y = tf.compat.v1.placeholder(tf.float32)
+# mem_percent
+Y = tf.compat.v1.placeholder(tf.float32,shape=[None])
+
+#가중치
+W1 = tf.Variable(tf.random_normal([1],seed=1))
+W2 = tf.Variable(tf.random_normal([1],seed=1))
+
+# 절편3
+b = tf.Variable(tf.random_normal([1],seed=1))
 
 # 가설식
-H = (W + 0.025 * X) + b
+H = X1 * W1 + X2*W2 +b
+
 path = os.getcwd()
 save_path = path+"/core/MachineModel/Models/saved.cpkt"
-print(save_path)
+
 saver = tf.compat.v1.train.Saver()
 model = tf.compat.v1.global_variables_initializer()
 
@@ -48,12 +56,22 @@ def predictAjax():
         for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
         data = [thread_count]
 
-        result_prec = (np.round( (np.float(len(all_process)) - sess.run(H, feed_dict={X: data})), 2)[0])
-        result_prec = np.round(result_prec %2 ,2)
-        print(result_prec,type(result_prec))
+        # process
+        X1_process = [len(all_process)]
+        # threads
+        X2_threads = data
 
-        # return str(cur_time)+":"+"["+str(len(all_process))+"]:"+"[Predict:" +str(ret)+"]"
-        return str(result_prec)
+        # current_memory_usage
+        cpu_percent_ = psutil.cpu_percent()
+        npCastring =np.float32(cpu_percent_)
+
+        # predict_cpu_usage
+        predict_cpu_usage = sess.run(H, feed_dict={X1: X1_process, X2: X2_threads})
+        returnValue = round(npCastring - predict_cpu_usage[0] ,2) % 2
+
+        print(returnValue)
+
+        return str(returnValue)
 
     except Exception as e:
         return str(0)

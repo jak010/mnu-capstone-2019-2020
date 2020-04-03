@@ -5,58 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dash Board</title>
 
-
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
-
-
 </head>
 <body>
 
+ <header>
 
-<header>
+        <a href="#"> 데이터 수집</a> /
+        <a href="#"> 데이터  학습</a>
 
-    <a href="#"> 데이터 수집</a> /
-    <a href="#"> 데이터 학습</a>
+    </header>
 
-</header>
+    <article>
+        <hr>
+        <section class="article_section_01">
+            <canvas id="myChart"></canvas>
+            <hr> Total Signal
+        </section>
 
-<section>
-    <article class="article_section_01">
-        <canvas id="myChart"></canvas>
+        <br>
+        <br>
+        <section class="article_section_02">
+
+            <div id="warning_alarm">
+                <div id="warning_alarm_text_set">
+
+                </div>
+
+                <canvas id="warning_alarm_chart"></canvas>
+            </div>
+
+            <div id="caution_alarm">
+                <div id="caution_alarm_text_set">
+
+                </div>
+                <canvas id="caution_alarm_chart"></canvas>
+
+            </div>
+
+
+            <div id="green_alarm">
+                <div id="green_alarm_text_set">
+
+                </div>
+                <canvas id="green_alarm_chart"></canvas>
+
+            </div>
+
+
+        </section>
+        <hr>
     </article>
-
-    <article class="article_section_02">
-
-        <div id="caution_alarm">
-            <header>
-                Caution log
-            </header>
-
-            <section id="caution_data_view">
-
-            </section>
-
-        </div>
-
-        <div id="warning_alarm">
-            <header>
-                Warning log
-            </header>
-
-            <section id="warning_data_view">
-
-            </section>
-
-        </div>
-
-
-        <div id="pie_chart_frame">
-            <canvas id="myChart2"></canvas>
-        </div>
-
-
-    </article>
-</section>
 
 
 </body>

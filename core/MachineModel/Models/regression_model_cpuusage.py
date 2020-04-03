@@ -42,32 +42,35 @@ H = X1 * W1 + X2*W2 +b
 
 cost = tf.reduce_mean(tf.square(H-Y))
 
-optimizer =  tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.00000015)
+optimizer =  tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.000000001)
 
 train = optimizer.minimize(cost)
 init = tf.compat.v1.global_variables_initializer()
 sess = tf.compat.v1.Session()
 sess.run(init)
 
-for i in range(10001):
+
+for step in range(8001):
     cost_,w1_,w2_,b_,_ = sess.run([cost,W1,W2,b,train] ,feed_dict={X1:xData,X2:yData,Y:zData})
 
-    if i % 1000 == 0:  # 500개 마다 모니터링
+    if step % 500 == 0:  # 500개 마다 모니터링
         print(cost_,w1_,w2_)
 
 try:
     all_process = [x.pid for x in psutil.process_iter()]
     thread_count = 0
     for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
-    data = [thread_count]
+    data = [thread_count-5]
 
     #process
-    X1_process = [len(all_process)]
+    X1_process = [len(all_process) - 1]
     #threads
     X2_threads = data
-    memory_percent_ = psutil.virtual_memory()
+    cpu_mem = psutil.cpu_percent()
 
-    print("Current Memory Percent : " ,memory_percent_.percent)
+    print(X1_process)
+    print(X2_threads)
+    print("Current cpu Percent : " ,cpu_mem)
     print("Predict :", sess.run(H, feed_dict={X1: X1_process, X2: X2_threads}))
 except:
     pass

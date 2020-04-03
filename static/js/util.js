@@ -20,28 +20,25 @@ function section01(param1) {
     Minutes = dateobj.getMinutes();
     Seconds = dateobj.getSeconds();
 
-    var cur_x = Hours + "시"+ Minutes +"분" + Seconds+"초";
-    var cur_x2 = Hours + ":"+ Minutes +":" + Seconds;
+    var curret_date = Hours + ":"+ Minutes +":" + Seconds;
 
-
-    if(Number(param1) > 0.7){
+    // 경고
+    if(Number(param1) > 1.3){
         pieChartSet[0] += 1;
-        var append_log = document.getElementById("warning_data_view")
-        var append_string =  cur_x + "<br>";
-        append_log.insertAdjacentHTML("beforeend" ,append_string);
-   } else if( Number(param1) > 0.5  || Number(param1) < 0) {
+
+    // 주의
+   } else if( Number(param1) > 0.9  || Number(param1) < 0) {
         pieChartSet[1] += 1;
-        var append_log = document.getElementById("caution_data_view")
-        var append_string =  cur_x + "<br>";
-        append_log.insertAdjacentHTML("beforeend" ,append_string);
+
+   // 정상
    } else {
     pieChartSet[2] += 1;
    }
 
     dataArray.push(now_prec);
-    xGroup.push(cur_x2);
+    xGroup.push(curret_date);
 
-    if (xGroup.length % 80 == 0) {
+    if (xGroup.length % 70 == 0) {
         xGroup.length = 0;
     }
 
@@ -53,44 +50,67 @@ function section01(param1) {
         data: {
             labels: xGroup,
             datasets: [{
-                label: "Live View",
+                label: "Live Predict Grpah",
                 data: dataArray,
 
+                backgroundColor: 'rgb(255, 192, 203, 1)',
+                // backgroundColor: 'rgb(0, 0, 0)',
                 fill: false,
-                borderColor: 'rgb(240,128,128)',
 
-                lineTension: 0.5
+                borderColor: [
+                    'rgb(255, 192, 203,0.6)',
+                ],
+                borderWidth: 2,
+                lineTension: 0.2,
+
+
             }]
+
+
         },
         options: {
+
             maintainAspectRatio: false,
+
+            legend: {
+                display: true,
+
+                labels: {
+                    fontColor: 'rgb(255,255,255)',
+                }
+            },
+
             scales: {
+
                 xAxes: [{
+
                     ticks: {
-                        fontColor: 'rgba(12, 13, 13, 1)',
+                        fontColor: 'rgb(255, 255, 255,1)',
                         fontSize: 14
                     },
                     gridLines: {
                         display: false,
-                        color: "rgba(87, 152, 23, 1)",
-                        lineWidth: 3
+                        color: "rgb(0, 0, 0,0.4)",
+                        lineWidth: 0,
                     }
                 }],
 
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true,
-                        min: -2,
-                        max:2,
+                        min: -1,
+                        max: 2,
                         stepSize: 0.5,
                         fontSize: 12,
+                        fontColor: 'rgb(255, 255, 255,0.7)'
                     },
                     gridLines: {
-                        color: 'rgb(166, 201, 226)',
-                        lineWidth: 3
+                        color: 'rgba(255, 255, 255,0.7)',
+                        lineWidth: 0.5
                     },
 
                 }],
+
+
             },
             animation: {
                 duration: 1,
@@ -107,11 +127,11 @@ function section01(param1) {
                         meta.data.forEach(function(bar, index) {
                             var data = dataset.data[index];
 
-                            if (data >= 0.5) {
+                            if (data > 0.7) {
 
                                 data = "경고";
 
-                            } else if ((data >0.4) || (data < 0)) {
+                            } else if ((data >0.6) || (data < 0)) {
                                 data = "주의";
 
                             }else {
@@ -129,36 +149,129 @@ function section01(param1) {
 }
 
 
-function section2() {
-    var ctx = document.getElementById("myChart2").getContext('2d');
+
+function waring_alaram_chart() {
+    var ctx = document.getElementById("warning_alarm_chart").getContext('2d');
+
+    totalValue = pieChartSet[0] + pieChartSet[1] + pieChartSet[2];
+    warningValue = pieChartSet[0];
+
+    var warning_data_set = [warningValue, totalValue];
+
+    var warning_alarm_text_update = document.getElementById("warning_alarm_text_set");
+    warning_alarm_text_update.innerHTML = "Warning : " + warningValue;
 
     var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ["경고", "정상", "주의"],
+            labels: ["경고", "전체"],
             datasets: [{
                 label: '# of Votes',
-                data: pieChartSet,
+                data: warning_data_set,
                 backgroundColor: [
                     'rgb(219, 15, 38,0.5)',
-                    'rgb(68, 219, 111,0.5)',
-                    'rgb(255, 255, 0,0.5)'
                 ],
                 borderColor: [
-                    'rgba(0, 0, 0, 0.5)'
+                    'rgba(0, 0, 0, 0.4)'
                 ],
                 borderWidth: 1
             }]
         },
         options: {
+            responsive: false,
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: 'rgb(255,255,255,0.8)'
+                }
+            }
+        }
+    });
+}
 
+function caution_alaram_chart() {
+    var ctx = document.getElementById("caution_alarm_chart").getContext('2d');
+
+    totalValue = pieChartSet[0] + pieChartSet[1] + pieChartSet[2];
+    cautionValue = pieChartSet[1];
+
+    var caution_data_set = [cautionValue, totalValue];
+    var warning_alarm_text_update = document.getElementById("caution_alarm_text_set");
+    warning_alarm_text_update.innerHTML = "Caution : " + cautionValue;
+
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ["주의", "전체"],
+            datasets: [{
+                label: '# of Votes',
+                data: caution_data_set,
+                backgroundColor: [
+                    'rgb(255, 255, 0,0.5)',
+                ],
+                borderColor: [
+                    'rgba(0, 0, 0, 0.4)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: false,
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: 'rgb(255,255,255,0.8)'
+                }
+            }
         }
     });
 }
 
 
 
-setInterval(function() {
+function green_alaram_chart() {
+    var ctx = document.getElementById("green_alarm_chart").getContext('2d');
+
+    totalValue = pieChartSet[0] + pieChartSet[1] + pieChartSet[2];
+    greenValue = pieChartSet[2];
+
+    var green_data_set = [greenValue, totalValue];
+
+    var green_alarm_text_update = document.getElementById("green_alarm_text_set");
+    green_alarm_text_update.innerHTML = "Notice : " + greenValue;
+
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ["정상", "전체"],
+            datasets: [{
+                label: '# of Votes',
+                data: green_data_set,
+                backgroundColor: [
+                    'rgb(124, 252, 0,0.5)',
+                ],
+                borderColor: [
+                    'rgba(0, 0, 0, 0.4)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: false,
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: 'rgb(255,255,255,0.8)'
+                }
+            }
+        }
+    });
+}
+
+try {
+    console.log("Hello Welcome to Dashboard")
+
+     setInterval(function() {
     var result;
     var xhr = new XMLHttpRequest();
 
@@ -177,5 +290,15 @@ setInterval(function() {
 }, 1500);
 
 setInterval(function() {
-    section2();
+
+    waring_alaram_chart();
+    caution_alaram_chart();
+    green_alaram_chart();
+
 }, 6000);
+
+
+} catch(e) {
+    console.log(" ");
+}
+

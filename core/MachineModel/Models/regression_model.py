@@ -1,5 +1,4 @@
 import os
-
 # tensorflow warning message removed !
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 

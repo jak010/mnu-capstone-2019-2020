@@ -3,9 +3,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from pprint import pprint
-from collections import Counter
-
 #  ======================= Process Visualized ===========================
 def process_grpah():
     process_grpah = fig.add_subplot(2, 2, 1)

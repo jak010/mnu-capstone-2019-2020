@@ -23,6 +23,8 @@ python-flask
 사용자 행위 분석 시각화 그래프 업데이트  
 
 **[+] 2020.04.04**  
-JavaScript:  
-Chartjs-CDN
+JavaScript : Chartjs-CDN
+
+**[+] 2020.04.07**  
+메모리 예측 실시간 그래프 디자인 업데이트  
 

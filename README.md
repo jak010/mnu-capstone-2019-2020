@@ -3,14 +3,15 @@
 PC 사용자의 Process, Threads ,Memory Percentage 를 수집하여 학습한 후 예측 결과가 해당 PC를   
 사용 중인 사람이 인가된 사용자인지 예측하는 프로젝트
 
-# ChangeLog
-**Python Package :**   
-[C] collections, csv  
-[M] matplotlib  
-[O] os  
-[P] pandas, psutil  
-[T] time, tensorflow 1.5.1  
+# Requirement   
+**[+] Python**     
+&nbsp; [C] collections, csv  
+&nbsp; [M] matplotlib  
+&nbsp; [O] os  
+&nbsp; [P] pandas, psutil  
+&nbsp; [T] time, tensorflow 1.5.1  
 
+# ChangeLog
 **[+] 2020.03.23**  
 WAS Frame Work :  
 python-flask  

@@ -8,53 +8,64 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 </head>
 <body>
-
- <header>
-
-        <a href="#"> 데이터 수집</a> /
-        <a href="#"> 데이터  학습</a>
-
+    <header>
+        <div>
+            <a href="#"> 데이터 수집</a> /
+            <a href="#"> 데이터 학습</a>
+        </div>
     </header>
 
+
     <article>
-        <hr>
         <section class="article_section_01">
-            <canvas id="myChart"></canvas>
-            <hr> Total Signal
-        </section>
+            <div id="warningLog"> Warning
+                <hr>
+                <div class="Logtext"></div>
+            </div>
 
-        <br>
-        <br>
+            <div id="CautionLog">Caution
+                <hr>
+                <div class="Logtext"></div>
+            </div>
+
+            <div id="NoticeLog"> Normal
+                <hr>
+                <div class="Logtext"></div>
+            </div>
+        </section>
+    </article>
+
+
+
+    <article>
         <section class="article_section_02">
-
-            <div id="warning_alarm">
-                <div id="warning_alarm_text_set">
-
-                </div>
-
-                <canvas id="warning_alarm_chart"></canvas>
-            </div>
-
-            <div id="caution_alarm">
-                <div id="caution_alarm_text_set">
-
-                </div>
-                <canvas id="caution_alarm_chart"></canvas>
-
-            </div>
-
-
-            <div id="green_alarm">
-                <div id="green_alarm_text_set">
-
-                </div>
-                <canvas id="green_alarm_chart"></canvas>
-
-            </div>
-
-
+            <canvas id="myChart"></canvas>
+            <hr> Time Log
         </section>
-        <hr>
+
+    </article>
+
+    <br><br><br><br><br>
+
+    <article class="article_section_03">
+        <div id="w_time_log_title">WARNING TIME LOG</div>
+        <div id="c_time_log_title">CAUTION TIME LOG</div>
+        <div id="g_time_log_title">NORMAL TIME LOG</div>
+    </article>
+
+
+    <article class="article_section_04">
+        <div id="w_time_log_text">
+
+        </div>
+
+        <div id="c_time_log_text">
+
+        </div>
+        <div id="g_time_log_text">
+
+        </div>
+
     </article>
 
 

@@ -1,4 +1,5 @@
 body {
+    height: 1000px;
     background: rgb(40, 54, 64);
 }
 
@@ -9,7 +10,12 @@ header {
     margin-bottom: 2%;
 }
 
-header>a {
+header>div {
+    float: right;
+}
+
+header>div>a {
+    color: yellow;
     text-decoration: none;
 }
 
@@ -18,73 +24,220 @@ article {
     margin-right: 5%;
 }
 
+
+/*
+ section은 크게 4가지로 나눠짐
+    seciton_01 : 경고,주의, 정상 수치 디스플레이 영역
+    section_02 : 실시간 메모리 예측 그래프 디스플레이 영역
+    section_03 : "~ TIME LOG" 글자 디스플레이 영역
+    section_04 : 경고, 주의, 정상 수치 시간 디스플레이 영역
+*/
+
+
+/*
+section_01 : 경고, 주의, 정상 수치 디스플레이 영역
+각 수치가 어느 정도 발생하는지에 대해 알려주는 영역
+ */
+
+
+/* section_01의 프레임 */
+
 .article_section_01 {
+    width: 100%;
+    height: 150px;
+    margin-left: 1%;
+    margin-right: 5%;
+    display: flex;
+}
+
+.article_section_01>div>div {
+    position: relative;
+    top: -40%;
+    font-size: 25px;
+    color: white;
+}
+
+.article_section_01>div>hr {
+    position: relative;
+    top: -20%;
+}
+
+
+/* Warning 문자 디스플레이 */
+
+.article_section_01>#warningLog {
+    width: 33%;
+    height: 70%;
+    margin-right: 2%;
+    color: red;
+    font-size: 38px;
+    text-align: left;
+}
+
+
+/* Warning 발생 수치 디스플레이 */
+
+.article_section_01>#warningLog>.Logtext {
+    text-align: right;
+}
+
+
+/* Caution 문자 디스플레이 */
+
+.article_section_01>#CautionLog {
+    width: 33%;
+    height: 70%;
+    margin-right: 2%;
+    color: yellow;
+    font-size: 38px;
+    text-align: left;
+}
+
+
+/* Caution 발생 수치 디스플레이 */
+
+.article_section_01>#CautionLog>.Logtext {
+    text-align: right;
+}
+
+
+/* Normal 문자 디스플레이 */
+
+.article_section_01>#NoticeLog {
+    width: 33%;
+    height: 70%;
+    margin-right: 2%;
+    color: green;
+    font-size: 38px;
+    text-align: left;
+}
+
+
+/* Normal 발생 수치 디스플레이 */
+
+.article_section_01>#NoticeLog>.Logtext {
+    text-align: right;
+}
+
+
+/* End Line */
+
+
+/*
+section_02 : 실시간 메모리 예측 그래프 디스플레이 영역
+각 수치가 어느 정도 발생하는지에 대해 시각화 영역
+ */
+
+.article_section_02 {
     width: 100%;
     height: 400px;
     color: rgb(255, 255, 255, 1);
     font-size: xx-large;
 }
 
+
+/* 그래프 레이아웃 (가로) */
+
 #myChart {
     width: 50%;
 }
 
-.article_section_02 {
-    width: 100%;
-    height: 350px;
-    margin-top: 4%;
-    margin-left: 2.5%;
-    margin-right: 8%;
-    margin-bottom: 2%;
+
+/*
+section_03 : 시간을 알려주기 위한 영역의 TITLE 문자 디스플레이 영역
+ */
+
+.article_section_03 {
+    width: 90%;
+    height: 100px;
     display: flex;
-}
-
-
-/* warning alaram chart  */
-
-.article_section_02>#warning_alarm {
-    width: 33%;
-    height: 40px;
-}
-
-.article_section_02>#warning_alarm>#warning_alarm_text_set {
-    position: relative;
-    left: 8%;
+    color: white;
+    text-align: right;
     font-size: xx-large;
-    color: red;
-    z-index: -1;
 }
 
 
-/* caution alaram chart  */
+/* warning time log time  */
 
-.article_section_02>#caution_alarm {
+.article_section_03>#w_time_log_title {
     width: 33%;
-    height: 40px;
-    margin-left: 10%;
-    margin-right: 10%;
-}
-
-.article_section_02>#caution_alarm>#caution_alarm_text_set {
-    position: relative;
-    left: 9%;
-    font-size: xx-large;
-    color: yellow;
-    z-index: -1;
+    height: 30%;
 }
 
 
-/* green alaram chart  */
+/* Caution time log time  */
 
-.article_section_02>#green_alarm {
+.article_section_03>#c_time_log_title {
     width: 33%;
-    height: 40px;
+    height: 30%;
+    margin-left: 3%;
+    margin-right: 3%;
 }
 
-.article_section_02>#green_alarm>#green_alarm_text_set {
+
+/* normal time log time  */
+
+.article_section_03>#g_time_log_title {
+    width: 33%;
+    height: 30%;
+}
+
+
+/*
+section_04 : 시간을 알려주기 위한 영역의 시간  디스플레이 영역
+ */
+
+.article_section_04 {
+    width: 95%;
+    height: 700px;
     position: relative;
-    left: 9%;
-    font-size: xx-large;
-    color: green;
-    z-index: -1;
+    top: -3%;
+    color: white;
+}
+
+
+/* warning time log time text  */
+
+#w_time_log_text {
+    width: 30%;
+    height: 40%;
+    float: left;
+    margin-right: 3%;
+    text-align: right;
+    overflow: auto;
+}
+
+#w_time_log_text::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* Caution time log time text  */
+
+#c_time_log_text {
+    width: 30%;
+    height: 40%;
+    float: left;
+    margin-right: 3%;
+    text-align: right;
+    overflow: auto;
+}
+
+#c_time_log_text::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* green time log time text  */
+
+#g_time_log_text {
+    width: 30%;
+    height: 40%;
+    float: left;
+    text-align: right;
+    overflow: auto;
+}
+
+#g_time_log_text::-webkit-scrollbar {
+    display: none;
 }

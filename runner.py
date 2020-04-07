@@ -6,6 +6,7 @@ import numpy as np
 import tensorflow as tf
 
 from flask import *
+
 app = Flask(__name__)
 
 # process

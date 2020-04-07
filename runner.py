@@ -62,7 +62,7 @@ def predictAjax():
         # predict_cpu_usage
         predict_memory_usage = sess.run(H, feed_dict={X1: X1_process, X2: X2_threads})
 
-        returnValue = abs(memory_usage.percent - predict_memory_usage) % 2
+        returnValue = abs((memory_usage.percent - predict_memory_usage) % 2)
 
         print("\n Memory Usage : ",memory_usage.percent ,"Predict Memory Usage : ",predict_memory_usage)
         print(str(returnValue[0]))

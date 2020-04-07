@@ -40,7 +40,8 @@ function section01(param1) {
         totalSet[1] += 1;
         var obj = document.getElementById("CautionLog");
         obj.getElementsByClassName("Logtext")[0].innerText = totalSet[1];
-        var text_obj = document.getElementById("g_time_log_text");
+
+        var text_obj = document.getElementById("c_time_log_text");
         text_obj.innerHTML += time_log + "<hr>";
         text_obj.scrollTop = text_obj.scrollHeight;
 
@@ -150,7 +151,7 @@ function section01(param1) {
 
                                 data = "경고";
 
-                            } else if ((data >0.8) || (data < 0)) {
+                            } else if (data >0.8) {
                                 data = "주의";
 
                             }else {

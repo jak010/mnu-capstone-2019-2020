@@ -51,7 +51,7 @@ for x in range(20):
 
             predict_memory_usage = sess.run(H, feed_dict={X1: X1_process, X2: X2_threads})
 
-            returnValue = abs(memory_usage.percent - predict_memory_usage) % 2
+            returnValue = (memory_usage.percent - predict_memory_usage) % 2
 
             print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
             print("\nCurrent Usage: ", memory_usage.percent , "Predict :", sess.run(H, feed_dict={X1: X1_process, X2: X2_threads}) ,"returnvalue :" ,returnValue)

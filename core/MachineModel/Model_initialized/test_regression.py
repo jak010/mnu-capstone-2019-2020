@@ -7,9 +7,9 @@ import pandas as pd
 import psutil
 # data set define
 try:
-    print("=== [+] Current File Data Appending : TrainSet0===")
+    print("=== [+] Current File Data Appending : TrainSet4===")
 
-    dataset = pd.read_csv("../../csvDataSet/TrainSet0.csv", sep=",")
+    dataset = pd.read_csv("../../csvDataSet/TrainSet1.csv", sep=",")
 
     train_process = list(dataset["process"])
     train_threads = list(dataset["threads"])
@@ -69,6 +69,7 @@ try:
             save_path = "../Models/saved5/saved5.cpkt"
     else:
         pass
+    save_path = "../Models/saved2/saved2.cpkt"
 
     saver = tf.compat.v1.train.Saver()
     model_file_saver = save_path
@@ -76,8 +77,6 @@ try:
     print("학습된 모델을 저장했습니다.")
 
     try:
-        saver = tf.compat.v1.train.Saver()
-
         all_process = [x.pid for x in psutil.process_iter()]
         thread_count = 0
         for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()

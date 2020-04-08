@@ -49,33 +49,34 @@ try:
         if step % 2000 == 0:  # 500개 마다 모니터링
             print(cost_, w1_, w2_)
 
+    import time
+    from time import localtime
+
+    cur_time = str(localtime(time.time()).tm_min) + ":" + "0" + str(localtime(time.time()).tm_sec)
+    save_path = str()
+    if len(cur_time.split(":")[0]) == 1:
+        save_path = "../Models/saved0/saved0.cpkt"
+    elif len(cur_time.split(":")[0]) == 2:
+        if int(cur_time.split(":")[0][0]) == 1:
+            save_path = "../Models/saved1/saved1.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 2:
+            save_path = "../Models/saved2/saved2.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 3:
+            save_path = "../Models/saved3/saved3.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 4:
+            save_path = "../Models/saved4/saved4.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 5:
+            save_path = "../Models/saved5/saved5.cpkt"
+    else:
+        pass
+
     saver = tf.compat.v1.train.Saver()
-    model_file_saver = "../Models/saved0/saved0.cpkt"
+    model_file_saver = save_path
     saver_path = saver.save(sess, model_file_saver)
     print("학습된 모델을 저장했습니다.")
 
     try:
-        import time
-        from time import localtime
-
-        cur_time = str(localtime(time.time()).tm_min) + ":" + "0" + str(localtime(time.time()).tm_sec)
-
-        if len(cur_time.split(":")[0]) == 1:
-            save_path = "../Models/saved0/saved0.cpkt"
-        elif len(cur_time.split(":")[0]) == 2:
-            if int(cur_time.split(":")[0][0]) == 1:
-                save_path = "../Models/saved1/saved1.cpkt"
-            elif int(cur_time.split(":")[0][0]) == 2:
-                save_path = "../Models/saved2/saved2.cpkt"
-            elif int(cur_time.split(":")[0][0]) == 3:
-                save_path = "../Models/saved3/saved3.cpkt"
-            elif int(cur_time.split(":")[0][0]) == 4:
-                save_path = "../Models/saved4/saved4.cpkt"
-            elif int(cur_time.split(":")[0][0]) == 5:
-                save_path = "../Models/saved5/saved5.cpkt"
-
         saver = tf.compat.v1.train.Saver()
-        saver_path = saver.save(sess, save_path)
 
         all_process = [x.pid for x in psutil.process_iter()]
         thread_count = 0

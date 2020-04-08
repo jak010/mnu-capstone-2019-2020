@@ -47,34 +47,30 @@ else:
     pass
 print(save_path)
 
+init = tf.compat.v1.global_variables_initializer()
 saver = tf.compat.v1.train.Saver()
 
-model = tf.compat.v1.global_variables_initializer()
+sess = tf.compat.v1.Session()
+saver.restore(sess,save_path)
 
 for x in range(20):
-    try:
-        with tf.compat.v1.Session() as sess:
-            saver.restore(sess, save_path)
+    all_process = [x.pid for x in psutil.process_iter()]
+    thread_count = 0
+    for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
+    data = [thread_count]
 
-            all_process = [x.pid for x in psutil.process_iter()]
-            thread_count = 0
-            for x in range(0, len(all_process)): thread_count += psutil.Process(pid=all_process[x]).num_threads()
-            data = [thread_count]
+    # process
+    X1_process = [len(all_process)]
+    # threads
+    X2_threads = data
+    print(X1_process, X2_threads)
+    # current Memory
+    memory_usage = psutil.virtual_memory()
 
-            # process
-            X1_process = [len(all_process)]
-            # threads
-            X2_threads = data
-            print(X1_process,X2_threads)
-            # current Memory
-            memory_usage = psutil.virtual_memory()
+    predict_memory_usage = sess.run(H, feed_dict={X1: X1_process, X2: X2_threads})
 
-            predict_memory_usage = sess.run(H, feed_dict={X1: X1_process, X2: X2_threads})
+    returnValue = (memory_usage.percent - predict_memory_usage) % 2
 
-            returnValue = (memory_usage.percent - predict_memory_usage) % 2
-
-            print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
-            print("\nCurrent Usage: ", memory_usage.percent , "Predict :", sess.run(H, feed_dict={X1: X1_process, X2: X2_threads}) ,"returnvalue :" ,returnValue)
-
-    except Exception as e:
-        print(e)
+    print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+    print("\nCurrent Usage: ", memory_usage.percent, "Predict :",
+          sess.run(H, feed_dict={X1: X1_process, X2: X2_threads}), "returnvalue :", returnValue)

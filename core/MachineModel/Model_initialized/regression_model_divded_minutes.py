@@ -62,6 +62,8 @@ try:
 
         cur_time = str(localtime(time.time()).tm_min) + ":" + "0" + str(localtime(time.time()).tm_sec)
 
+        save_path = str()
+
         if len(cur_time.split(":")[0]) == 1:
             save_path = "../Models/saved0/saved0.cpkt"
         elif len(cur_time.split(":")[0]) == 2:
@@ -75,6 +77,7 @@ try:
                 save_path = "../Models/saved4/saved4.cpkt"
             elif int(cur_time.split(":")[0][0]) == 5:
                 save_path = "../Models/saved5/saved5.cpkt"
+
 
         saver = tf.compat.v1.train.Saver()
         saver_path = saver.save(sess, save_path)

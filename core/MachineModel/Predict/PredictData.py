@@ -2,7 +2,6 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import tensorflow as tf
-
 # process
 X1 = tf.compat.v1.placeholder(tf.float32,shape=[None])
 # threads
@@ -19,21 +18,42 @@ W2 = tf.Variable(tf.random_normal([1],seed=1))
 b = tf.Variable(tf.random_normal([1],seed=1))
 
 # 가설식
-H = X1 * W1 + X2*W2 +b
+H = (X1 * W1 + X2 * W2) * b
+
+import time
+import psutil
+
+from time import localtime
+
+cur_time = str(localtime(time.time()).tm_min) + ":" + "0" + str(localtime(time.time()).tm_sec)
+
+save_path = str()
+
+if len(cur_time.split(":")[0]) == 1:
+    print("0분대")
+    save_path = "../Models/saved0/saved0.cpkt"
+elif len(cur_time.split(":")[0]) == 2:
+    if int(cur_time.split(":")[0][0]) == 1:
+        save_path = "../Models/saved1/saved1.cpkt"
+    elif int(cur_time.split(":")[0][0]) == 2:
+        save_path = "../Models/saved2/saved2.cpkt"
+    elif int(cur_time.split(":")[0][0]) == 3:
+        save_path = "../Models/saved3/saved3.cpkt"
+    elif int(cur_time.split(":")[0][0]) == 4:
+        save_path = "../Models/saved4/saved4.cpkt"
+    elif int(cur_time.split(":")[0][0]) == 5:
+        save_path = "../Models/saved5/saved5.cpkt"
+else:
+    pass
+print(save_path)
 
 saver = tf.compat.v1.train.Saver()
-model = tf.compat.v1.global_variables_initializer()
 
-import psutil
-save_path = "../Models/saved.cpkt"
+model = tf.compat.v1.global_variables_initializer()
 
 for x in range(20):
     try:
         with tf.compat.v1.Session() as sess:
-            import os
-            get_pid = int(os.getpid())
-
-            sess.run(model)
             saver.restore(sess, save_path)
 
             all_process = [x.pid for x in psutil.process_iter()]
@@ -45,7 +65,7 @@ for x in range(20):
             X1_process = [len(all_process)]
             # threads
             X2_threads = data
-
+            print(X1_process,X2_threads)
             # current Memory
             memory_usage = psutil.virtual_memory()
 

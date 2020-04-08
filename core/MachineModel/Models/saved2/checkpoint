@@ -1,0 +1,2 @@
+model_checkpoint_path: "saved2.cpkt"
+all_model_checkpoint_paths: "saved2.cpkt"

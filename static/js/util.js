@@ -184,12 +184,11 @@ try {
                 section01(result)
             }
         }
-        xhr.open("Post", "./predict", true);
-        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	    xhr.send("predict=","1");
+        xhr.open("GET", "http://127.0.0.1:5000/predict?request=1");
+        xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8")
+	    xhr.send();
 
 }, 1500);
-
 
 } catch(e) {
     console.log(" ");

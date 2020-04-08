@@ -42,9 +42,10 @@ saver.restore(sess, save_path)
 def index_root():
     return render_template("index.html")
 
-
-@app.route("/predict",methods=["POST","GET"])
+@app.route("/predict",methods=['POST','GET'])
 def predictAjax():
+    if request.method == "POST":
+        print(request.form['request'])
     try:
         all_process = [x.pid for x in psutil.process_iter()]
 
@@ -74,6 +75,5 @@ def predictAjax():
         return str(0)
 
 if __name__ == "__main__":
-
     app.run()
 

@@ -95,6 +95,7 @@ def predictAjax():
             return_value = (memory_usage.percent - predict_memory_usage) % 2
 
         print("\n Memory Usage : ", memory_usage.percent, "Predict Memory Usage : ", predict_memory_usage)
+        print(str(return_value[0]))
         return str(return_value[0])
 
     except Exception as e:

@@ -24,9 +24,7 @@ Attributes :
     sess (tensorflow Session)   : 위에 설정된 tensorflow 속성을 이용하여 tensorflow Sessions을 생성합니다.
 """
 import pandas as pd
-
 import tensorflow as tf
-from time import sleep
 
 X1 = tf.compat.v1.placeholder(tf.float32, shape=[None])
 X2 = tf.compat.v1.placeholder(tf.float32, shape=[None])
@@ -53,19 +51,25 @@ def model_initalized_create():
     """ 이 모듈은 csvDataSet 디렉토리 밑에 있는 TrainSet0~5.csv를 학습하여 MachineModel/Models 디렉토리 밑에
     학습모델을 저장하기 위해 사용합니다.
 
+    Attributes:
+        _model_file_saver : 저장된 모델의 경로에서 학습된 모델을 찾아 저장합니다.
+        _dataset : csvDataSet 디렉토리 밑에 TrainSet0~5.csv 에 저장된 데이터에서
+                    process,threads,memory_usage를 저장합니다
+            _train_process : _dataset 에서 process 에 해당하는 데이터만 저장합니다.
+            _train_threads : _dataset 에서 threads 에 해당하는 데이터만 저장합니다.
+            _train_memory_uisage : _dataset 에서 memory_usage 에 해당하는 데이터만 저장합니다.
     Args :
-        None
+        void
 
-    :Returns:
-        리턴 값은 없으며 이 모듈은 호출 시 학습 모델을 생성합니다.
+    Returns:
+        이 모듈은 호출 시 학습 모델을 생성합니다.
     """
-
     try:
         for _ in range(0, 6):
             if os.path.isfile("../../csvDataSet/TrainSet" + str(_) + ".csv"):
                 print("[+] Current File Data Appending : TrainSet" + str(_))
-                model_file_saver = "../Models/saved" + str(_) + "/saved" + str(_) + ".cpkt"
-                print(model_file_saver)
+                _model_file_saver = "../Models/saved" + str(_) + "/saved" + str(_) + ".cpkt"
+                print(_model_file_saver)
 
                 _dataset = pd.read_csv("../../csvDataSet/TrainSet" + str(_) + ".csv", sep=",")
 
@@ -77,12 +81,11 @@ def model_initalized_create():
                     cost_, w1_, w2_, b_, _ = sess.run([cost, W1, W2, b, train],
                                                       feed_dict={X1: _train_process, X2: _train_threads,
                                                                  Y: _train_memory_usage})
-
                     if step % 2000 == 0:
                         print(cost_, w1_, w2_)
 
                 saver = tf.compat.v1.train.Saver()
-                saver.save(sess, model_file_saver)
+                saver.save(sess, _model_file_saver)
 
                 print("학습된 모델을 저장했습니다.")
 
@@ -90,7 +93,6 @@ def model_initalized_create():
                 del _train_threads
                 del _train_memory_usage
 
-            sleep(1)
     except Exception as e:
         print(e)
 

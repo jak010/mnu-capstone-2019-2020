@@ -3,14 +3,12 @@
 
 import os
 import csv
-import time
 import psutil
 
 from time import localtime
 
 while True:
-    time.sleep(0.4)
-    cur_time = str(localtime(time.time()).tm_min) + ":" + str(localtime(time.time()).tm_sec)
+    cur_time = str(localtime().tm_min) + ":" + str(localtime().tm_sec)
     # 0~10분 까지
     if len(cur_time.split(":")[0]) == 1:
         print("0분대")

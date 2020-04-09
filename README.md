@@ -1,7 +1,7 @@
 # README
 **MNU 4학년 1학기 캡스톤 코드 저장소 (2019.08 ~ 2020 .08)**  
-PC 사용자의 Process, Threads ,Memory Usage 를 수집하여 학습 후 예측 결과로 부터 PC 사용자가
-인가된 사용자인지 알려주는 프로젝트
+PC 사용자의 Process, Threads ,Memory Usage 를 수집하여 학습 후 예측 결과로부터  
+PC 사용자가인가된 사용자인지 알려주는 프로젝트
 
 # Requirement   
 **[+] Python**     

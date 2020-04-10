@@ -8,66 +8,58 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 </head>
 <body>
+   <nav>
+        <section>
+            Local Dash Board
+        </section>
+        <ul>
+            <a href="#">
+                <li>Data Collect</li>
+            </a>
+            <a href="#">
+                <li>Data Learning</li>
+            </a>
+
+        </ul>
+    </nav>
+
+
     <header>
-        <div>
-            <a href="#"> 데이터 수집</a> /
-            <a href="#"> 데이터 학습</a>
-        </div>
+        this is header
     </header>
 
+    <br>
+    <section class="text_log">
+        <article class="green_text">
+            <div id="green_signal">green</div>
+            <div id="green_log_text">&nbsp;</div>
 
-    <article>
-        <section class="article_section_01">
-            <div id="warningLog"> Warning
-                <hr>
-                <div class="Logtext"></div>
-            </div>
+        </article>
 
-            <div id="CautionLog">Caution
-                <hr>
-                <div class="Logtext"></div>
-            </div>
+        <article class="caution_text">
+            <div id="caution_signal">Caution</div>
+            <div id="caution_log_text">&nbsp;</div>
+        </article>
 
-            <div id="NoticeLog"> Normal
-                <hr>
-                <div class="Logtext"></div>
-            </div>
-        </section>
-    </article>
+        <article class="warning_text">
+            <div id="warning_signal">Warning</div>
+            <div id="warning_log_text">&nbsp;</div>
+        </article>
 
+    </section>
 
-
-    <article>
-        <section class="article_section_02">
+    <br>
+    <section class="live_graph">
+        <article id="graph_area">
             <canvas id="myChart"></canvas>
-            <hr> Time Log
-        </section>
+        </article>
 
-    </article>
+        <article id="doughnut_area">
+            <br>Graph Status<br>
+            <canvas id="myChart2"></canvas>
+        </article>
 
-    <br><br><br><br><br>
-
-    <article class="article_section_03">
-        <div id="w_time_log_title">WARNING TIME LOG</div>
-        <div id="c_time_log_title">CAUTION TIME LOG</div>
-        <div id="g_time_log_title">NORMAL TIME LOG</div>
-    </article>
-
-
-    <article class="article_section_04">
-        <div id="w_time_log_text">
-
-        </div>
-
-        <div id="c_time_log_text">
-
-        </div>
-        <div id="g_time_log_text">
-
-        </div>
-
-    </article>
-
+    </section>
 
 </body>
 

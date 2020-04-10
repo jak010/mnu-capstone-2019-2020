@@ -29,88 +29,67 @@ function section01(param1) {
     // 경고
     if(Number(param1) > 1.2){
         totalSet[0] += 1;
-          var obj = document.getElementById("warningLog");
-        obj.getElementsByClassName("Logtext")[0].innerText = totalSet[0];
-        var text_obj = document.getElementById("w_time_log_text");
-        text_obj.innerHTML += time_log + "<hr>";
-        text_obj.scrollTop = text_obj.scrollHeight;
+         var obj = document.getElementById("warning_log_text");
+        obj.innerHTML = totalSet[0]+"&nbsp;";
 
     // 주의
    } else if( Number(param1) > 0.8) {
         totalSet[1] += 1;
-        var obj = document.getElementById("CautionLog");
-        obj.getElementsByClassName("Logtext")[0].innerText = totalSet[1];
-
-        var text_obj = document.getElementById("c_time_log_text");
-        text_obj.innerHTML += time_log + "<hr>";
-        text_obj.scrollTop = text_obj.scrollHeight;
+        var obj = document.getElementById("caution_log_text");
+        obj.innerHTML = totalSet[1]+"&nbsp;";
 
    // 정상
    } else {
     totalSet[2] += 1;
-     var obj = document.getElementById("NoticeLog");
-      obj.getElementsByClassName("Logtext")[0].innerText = totalSet[2];
-        var text_obj = document.getElementById("g_time_log_text");
-        text_obj.innerHTML += time_log + "<hr>";
-        text_obj.scrollTop = text_obj.scrollHeight;
+     var obj = document.getElementById("green_log_text");
+      obj.innerHTML = totalSet[2]+"&nbsp;";
    }
 
     dataArray.push(now_prec);
     xGroup.push(cur_x);
 
-    if (xGroup.length % 70 == 0) {
+    if (xGroup.length % 20 == 0) {
         xGroup.length = 0;
     }
 
-
     var myChart = new Chart(ctx, {
-
         type: 'line',
-
         data: {
             labels: xGroup,
             datasets: [{
-                label: "Live Predict Grpah",
+                label: "변동추이",
                 data: dataArray,
 
-                backgroundColor: 'rgb(255, 192, 203, 1)',
-                // backgroundColor: 'rgb(0, 0, 0)',
+                backgroundColor: 'rgb(0, 0, 0, 0.4)',
+
                 fill: false,
 
                 borderColor: [
-                    'rgb(255, 192, 203,0.6)',
+                    'rgb(0, 0, 0, 1)',
                 ],
                 borderWidth: 2,
                 lineTension: 0.2,
-
-
             }]
-
-
         },
         options: {
-
             maintainAspectRatio: false,
-
             legend: {
                 display: true,
-
                 labels: {
-                    fontColor: 'rgb(255,255,255)',
+                    fontColor: 'rgb(0, 0, 0, 0.4)',
                 }
             },
 
             scales: {
 
                 xAxes: [{
-
                     ticks: {
-                        fontColor: 'rgb(255, 255, 255,1)',
+                        fontColor: 'rgb(0, 0, 0, 1)',
                         fontSize: 14
                     },
                     gridLines: {
                         display: false,
-                        color: "rgb(0, 0, 0,0.4)",
+                        color: "rgb(0, 0, 0, 0.4)",
                         lineWidth: 0,
                     }
                 }],
@@ -118,13 +97,13 @@ function section01(param1) {
                 yAxes: [{
                     ticks: {
                         min: -0.5,
-                        max: 2,
+                        max: 3,
                         stepSize: 0.5,
                         fontSize: 12,
-                        fontColor: 'rgb(255, 255, 255,0.7)'
+                        fontColor: 'rgb(0, 0 0, 0.6)'
                     },
                     gridLines: {
-                        color: 'rgba(255, 255, 255,0.7)',
+                        color: 'rgb(0, 0, 0, 0.3)',
                         lineWidth: 0.5
                     },
 
@@ -168,6 +147,42 @@ function section01(param1) {
 
 }
 
+function doughnut_chart() {
+    var ctx = document.getElementById("myChart2").getContext('2d');
+    console.log(totalSet);
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ["경고", "주의","정상"],
+            datasets: [{
+                label: '# of Votes',
+                data: totalSet,
+                backgroundColor: [
+                   'rgb(219, 15, 38,0.5)',
+                    'rgb(255, 255, 0,0.5)',
+                    'rgb(68, 219, 111,0.5)'
+
+                ],
+                borderColor: [
+                    'rgba(0, 0, 0, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: false,
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: 'rgb(0,0,0,0.8)'
+                }
+            }
+        }
+    });
+}
+
+
+
 
 try {
     console.log("Hello Welcome to Dashboard")
@@ -180,15 +195,16 @@ try {
         if(xhr.readyState == 4 && xhr.status ==200) {
                 var predict_data = xhr.responseText
                 result = predict_data;
+                section01(result);
 
-                section01(result)
             }
         }
         xhr.open("GET", "http://127.0.0.1:5000/predict?request=1");
         xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8")
 	    xhr.send();
+    doughnut_chart();
 
-}, 1500);
+}, 1900);
 
 } catch(e) {
     console.log(" ");

@@ -1,13 +1,14 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-import psutil
 import tensorflow as tf
 
-from time import localtime
 from flask import *
+from core.DataCollect.DataCollect_minute_divide import *
+
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def index_root():
@@ -17,6 +18,12 @@ def index_root():
     """
     return render_template("index.html")
 
+@app.route("/dataCollecting",methods=["GET"])
+def datCollectingExecute():
+    value = request.args
+    print(value['flag'])
+    dataCollecting(value['flag'])
+    return render_template("dataCollecting.html")
 
 @app.route("/predict", methods=['POST', 'GET'])
 def predictAjax():
@@ -36,7 +43,7 @@ def predictAjax():
     X1 = tf.compat.v1.placeholder(tf.float32, shape=[None])
     X2 = tf.compat.v1.placeholder(tf.float32, shape=[None])
 
-    Y = tf.compat.v1.placeholder(tf.float32, shape=[None])
+    # Y = tf.compat.v1.placeholder(tf.float32, shape=[None])
 
     W1 = tf.Variable(tf.random_normal([1], seed=1))
     W2 = tf.Variable(tf.random_normal([1], seed=1))
@@ -82,8 +89,6 @@ def predictAjax():
         X1_process = [len(all_process)]
         X2_threads = data
 
-        print(X1_process, X2_threads)
-
         memory_usage = psutil.virtual_memory()
 
         # predict_memory_usage
@@ -94,8 +99,6 @@ def predictAjax():
         else:
             return_value = (memory_usage.percent - predict_memory_usage) % 2
 
-        print("\n Memory Usage : ", memory_usage.percent, "Predict Memory Usage : ", predict_memory_usage)
-        print(str(return_value[0]))
         return str(return_value[0])
 
     except Exception as e:

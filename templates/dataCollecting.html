@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dash Board</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dataCollecting.css')}}">
+    <script>
+    function checkValue() {
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("GET", "http://127.0.0.1:5000/dataCollecting?flag=true");
+        xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8")
+	    xhr.send();
+
+    }
+
+    setInterval(function(){
+     checkValue();
+     }, 1900);
+</script>
+</head>
+<body>
+    <div class="explainBox">
+        <h1 data-text="Collecting TrainSet">Collecting TrainSet</h1>
+        <h2>데이터를 수집 중 입니다</h2>
+
+    </div>
+</body>
+
+
+</html>

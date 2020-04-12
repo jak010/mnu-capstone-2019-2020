@@ -7,12 +7,12 @@ import psutil
 
 from time import localtime
 
-while True:
+def dataCollecting(exit_flag):
     cur_time = str(localtime().tm_min) + ":" + str(localtime().tm_sec)
     # 0~10분 까지
     if len(cur_time.split(":")[0]) == 1:
         print("0분대")
-        tarin_path = train_path = "../csvDataSet/TrainSet0.csv"
+        train_path = "./core/csvDataSet/TrainSet0.csv"
         if os.path.isfile(train_path):
             try:
                 f = open(train_path, "a+", newline='')
@@ -37,7 +37,7 @@ while True:
     elif len(cur_time.split(":")[0]) == 2:
         if int(cur_time.split(":")[0][0]) == 1:
             print("10분대")
-            tarin_path = train_path = "../csvDataSet/TrainSet1.csv"
+            train_path = "./core/csvDataSet/TrainSet1.csv"
             if os.path.isfile(train_path):
                 try:
                     f = open(train_path, "a+", newline='')
@@ -62,7 +62,7 @@ while True:
 
         elif int(cur_time.split(":")[0][0]) == 2:
             print("20분대")
-            tarin_path = train_path = "../csvDataSet/TrainSet2.csv"
+            train_path = "./core/csvDataSet/TrainSet2.csv"
             if os.path.isfile(train_path):
                 try:
                     f = open(train_path, "a+", newline='')
@@ -86,7 +86,7 @@ while True:
 
         elif int(cur_time.split(":")[0][0]) == 3:
             print("30분대")
-            tarin_path = train_path = "../csvDataSet/TrainSet3.csv"
+            train_path = "./core/csvDataSet/TrainSet3.csv"
             if os.path.isfile(train_path):
                 try:
                     f = open(train_path, "a+", newline='')
@@ -110,7 +110,7 @@ while True:
 
         elif int(cur_time.split(":")[0][0]) == 4:
             print("40분대")
-            tarin_path = train_path = "../csvDataSet/TrainSet4.csv"
+            train_path = "./core/csvDataSet/TrainSet4.csv"
             if os.path.isfile(train_path):
                 try:
                     f = open(train_path, "a+", newline='')
@@ -134,7 +134,7 @@ while True:
 
         elif int(cur_time.split(":")[0][0]) == 5:
             print("50분대")
-            tarin_path = train_path = "../csvDataSet/TrainSet5.csv"
+            train_path = "./core/csvDataSet/TrainSet5.csv"
             if os.path.isfile(train_path):
                 try:
                     f = open(train_path, "a+", newline='')
@@ -156,7 +156,5 @@ while True:
                 wr.writerow(["time", "process", "threads", "memory_usage"])
                 f.close()
 
-        else:
-            break
-    else:
-        break
+if __name__ == '__main__':
+    dataCollecting("true")

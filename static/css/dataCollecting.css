@@ -1,0 +1,49 @@
+body {
+    font-family: sans-serif;
+}
+
+.explainBox {
+    width: 500px;
+    margin-left: 30%;
+}
+
+.explainBox>h1 {
+    position: relative;
+    top: 35%;
+    bottom: 40%;
+    left: 28%;
+    right: 40%;
+    color: rgba(0, 0, 0, .3);
+    font-size: 3em
+}
+
+.explainBox>h1:before {
+    content: attr(data-text);
+    position: absolute;
+    overflow: hidden;
+    max-width: 9.5em;
+    white-space: nowrap;
+    color: rgb(0, 0, 0);
+    animation: loading 3.5s linear;
+    animation-iteration-count: 999;
+}
+
+@keyframes loading {
+    0% {
+        max-width: 0;
+    }
+}
+
+.explainBox>h2 {
+    text-align: center;
+    position: relative;
+    left: 20%;
+}
+
+.centerAlign {
+    margin-top: 1%;
+    margin-left: 45%;
+    margin-right: 45%;
+    width: 120px;
+    text-align: center;
+}

@@ -182,8 +182,6 @@ function doughnut_chart() {
 }
 
 
-
-
 try {
     console.log("Hello Welcome to Dashboard")
 

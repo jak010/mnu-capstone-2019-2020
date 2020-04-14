@@ -1,9 +1,12 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
+import pandas as pd
 import tensorflow as tf
 
 from flask import *
+
+from core.DataVisual.DataVisualized_Memory import *
 from core.DataCollect.DataCollect_minute_divide import *
 
 app = Flask(__name__)
@@ -21,6 +24,12 @@ def datCollectingExecute():
     value = request.args
     dataCollecting(value['flag'])
     return render_template("dataCollecting.html")
+
+@app.route("/dataVisual",methods=["GET"])
+def dataVisalized():
+    dataVisualized = visualized_time_0()
+    print(dataVisualized)
+    return "false"
 
 @app.route("/predict", methods=['POST', 'GET'])
 def predictAjax():

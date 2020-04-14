@@ -5,6 +5,7 @@ import os
 import csv
 import psutil
 
+
 from time import localtime
 
 def dataCollecting(exit_flag):

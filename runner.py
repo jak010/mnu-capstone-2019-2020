@@ -6,9 +6,7 @@ import tensorflow as tf
 from flask import *
 from core.DataCollect.DataCollect_minute_divide import *
 
-
 app = Flask(__name__)
-
 
 @app.route("/")
 def index_root():
@@ -21,7 +19,6 @@ def index_root():
 @app.route("/dataCollecting",methods=["GET"])
 def datCollectingExecute():
     value = request.args
-    print(value['flag'])
     dataCollecting(value['flag'])
     return render_template("dataCollecting.html")
 
@@ -42,8 +39,6 @@ def predictAjax():
     """
     X1 = tf.compat.v1.placeholder(tf.float32, shape=[None])
     X2 = tf.compat.v1.placeholder(tf.float32, shape=[None])
-
-    # Y = tf.compat.v1.placeholder(tf.float32, shape=[None])
 
     W1 = tf.Variable(tf.random_normal([1], seed=1))
     W2 = tf.Variable(tf.random_normal([1], seed=1))

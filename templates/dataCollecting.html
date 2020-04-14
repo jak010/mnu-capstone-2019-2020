@@ -6,6 +6,9 @@
     <title>Dash Board</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dataCollecting.css')}}">
     <script>
+    var global_obj = new Date();
+    gloval_time_set = global_obj.toLocaleTimeString();
+
     function checkValue() {
 
         var xhr = new XMLHttpRequest();
@@ -13,21 +16,28 @@
         xhr.open("GET", "http://127.0.0.1:5000/dataCollecting?flag=true");
         xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8")
 	    xhr.send();
-
     }
 
     setInterval(function(){
-     checkValue();
-     }, 1900);
+        var obj = new Date();
+        time_set = obj.toLocaleTimeString();
+
+        var insert_time_set = document.getElementById("current_time");
+        insert_time_set.innerHTML = gloval_time_set+" ~ "+time_set;
+
+        checkValue();
+     }, 1000);
+
+
 </script>
 </head>
 <body>
     <div class="explainBox">
         <h1 data-text="Collecting TrainSet">Collecting TrainSet</h1>
         <h2>데이터를 수집 중 입니다</h2>
-
+        <h3 id="current_time">   </h3>
     </div>
-</body>
 
+</body>
 
 </html>

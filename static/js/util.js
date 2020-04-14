@@ -176,7 +176,9 @@ function doughnut_chart() {
                     // This more specific font property overrides the global property
                     fontColor: 'rgb(0,0,0,0.8)'
                 }
-            }
+
+            },
+            cutoutPercentage: 80,
         }
     });
 }

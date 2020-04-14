@@ -40,6 +40,12 @@ body {
     left: 20%;
 }
 
+.explainBox>h3 {
+    text-align: center;
+    position: relative;
+    left: 20%;
+}
+
 .centerAlign {
     margin-top: 1%;
     margin-left: 45%;
@@ -47,3 +53,6 @@ body {
     width: 120px;
     text-align: center;
 }
+
+
+

@@ -27,9 +27,10 @@ def datCollectingExecute():
 
 @app.route("/dataVisual",methods=["GET"])
 def dataVisalized():
-    dataVisualized = visualized_time_0()
-    print(dataVisualized)
-    return "false"
+    returnGraphXY = visualized_time_1()
+    return render_template("dataVisualized.html",
+                           graph_ = returnGraphXY
+                           )
 
 @app.route("/predict", methods=['POST', 'GET'])
 def predictAjax():

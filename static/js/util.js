@@ -57,7 +57,7 @@ function section01(param1) {
         data: {
             labels: xGroup,
             datasets: [{
-                label: "변동추이",
+                label: "실시간 예측",
                 data: dataArray,
 
                 backgroundColor: 'rgb(0, 0, 0, 0.4)',

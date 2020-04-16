@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 </head>
 <body>
-   <nav>
-        <section>
-            Local Dash Board
-        </section>
+        <header>
+     &nbsp; Dash Board
+    </header>
+
+
+<nav>
         <ul>
             <a href="./dataCollecting?flag=true">
                 <li>데이터 수집</li>
@@ -24,27 +26,27 @@
         </ul>
     </nav>
 
-
-    <header>
-        this is header
-    </header>
-
     <br>
     <section class="text_log">
         <article class="green_text">
             <div id="green_signal">green</div>
+            <div> 총 안정 발생량&nbsp;</div>
             <div id="green_log_text">&nbsp;</div>
 
         </article>
 
         <article class="caution_text">
             <div id="caution_signal">Caution</div>
+            <div> 총 주의 발생량 </div>
             <div id="caution_log_text">&nbsp;</div>
+
         </article>
 
         <article class="warning_text">
             <div id="warning_signal">Warning</div>
+            <div> 총 경고 발생량&nbsp;</div>
             <div id="warning_log_text">&nbsp;</div>
+
         </article>
 
     </section>
@@ -86,8 +88,6 @@
         test();
         timerId = setInterval(test, 2000);
     }
-
-
     </script>
 
 <script src="{{ url_for('static' ,filename='js/util.js') }}"></script>

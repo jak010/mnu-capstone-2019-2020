@@ -8,6 +8,7 @@ from flask import *
 
 from core.DataVisual.DataVisualized_Memory import *
 from core.DataCollect.DataCollect_minute_divide import *
+from core.MachineModel.Model_initialized.regression_model_divded_minutes import *
 
 app = Flask(__name__)
 
@@ -18,6 +19,12 @@ def index_root():
         index.html, template
     """
     return render_template("index.html")
+
+
+@app.route("/dataLearning",methods=["GET"])
+def dataLearning():
+    model_initalized_create()
+    return "False"
 
 @app.route("/dataCollecting",methods=["GET"])
 def datCollectingExecute():

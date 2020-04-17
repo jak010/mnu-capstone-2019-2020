@@ -1,6 +1,6 @@
 # os 모듈 설정은 tensorflow 라이브러리가 포함된 줄 위에 선언되야 tensorflow의 GPU 경고문이 노출되지 않습니다.
 import os
-
+from time import sleep
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 """ Google Style Docstring
@@ -26,27 +26,6 @@ Attributes :
 import pandas as pd
 import tensorflow as tf
 
-X1 = tf.compat.v1.placeholder(tf.float32, shape=[None])
-X2 = tf.compat.v1.placeholder(tf.float32, shape=[None])
-
-Y = tf.compat.v1.placeholder(tf.float32, shape=[None])
-
-W1 = tf.Variable(tf.random_normal([1], seed=1))
-W2 = tf.Variable(tf.random_normal([1], seed=1))
-
-b = tf.Variable(tf.random_normal([1], seed=1))
-
-H = (X1 * W1 + X2 * W2) * b
-
-cost = tf.reduce_mean(tf.square(H - Y))
-optimizer = tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.000000001)
-
-train = optimizer.minimize(cost)
-init = tf.compat.v1.global_variables_initializer()
-sess = tf.compat.v1.Session()
-sess.run(init)
-
-
 def model_initalized_create():
     """ 이 모듈은 csvDataSet 디렉토리 밑에 있는 TrainSet0~5.csv를 학습하여 MachineModel/Models 디렉토리 밑에
     학습모델을 저장하기 위해 사용합니다.
@@ -64,38 +43,47 @@ def model_initalized_create():
     Returns:
         이 모듈은 호출 시 학습 모델을 생성합니다.
     """
-    try:
-        for _ in range(0, 6):
-            if os.path.isfile("../../csvDataSet/TrainSet" + str(_) + ".csv"):
-                print("[+] Current File Data Appending : TrainSet" + str(_))
-                _model_file_saver = "../Models/saved" + str(_) + "/saved" + str(_) + ".cpkt"
-                print(_model_file_saver)
+    X1 = tf.compat.v1.placeholder(tf.float32, shape=[None])
+    X2 = tf.compat.v1.placeholder(tf.float32, shape=[None])
 
-                _dataset = pd.read_csv("../../csvDataSet/TrainSet" + str(_) + ".csv", sep=",")
+    Y = tf.compat.v1.placeholder(tf.float32, shape=[None])
 
-                _train_process = list(_dataset["process"])
-                _train_threads = list(_dataset["threads"])
-                _train_memory_usage = list(_dataset["memory_usage"])
+    W1 = tf.Variable(tf.random_normal([1], seed=1))
+    W2 = tf.Variable(tf.random_normal([1], seed=1))
 
-                for step in range(10001):
-                    cost_, w1_, w2_, b_, _ = sess.run([cost, W1, W2, b, train],
-                                                      feed_dict={X1: _train_process, X2: _train_threads,
-                                                                 Y: _train_memory_usage})
-                    if step % 2000 == 0:
-                        print(cost_, w1_, w2_)
+    b = tf.Variable(tf.random_normal([1], seed=1))
 
-                saver = tf.compat.v1.train.Saver()
-                saver.save(sess, _model_file_saver)
+    H = (X1 * W1 + X2 * W2) * b
 
-                print("학습된 모델을 저장했습니다.")
+    cost = tf.reduce_mean(tf.square(H - Y))
+    optimizer = tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.000000001)
 
-                del _train_process
-                del _train_threads
-                del _train_memory_usage
+    train = optimizer.minimize(cost)
+    init = tf.compat.v1.global_variables_initializer()
+    sess = tf.compat.v1.Session()
+    sess.run(init)
 
-    except Exception as e:
-        print(e)
+    for _ in range(0, 6):
 
+        _model_file_saver = "./core/MachineModel/Models/saved" + str(_) + "/saved" + str(_) + ".cpkt"
 
-if __name__ == '__main__':
-    model_initalized_create()
+        print("[+] Current File Data Appending : TrainSet" + str(_))
+
+        print(_model_file_saver)
+
+        _dataset = pd.read_csv("./core/csvDataSet/TrainSet" + str(_) + ".csv", sep=",")
+
+        _train_process = list(_dataset["process"])
+        _train_threads = list(_dataset["threads"])
+        _train_memory_usage = list(_dataset["memory_usage"])
+
+        for step in range(10001):
+            cost_, w1_, w2_, b_, _ = sess.run([cost, W1, W2, b, train],
+                                              feed_dict={X1: _train_process, X2: _train_threads,
+                                                         Y: _train_memory_usage})
+            if step % 2000 == 0:
+                print(cost_, w1_, w2_)
+        print("여기냐")
+
+        saver = tf.compat.v1.train.Saver()
+        saver.save(sess, _model_file_saver)

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title> 고민중 </title>
+<style>
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial;
+    padding: 10px;
+    background: #f1f1f1;
+}
+/* Header/Blog Title */
+.header {
+    padding: 30px;
+    text-align: center;
+    background: white;
+}
+.header h1 {
+    font-size: 50px;
+}
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    position:middle;
+	background-color: #333;
+}
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+    float: left;
+    width: 75%;
+}
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 25%;
+    background-color: #f1f1f1;
+    padding-left: 20px;
+}
+
+.fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+.fakeimgtwo{
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+.fakeimgthree {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+/* Footer */
+.footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
+}
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+        width: 100%;
+        padding: 0;
+    }
+}
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .topnav a {
+        float: none;
+        width: 100%;
+    }
+}
+timer {
+    clear: both;
+	float: right;
+    height: 0px;
+	color : black;
+    background: white;
+}
+</style>
+</head>
+<body>
+ 
+<div class="header">
+  <h1>정보보호학과 캡스톤디자인</h1>
+ 	<timer>
+	<script>
+function printTime() {
+
+              var clock = document.getElementById("clock");// 출력할 장소 선택
+
+              var now = new Date();// 현재시간
+
+              var nowTime = now.getFullYear() + "년&nbsp;" + (now.getMonth()+1) + "월&nbsp;" + now.getDate() + "일&nbsp;" + now.getHours() + "시&nbsp;" + now.getMinutes() + "분&nbsp;" + now.getSeconds() + "초";
+
+              clock.innerHTML = nowTime;// 현재시간을 출력
+
+              setTimeout("printTime()",1000);// setTimeout(“실행할함수”,시간) 시간은1초의 경우 1000
+
+}
+
+window.onload = function() {// 페이지가 로딩되면 실행
+              printTime();
+}
+
+</script>
+<body>
+<span id="clock"></span> <br/>
+</body>
+</timer>
+</div>
+ 
+<div class="topnav">
+  <a href="index.html"style ="float:left">Home</a>
+  <a href="1.html">System Time</a>
+  <a href="2.html" style ="float:right">취약점분석</a>
+  <a href="3.html" style = "float:right">사이버 공격 시간대 비교</a>
+  </div>
+
+    <div class="card">
+      <h2>Attack mornitoring</h2>
+      <div class="fakeimg" style="height:200px;">Graph</div>
+      <p>설명</p>
+
+    </div>
+  
+</body>
+</html>

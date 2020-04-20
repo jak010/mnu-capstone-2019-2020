@@ -2,35 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dataVisualized.css')}}">
     <title>Title</title>
 </head>
 <body>
 
-<div style="width:800px">
-    <canvas id="myChart0"></canvas>
-</div>
-<div style="width:800px">
-    <canvas id="myChart1"></canvas>
-</div>
+  <div class="header">
+        <h1>정보보호학과 캡스톤디자인</h1>
+        <timer>
+            <script>
+                function printTime() {
 
-<div style="width:800px">
-    <canvas id="myChart2"></canvas>
-</div>
+                    var clock = document.getElementById("clock"); // 출력할 장소 선택
 
-<div style="width:800px">
-    <canvas id="myChart3"></canvas>
-</div>
+                    var now = new Date(); // 현재시간
 
-<div style="width:800px">
-    <canvas id="myChart4"></canvas>
-</div>
+                    var nowTime = now.getFullYear() + "년&nbsp;" + (now.getMonth() + 1) + "월&nbsp;" + now.getDate() + "일&nbsp;" + now.getHours() + "시&nbsp;" + now.getMinutes() + "분&nbsp;" + now.getSeconds() + "초";
 
-<div style="width:800px">
-    <canvas id="myChart5"></canvas>
-</div>
+                    clock.innerHTML = nowTime; // 현재시간을 출력
+
+                    setTimeout("printTime()", 1000); // setTimeout(“실행할함수”,시간) 시간은1초의 경우 1000
+
+                }
+
+                window.onload = function() { // 페이지가 로딩되면 실행
+                    printTime();
+                }
+            </script>
+
+            <body>
+                <span id="clock"></span> <br/>
+            </body>
+        </timer>
+    </div>
+
+    <div class="topnav">
+        <a href="./">Main</a>
+        <a href="./dataCollecting?flag=true">Data Collecting</a>
+        <a href="./dataVisual">Data Visual</a>
+         <a href="./createModel">Create Model</a>
+    </div>
+
+    <h3>Data Visualized</h3>
+
+<section class="zeroToOne">
+    <article>
+        <canvas id="myChart0"></canvas>
+    </article>
+
+    <article>
+        <canvas id="myChart1"></canvas>
+    </article>
+</section>
+<br>
+  <section class="OneToTwo">
+    <article>
+        <canvas id="myChart2"></canvas>
+    </article>
+
+    <article>
+        <canvas id="myChart3"></canvas>
+    </article>
+
+</section>
+<br>
+  <section class="OneToTwo">
+    <article>
+        <canvas id="myChart4"></canvas>
+    </article>
+
+    <article>
+        <canvas id="myChart5"></canvas>
+    </article>
+
+</section>
 
 
 </body>

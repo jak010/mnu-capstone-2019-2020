@@ -1,4 +1,4 @@
-* {
+<style>* {
     box-sizing: border-box;
 }
 
@@ -70,12 +70,6 @@ body {
     padding-left: 20px;
 }
 
-.fakeimg {
-    background-color: #aaa;
-    width: 99%;
-    padding: 20px;
-}
-
 
 /* Add a card effect for articles */
 
@@ -132,55 +126,93 @@ timer {
     color: black;
     background: white;
 }
-/* Explain BOX Declare */
-.explainBox {
-    width: 500px;
-    margin-left: 30%;
+
+
+/* Text Log Declare*/
+
+.text_log {
+    height: 80px;
+    display: flex;
 }
 
-.explainBox>h1 {
-    position: relative;
-    top: 35%;
-    bottom: 40%;
-    left: 28%;
-    right: 40%;
-    color: rgba(0, 0, 0, .3);
-    font-size: 3em
+.green_text {
+    width: 31%;
+    height: 100%;
+    background: white;
 }
 
-.explainBox>h1:before {
-    content: attr(data-text);
-    position: absolute;
-    overflow: hidden;
-    max-width: 9.5em;
-    white-space: nowrap;
-    color: rgb(0, 0, 0);
-    animation: loading 3.5s linear;
-    animation-iteration-count: 999;
-}
-
-@keyframes loading {
-    0% {
-        max-width: 0;
-    }
-}
-
-.explainBox>h2 {
-    text-align: center;
-    position: relative;
-    left: 20%;
-}
-
-.explainBox>h3 {
-    text-align: center;
-    position: relative;
-    left: 20%;
-}
-
-.centerAlign {
-    margin-top: 1%;
-    margin-left: 45%;
-    margin-right: 45%;
+.green_text>#green_signal {
     width: 120px;
+    height: 100%;
+    background: green;
+    float: left;
+}
+
+.green_text>#green_log_text {
+    text-align: right;
+    font-size: xx-large;
+}
+
+.caution_text {
+    width: 31%;
+    height: 100%;
+    background: white;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.caution_text>#caution_signal {
+    width: 120px;
+    height: 100%;
+    background: yellow;
+    float: left;
+}
+
+.caution_text>#caution_log_text {
+    text-align: right;
+    font-size: xx-large;
+}
+
+.warning_text {
+    width: 31%;
+    height: 100%;
+    background: white;
+}
+
+.warning_text>#warning_signal {
+    width: 120px;
+    height: 100%;
+    background: red;
+    float: left;
+}
+
+.warning_text>#warning_log_text {
+    text-align: right;
+    font-size: xx-large;
+}
+
+
+/* Graph Declare */
+
+.live_graph {
+    height: 500px;
+    display: flex;
+}
+
+.live_graph>#graph_area {
+    width: 70%;
+    height: 100%;
+    margin-left: 2%;
+}
+
+.live_graph>#doughnut_area {
+    width: 30%;
+    height: 100%;
+    margin-left: 5%;
     text-align: center;
+    font-size: xx-large;
+}
+#myChart2 {
+
+    margin-left:20%;
 }

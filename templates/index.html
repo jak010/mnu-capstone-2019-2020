@@ -1,81 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dash Board</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <meta charset="utf-8">
+    <title> 고민중 </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/IndexStyle.css')}}">
 </head>
+
 <body>
-        <header>
-     &nbsp; Dash Board
-    </header>
+    <div class="header">
+        <h1>정보보호학과 캡스톤디자인</h1>
+        <timer>
+            <body>
+                <span id="clock"></span> <br/>
+            </body>
+        </timer>
+    </div>
+
+    <div class="topnav">
+        <a href="./">Main</a>
+        <a href="./dataCollecting?flag=true">Data Collecting</a>
+        <a href="./dataVisual">Data Visual</a>
+        <a href="./createModel">Create Model</a>
+    </div>
+
+    <h3>Viewer</h3>
+
+    <div class="card">
+        <section class="text_log">
+            <article class="green_text">
+                <div id="green_signal">green</div>
+                <div> 총 안정 발생량&nbsp;</div>
+                <div id="green_log_text">&nbsp;</div>
+
+            </article>
+
+            <article class="caution_text">
+                <div id="caution_signal">Caution</div>
+                <div> 총 주의 발생량 </div>
+                <div id="caution_log_text">&nbsp;</div>
+
+            </article>
+
+            <article class="warning_text">
+                <div id="warning_signal">Warning</div>
+                <div> 총 경고 발생량&nbsp;</div>
+                <div id="warning_log_text">&nbsp;</div>
+
+            </article>
+
+        </section>
+
+        <br>
+
+        <section class="live_graph">
+            <article id="graph_area">
+                <canvas id="myChart"></canvas>
+            </article>
+
+            <article id="doughnut_area">
+                <div id="doughnut_area_text"> Graph Status </div>
+                <canvas id="myChart2"></canvas>
+            </article>
+
+        </section>
 
 
-<nav>
-        <ul>
-            <a href="./dataCollecting?flag=true">
-                <li>데이터 수집</li>
-            </a>
+        <br>
 
-            <a href="#">
-                <li>학습 모델 생성</li>
-            </a>
 
-            <a href="./dataVisual">
-                <li>데이터 시각화</li>
-            </a>
-
-        </ul>
-    </nav>
-
-    <br>
-    <section class="text_log">
-        <article class="green_text">
-            <div id="green_signal">green</div>
-            <div> 총 안정 발생량&nbsp;</div>
-            <div id="green_log_text">&nbsp;</div>
-
-        </article>
-
-        <article class="caution_text">
-            <div id="caution_signal">Caution</div>
-            <div> 총 주의 발생량 </div>
-            <div id="caution_log_text">&nbsp;</div>
-
-        </article>
-
-        <article class="warning_text">
-            <div id="warning_signal">Warning</div>
-            <div> 총 경고 발생량&nbsp;</div>
-            <div id="warning_log_text">&nbsp;</div>
-
-        </article>
-
-    </section>
-
-    <br>
-    <section class="live_graph">
-        <article id="graph_area">
-            <canvas id="myChart"></canvas>
-        </article>
-
-        <article id="doughnut_area">
-            <br>Graph Status<br>
-            <canvas id="myChart2"></canvas>
-        </article>
-
-    </section>
+    </div>
 
 </body>
 
 <script>
     function test() {
         var xhr = new XMLHttpRequest();
-
         xhr.onreadystatechange = function() {
-            if(xhr.readyState == 4 && xhr.status ==200) {
+            if(xhr.readyState == 4 && xhr.status == 200) {
                 var predict_data = xhr.responseText
                 var obj = document.getElementById("getPredictData");
 
@@ -88,13 +90,9 @@
 	    xhr.send('predict='+1);
     }
 
-    function startPredict() {
-        test();
-        timerId = setInterval(test, 2000);
-    }
-    </script>
+   </script>
+    <script src="{{ url_for('static' ,filename='js/util.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
-<script src="{{ url_for('static' ,filename='js/util.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 </html>

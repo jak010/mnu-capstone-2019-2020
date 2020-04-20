@@ -21,10 +21,10 @@ def index_root():
     return render_template("index.html")
 
 
-@app.route("/dataLearning",methods=["GET"])
+@app.route("/createModel",methods=["GET"])
 def dataLearning():
-    model_initalized_create()
-    return "False"
+    # model_initalized_create()
+    return "작업 중"
 
 @app.route("/dataCollecting",methods=["GET"])
 def datCollectingExecute():

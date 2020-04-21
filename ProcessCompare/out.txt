@@ -1,0 +1,10 @@
+{'name': 'ServiceHub.Host.CLR.x86.exe'}
+{'name': 'Rgui.exe'}
+{'name': 'PerfWatson2.exe'}
+{'name': 'POWERPNT.EXE'}
+{'name': 'sppsvc.exe'}
+{'name': 'ServiceHub.VSDetouredHost.exe'}
+{'name': 'Microsoft.ServiceHub.Controller.exe'}
+{'name': 'ServiceHub.SettingsHost.exe'}
+{'name': 'ServiceHub.IdentityHost.exe'}
+{'name': 'devenv.exe'}

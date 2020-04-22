@@ -4,9 +4,7 @@ import datetime
 
 nowDate = datetime.datetime.now()
 sys.stdout = open(nowDate.strftime('%Y-%m-%d_%H%M')+ '.txt','w')
- 
- 
- 
+
 def getListOfProcessSortedByMemory():
     '''
     실행 중인 프로세스 목록을 메모리 사용량별로 정렬
@@ -43,7 +41,6 @@ def main():
     # 사전 목록을 반복하고 각 요소를 출력
     for elem in listOfProcessNames:
         print(elem)
- 
- 
+
 if __name__ == '__main__':
    main()

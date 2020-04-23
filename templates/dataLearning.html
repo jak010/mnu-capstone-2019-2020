@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>캡스톤 디자인</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dataLearning.css')}}">
+    <script>
+       var current_model_index = 0;
+
+       function create_model(current_index) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4 && xhr.status ==200) {
+                var predict_data = xhr.responseText
+                console.log(predict_data);
+                var check_obj = document.getElementsByTagName("div");
+                check_obj[2].getElementsByTagName("input")[predict_data].checked = true;
+            }
+        }
+
+        xhr.open("GET", "http://127.0.0.1:5000/create_model?current_value="+current_index);
+        xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8")
+	    xhr.send();
+    }
+
+    setTimeout(function() {
+          for(var i=0; i<6; i++) {
+            create_model(current_model_index);
+            current_model_index++;
+            }
+    }, 1200);
+
+    </script>
+</head>
+<body>
+<div class="header">
+    <h1>정보보호학과 캡스톤디자인</h1>
+    <timer>
+        <script>
+                function printTime() {
+                    var clock = document.getElementById("clock"); // 출력할 장소 선택
+                    var now = new Date(); // 현재시간
+                    var nowTime = now.getFullYear() + "년&nbsp;" + (now.getMonth() + 1) + "월&nbsp;" + now.getDate() + "일&nbsp;" + now.getHours() + "시&nbsp;" + now.getMinutes() + "분&nbsp;" + now.getSeconds() + "초";
+
+                    clock.innerHTML = nowTime; // 현재시간을 출력
+                    setTimeout("printTime()", 1000); // setTimeout(“실행할함수”,시간) 시간은1초의 경우 1000
+                }
+                window.onload = function() { // 페이지가 로딩되면 실행
+                    printTime();
+                }
+
+        </script>
+
+        <body>
+        <span id="clock"></span> <br/>
+        </body>
+    </timer>
+</div>
+
+<div class="topnav">
+    <a href="./">Main</a>
+    <a href="./dataCollecting?flag=true">Data Collecting</a>
+    <a href="./dataVisual">Data Visual</a>
+    <a href="./dataLearned">Create Model</a>
+</div>
+
+<h3>
+        새로운 모델을 생성 합니다.
+</h3>
+
+
+   <div class="data_learned">
+        <div id="model"> 1st MODEL : 0 ~ 10 Minute
+            <input type="checkbox"  value="Suc" />
+        </div>
+        <div id="sec_model"> 2nd MODEL : 10 ~ 20 Minute
+            <input type="checkbox"  value="Suc" />
+        </div>
+        <div id="three_model"> 3rd MODEL : 20 ~ 30 Minute
+            <input type="checkbox"  value="Suc" />
+        </div>
+        <div id="four_model"> 4th MODEL : 30 ~ 40 Minute
+            <input type="checkbox"  value="Suc" />
+        </div>
+        <div id="five_model"> 5th MODEL&nbsp;: 50 ~ 60 Minute
+            <input type="checkbox"  value="Suc" />
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

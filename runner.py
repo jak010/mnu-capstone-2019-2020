@@ -6,10 +6,9 @@ import tensorflow as tf
 
 from flask import *
 
-from ProcessCompare.ProcessCollect import *
-from core.DataVisual.DataVisualized_Memory import *
-from core.DataCollect.DataCollect_minute_divide import *
-from core.MachineModel.Model_initialized.regression_model_divded_minutes import *
+from core.DataVisual.DataVisualized import *
+from core.DataCollect.DataCollect import *
+from core.MachineModel.Model_initialized.regression_model import *
 
 app = Flask(__name__)
 
@@ -21,10 +20,15 @@ def index_root():
     """
     return render_template("index.html")
 
-@app.route("/createModel",methods=["GET"])
+@app.route("/create_model",methods=["GET"])
+def create_new_model():
+    value = request.args.get("current_value")
+    flag = model_initalized_create(value)
+    return flag
+
+@app.route("/dataLearned",methods=["GET"])
 def dataLearning():
-    # model_initalized_create()
-    return "작업 중"
+    return render_template("dataLearning.html")
 
 @app.route("/dataCollecting",methods=["GET"])
 def datCollectingExecute():

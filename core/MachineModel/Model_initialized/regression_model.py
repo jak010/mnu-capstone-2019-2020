@@ -1,6 +1,5 @@
 # os 모듈 설정은 tensorflow 라이브러리가 포함된 줄 위에 선언되야 tensorflow의 GPU 경고문이 노출되지 않습니다.
 import os
-from time import sleep
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 """ Google Style Docstring
@@ -26,7 +25,7 @@ Attributes :
 import pandas as pd
 import tensorflow as tf
 
-def model_initalized_create():
+def model_initalized_create(current_flag):
     """ 이 모듈은 csvDataSet 디렉토리 밑에 있는 TrainSet0~5.csv를 학습하여 MachineModel/Models 디렉토리 밑에
     학습모델을 저장하기 위해 사용합니다.
 
@@ -63,27 +62,20 @@ def model_initalized_create():
     sess = tf.compat.v1.Session()
     sess.run(init)
 
-    for _ in range(0, 6):
+    _model_file_saver = "./core/MachineModel/Models/saved" + str(current_flag) + "/saved" + str(current_flag) + ".cpkt"
 
-        _model_file_saver = "./core/MachineModel/Models/saved" + str(_) + "/saved" + str(_) + ".cpkt"
+    _dataset = pd.read_csv("./core/csvDataSet/TrainSet" + str(current_flag) + ".csv", sep=",")
 
-        print("[+] Current File Data Appending : TrainSet" + str(_))
+    _train_process = list(_dataset["process"])
+    _train_threads = list(_dataset["threads"])
+    _train_memory_usage = list(_dataset["memory_usage"])
 
-        print(_model_file_saver)
+    for step in range(10001):
+        cost_, w1_, w2_, b_, _ = sess.run([cost, W1, W2, b, train],
+                                          feed_dict={X1: _train_process, X2: _train_threads,
+                                                     Y: _train_memory_usage})
 
-        _dataset = pd.read_csv("./core/csvDataSet/TrainSet" + str(_) + ".csv", sep=",")
+    saver = tf.compat.v1.train.Saver()
+    saver.save(sess, _model_file_saver)
 
-        _train_process = list(_dataset["process"])
-        _train_threads = list(_dataset["threads"])
-        _train_memory_usage = list(_dataset["memory_usage"])
-
-        for step in range(10001):
-            cost_, w1_, w2_, b_, _ = sess.run([cost, W1, W2, b, train],
-                                              feed_dict={X1: _train_process, X2: _train_threads,
-                                                         Y: _train_memory_usage})
-            if step % 2000 == 0:
-                print(cost_, w1_, w2_)
-        print("여기냐")
-
-        saver = tf.compat.v1.train.Saver()
-        saver.save(sess, _model_file_saver)
+    return current_flag

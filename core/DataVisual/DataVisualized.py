@@ -1,64 +1,21 @@
-# Data Visualized Source
-
 import pandas as pd
-import matplotlib.pyplot as plt
 
-from collections import Counter
+def visualized_time_1():
+    returnList = []
+    for _ in range(0,6):
+        if _ == 0:
+            train_path = "./core/csvDataSet/TrainSet" + str(_) + ".csv"
+            df = pd.read_csv(train_path)
+            df['time'] = pd.to_numeric(df['time'].str.slice(start=0, stop=1))
+            dataframe_visualized = df.groupby(by=['time'], as_index=False).mean()
+            returnList.append([dataframe_visualized['time'].values.tolist(), dataframe_visualized['memory_usage'].values.tolist()])
 
-#  ======================= Process Visualized ===========================
-def process_visualized():
-    k_data = []
-    y_data = []
+        else:
+            train_path = "./core/csvDataSet/TrainSet" + str(_) + ".csv"
+            df = pd.read_csv(train_path)
+            df['time'] = pd.to_numeric(df['time'].str.slice(start=0, stop=2))
+            dataframe_visualized = df.groupby(by=['time'], as_index=False).mean()
+            returnList.append([dataframe_visualized['time'].values.tolist(), dataframe_visualized['memory_usage'].values.tolist()])
 
-    ax1 = fig.add_subplot(2, 2, 1)
+    return returnList
 
-    data = pd.read_csv(train_path)
-    data = pd.DataFrame(data)
-
-    for key, val in Counter(data["process"]).items():
-        k_data.append(key)
-        y_data.append(val)
-
-    k_data = sorted(k_data, reverse=True)
-    y_data = sorted(y_data, reverse=True)
-
-    ax1.plot(k_data, y_data)
-
-
-#  =======================  Thread Visualized ===========================
-def thread_visualized():
-    k_data = []
-    y_data = []
-
-    ax2 = fig.add_subplot(2, 2, 3)
-    data = pd.read_csv(train_path)
-    data = pd.DataFrame(data)
-
-    for key, val in Counter(data["threads"]).items():
-        k_data.append(key)
-        y_data.append(val)
-
-    k_data = sorted(k_data, reverse=True)
-    y_data = sorted(y_data, reverse=True)
-
-    ax2.scatter(k_data, y_data, marker="*", s=20, edgecolor="g")
-
-#  =======================  process,thread ===========================
-def process_thread_visualized():
-    ax3 = fig.add_subplot(1, 2, 2)
-
-    data = pd.read_csv(train_path)
-    data = pd.DataFrame(data)
-
-    ax3.scatter(data["threads"], data["process"], color='1', marker="*", s=20, edgecolor="b")
-
-
-if __name__ == '__main__':
-    train_path = "../csvDataSet/TrainSet.csv"
-    fig = plt.figure()
-
-    process_visualized()
-    thread_visualized()
-    process_thread_visualized()
-
-    plt.show()

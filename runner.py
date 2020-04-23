@@ -6,6 +6,7 @@ import tensorflow as tf
 
 from flask import *
 
+from ProcessCompare.ProcessCollect import *
 from core.DataVisual.DataVisualized_Memory import *
 from core.DataCollect.DataCollect_minute_divide import *
 from core.MachineModel.Model_initialized.regression_model_divded_minutes import *
@@ -19,7 +20,6 @@ def index_root():
         index.html, template
     """
     return render_template("index.html")
-
 
 @app.route("/createModel",methods=["GET"])
 def dataLearning():

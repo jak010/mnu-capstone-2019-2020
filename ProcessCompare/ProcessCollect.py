@@ -25,7 +25,7 @@ def getListOfProcessSortedByMemory():
     listOfProcObjects = sorted(listOfProcObjects, key=lambda procObj: procObj['vms'], reverse=True)
  
     return listOfProcObjects
- 
+
 def main():
  
     print('*** 실행 중인 모든 프로세스 목록 만들기 ***')
@@ -43,4 +43,4 @@ def main():
         print(elem)
 
 if __name__ == '__main__':
-   main()
+    main()

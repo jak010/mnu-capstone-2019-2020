@@ -20,6 +20,10 @@ def index_root():
     """
     return render_template("index.html")
 
+@app.route("/dataCompare")
+def data_compare():
+    return render_template("dataCompare.html")
+
 @app.route("/create_model",methods=["GET"])
 def create_new_model():
     value = request.args.get("current_value")

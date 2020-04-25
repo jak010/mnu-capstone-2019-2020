@@ -149,7 +149,7 @@ function section01(param1) {
 
 function doughnut_chart() {
     var ctx = document.getElementById("myChart2").getContext('2d');
-    console.log(totalSet);
+
     var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {

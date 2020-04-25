@@ -11,7 +11,6 @@ from core.DataCollect.DataCollect import *
 from core.MachineModel.Model_initialized.regression_model import *
 
 app = Flask(__name__)
-#연습
 
 @app.route("/")
 def index_root():

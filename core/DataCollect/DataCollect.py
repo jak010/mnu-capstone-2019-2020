@@ -155,5 +155,28 @@ def dataCollecting(exit_flag):
                 wr.writerow(["time", "process", "threads", "memory_usage"])
                 f.close()
 
+def warning_memory_singal():
+    data_list = list()
+    dataTopName = list()
+
+    for x in psutil.process_iter(attrs=['name', 'username', 'memory_percent']):
+        if (x.info['name'] in "pycharm64.exe") or (x.info['name'] in "python.exe"):
+            pass
+        else:
+            data_list.append([x.info['memory_percent'], x.info['name']])
+
+    tempList = [[str(data_list[y][0]), data_list[y][1]] for y in range(0, len(data_list))]
+    floatList = [[float(tempList[z][0]), tempList[z][1]] for z in range(0, len(tempList))]
+
+    dataTop = sorted(floatList, reverse=True)
+
+    for _ in range(0, 5):
+        dataTopName.append(dataTop[_][1])
+
+    returnStringValue = ", ".join(dataTopName)
+
+    return returnStringValue
+
+
 if __name__ == '__main__':
     dataCollecting("true")

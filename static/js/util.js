@@ -32,6 +32,29 @@ function section01(param1) {
          var obj = document.getElementById("warning_log_text");
         obj.innerHTML = totalSet[0]+"&nbsp;";
 
+
+
+        // data Top Lanked call
+        var tempxhr = new XMLHttpRequest();
+
+        tempxhr.onreadystatechange = function() {
+        if(tempxhr.readyState == 4 && tempxhr.status ==200) {
+            var lanked_data = tempxhr.responseText;
+            var process_view = document.getElementById("warning_process_view");
+            process_view.innerHTML += "&nbsp;"+lanked_data + "<hr>";
+            process_view.scrollTop = process_view.scrollHeight;
+
+            // 경고 발생시 시간 보여줌
+            var time_view = document.getElementById("warning_time_view");
+            time_view.innerHTML += time_log + "<hr>";
+            time_view.scrollTop = time_view.scrollHeight;
+
+            }
+        }
+        tempxhr.open("GET", "http://127.0.0.1:5000/dataLanked");
+        tempxhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8")
+	    tempxhr.send();
+
     // 주의
    } else if( Number(param1) > 0.8) {
         totalSet[1] += 1;
@@ -149,7 +172,8 @@ function section01(param1) {
 
 function doughnut_chart() {
     var ctx = document.getElementById("myChart2").getContext('2d');
-
+    ctx.canvas.width = 400;
+    ctx.canvas.height = 400;
     var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {

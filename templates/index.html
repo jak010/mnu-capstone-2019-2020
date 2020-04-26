@@ -9,71 +9,76 @@
 </head>
 
 <body>
-    <div class="header">
-        <h1>정보보호학과 캡스톤디자인</h1>
-        <timer>
-            <body>
-                <span id="clock"></span> <br/>
-            </body>
-        </timer>
-    </div>
+<div class="header">
+    <h1>정보보호학과 캡스톤디자인</h1>
+    <timer>
+        <body>
+        <span id="clock"></span> <br/>
+        </body>
+    </timer>
+</div>
 
-    <!-- Menu Declare -->
-    <div class="topnav">
-        <a href="./">Main</a>
-        <a href="./dataCollecting?flag=true">Data Collecting</a>
-        <a href="./dataVisual">Data Visual</a>
-        <a href="./dataLearned">Create Model</a>
-        <a href="./dataCompare.html">DataCompare</a>
-    </div>
-    <!-- End -->
+<!-- Menu Declare -->
+<div class="topnav">
+    <a href="./">Main</a>
+    <a href="./dataCollecting?flag=true">Data Collecting</a>
+    <a href="./dataVisual">Data Visual</a>
+    <a href="./dataLearned">Create Model</a>
+    <a href="./dataCompare.html">DataCompare</a>
+</div>
+<!-- End -->
 
-    <h3> 실시간 통계 </h3>
+<h3> 실시간 통계 </h3>
 
-    <div class="card">
-        <section class="text_log">
-            <article class="green_text">
-                <div id="green_signal">green</div>
-                <div> &nbsp;정상 수치&nbsp;</div>
-                <div id="green_log_text">&nbsp;</div>
+<div class="card">
+    <section class="text_log">
+        <article class="green_text">
+            <div id="green_signal">green</div>
+            <div> &nbsp;정상 수치&nbsp;</div>
+            <div id="green_log_text">&nbsp;</div>
 
-            </article>
+        </article>
 
-            <article class="caution_text">
-                <div id="caution_signal">Caution</div>
-                <div> &nbsp;주의 수치 </div>
-                <div id="caution_log_text">&nbsp;</div>
+        <article class="caution_text">
+            <div id="caution_signal">Caution</div>
+            <div> &nbsp;주의 수치</div>
+            <div id="caution_log_text">&nbsp;</div>
 
-            </article>
+        </article>
 
-            <article class="warning_text">
-                <div id="warning_signal">Warning</div>
-                <div> &nbsp;경고 수치&nbsp;</div>
-                <div id="warning_log_text">&nbsp;</div>
+        <article class="warning_text">
+            <div id="warning_signal">Warning</div>
+            <div> &nbsp;경고 수치&nbsp;</div>
+            <div id="warning_log_text">&nbsp;</div>
 
-            </article>
+        </article>
 
-        </section>
+    </section>
 
-        <br>
+    <br>
 
-        <section class="live_graph">
-            <article id="graph_area">
-                <canvas id="myChart"></canvas>
-            </article>
+    <section class="live_graph">
+        <article id="graph_area">
+            <canvas id="myChart"></canvas>
+        </article>
 
-            <article id="doughnut_area">
-                <div id="doughnut_area_text"> Graph Status </div>
-                <canvas id="myChart2"></canvas>
-            </article>
+        <article id="doughnut_area">
+            <div id="doughnut_area_text"> Graph Status</div>
+            <canvas id="myChart2"></canvas>
+        </article>
 
-        </section>
+    </section>
+    <br>
+    <h3>Warning Log</h3>
+    <section class="signal_time_view">
+        <article id="warning_time_view">
+        </article>
 
+        <article id="warning_process_view">
+        </article>
+    </section>
 
-        <br>
-
-
-    </div>
+</div>
 
 </body>
 
@@ -94,9 +99,10 @@
 	    xhr.send('predict='+1);
     }
 
-   </script>
-    <script src="{{ url_for('static' ,filename='js/util.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+</script>
+<script src="{{ url_for('static' ,filename='js/util.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 
 </html>

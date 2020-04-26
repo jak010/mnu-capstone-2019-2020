@@ -47,6 +47,11 @@ def dataVisalized():
                            graph_ = returnGraphXY
                            )
 
+@app.route("/dataLanked",methods=["GET"])
+def get_dataLinked():
+    memoryLinked = warning_memory_singal()
+    return memoryLinked
+
 @app.route("/predict", methods=['POST', 'GET'])
 def predictAjax():
     """ 이 모돌은 index.html에서 요청한 데이터를 반환합니다. 모듈 동작 시 이 모듈에서 prcess, threads를 수집

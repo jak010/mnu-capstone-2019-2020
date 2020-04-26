@@ -1,6 +1,5 @@
 #-*- coding: utf-8 -*-
 
-
 import os
 def port_exit_module():
     """ 이 모듈은 서버가 실행되기 전 5000번 포트를 점유 중인 PID를 종료합니다.

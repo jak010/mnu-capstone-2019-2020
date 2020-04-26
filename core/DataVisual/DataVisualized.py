@@ -1,6 +1,15 @@
 import pandas as pd
 
-def visualized_time_1():
+def visualized_train_data():
+    """
+        이 함수는 core/csvDatset/ 경로의 train 데이터를 시각화 하는 데 사용 됩니다.
+
+        Args:
+            None
+
+        Return:
+            return data : list
+    """
     returnList = []
     for _ in range(0,6):
         if _ == 0:

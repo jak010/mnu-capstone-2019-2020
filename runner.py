@@ -42,7 +42,7 @@ def datCollectingExecute():
 
 @app.route("/dataVisual",methods=["GET"])
 def dataVisalized():
-    returnGraphXY = visualized_time_1()
+    returnGraphXY = visualized_train_data()
     return render_template("dataVisualized.html",
                            graph_ = returnGraphXY
                            )
@@ -54,7 +54,6 @@ def predictAjax():
 
     Args:
         index.html에서 POST 방식의 비동기 호출로 2초마다 요청되어집니다. 현재는 '1'이라는 값 파라미터입니다.
-#ㅇㅁㄴ
     Return:
          메모리 사용량 반환식은
             (현재 메모리 사용량 - 예측된 메모리 사용량) 가 2보다 클 시에 2로 나눈 나머지를 리턴하고

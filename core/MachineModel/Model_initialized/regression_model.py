@@ -40,7 +40,7 @@ def model_initalized_create(current_flag):
         void
 
     Returns:
-        이 모듈은 호출 시 학습 모델을 생성합니다.
+        이 모듈은 호출 시 학습 모델을 생성하고 호출 된 페이지로부터 성공여부의 플래그를 반환합니다.
     """
     X1 = tf.compat.v1.placeholder(tf.float32, shape=[None])
     X2 = tf.compat.v1.placeholder(tf.float32, shape=[None])

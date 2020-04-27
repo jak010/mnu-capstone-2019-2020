@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dataCompare.css')}}">
@@ -36,13 +37,14 @@
     <a href="./dataCollecting?flag=true">Data Collecting</a>
     <a href="./dataVisual">Data Visual</a>
     <a href="./dataLearned">Create Model</a>
-    <a href="./dataCompare.html">DataCompare</a>
+    <a href="./dataCompare">DataCompare</a>
 </div>
 
 <!-- Content -->
-<h3>sadasd</h3>
-
-
+<h3>어제 오늘 프로세스 비교</h3>
+<button onclick="openTextFile()">Open</button>
+<div id="'output">. . .</div>
+<p><?php readfile("./2020-04-24.txt");</p>
 
 </body>
 </html>

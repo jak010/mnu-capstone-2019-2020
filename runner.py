@@ -20,7 +20,7 @@ def index_root():
     """
     return render_template("index.html")
 
-@app.route("/dataCompare")
+@app.route("/dataCompare",methods=["GET"])
 def data_compare():
     return render_template("dataCompare.html")
 

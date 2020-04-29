@@ -12,6 +12,8 @@ from core.MachineModel.Model_initialized.regression_model import *
 
 app = Flask(__name__)
 
+""" below app.route page_render setup """
+
 @app.route("/")
 def index_root():
     """ 이 모듈은 서버 구동 시에 메인 화면에서 보여질 Web root 를 정의합니다
@@ -24,11 +26,6 @@ def index_root():
 def data_compare():
     return render_template("dataCompare.html")
 
-@app.route("/create_model",methods=["GET"])
-def create_new_model():
-    value = request.args.get("current_value")
-    flag = model_initalized_create(value)
-    return flag
 
 @app.route("/dataLearned",methods=["GET"])
 def dataLearning():
@@ -46,6 +43,15 @@ def dataVisalized():
     return render_template("dataVisualized.html",
                            graph_ = returnGraphXY
                            )
+
+
+""" below app.route library call setup """
+
+@app.route("/create_model",methods=["GET"])
+def create_new_model():
+    value = request.args.get("current_value")
+    flag = model_initalized_create(value)
+    return flag
 
 @app.route("/dataLanked",methods=["GET"])
 def get_dataLinked():

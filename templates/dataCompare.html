@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type"
-          content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dataCompare.css')}}">
@@ -23,12 +22,12 @@
                 window.onload = function() { // 페이지가 로딩되면 실행
                     printTime();
                 }
-
         </script>
 
         <body>
-        <span id="clock"></span> <br/>
+            <span id="clock"></span> <br/>
         </body>
+
     </timer>
 </div>
 
@@ -37,14 +36,11 @@
     <a href="./dataCollecting?flag=true">Data Collecting</a>
     <a href="./dataVisual">Data Visual</a>
     <a href="./dataLearned">Create Model</a>
-    <a href="./dataCompare">DataCompare</a>
+    <a href="./dataCompare.html">DataCompare</a>
 </div>
 
 <!-- Content -->
-<h3>어제 오늘 프로세스 비교</h3>
-<button onclick="openTextFile()">Open</button>
-<div id="'output">. . .</div>
-<p><?php readfile("./2020-04-24.txt");</p>
+<h3>sadasd</h3>
 
 </body>
 </html>

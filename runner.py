@@ -1,14 +1,11 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-import pandas as pd
-import tensorflow as tf
-
 from flask import *
 
 from core.DataVisual.DataVisualized import *
 from core.DataCollect.DataCollect import *
-from core.MachineModel.Model_initialized.regression_model import *
+from core.MachineModel.Models.regression_model import *
 
 app = Flask(__name__)
 

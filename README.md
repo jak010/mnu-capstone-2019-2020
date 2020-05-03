@@ -13,8 +13,7 @@ PC 사용자가인가된 사용자인지 알려주는 프로젝트
 
 # ChangeLog
 **[+] 2020.03.23**  
-WAS Frame Work :  
-python-flask  
+WAS Frame Work : python-flask
 
 **[+] 2020.03.27**    
 데이터 시각화 모듈 업데이트      

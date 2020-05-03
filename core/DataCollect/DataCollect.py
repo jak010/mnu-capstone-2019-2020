@@ -159,8 +159,14 @@ def warning_memory_singal():
     data_list = list()
     dataTopName = list()
 
+    remove_list = ["pycharm64.exe","python.exe","MemCompression","chrome.exe"]
+
     for x in psutil.process_iter(attrs=['name', 'username', 'memory_percent']):
         if (x.info['name'] in "pycharm64.exe") or (x.info['name'] in "python.exe"):
+            # first remove
+            pass
+        elif (x.info["name"] in "MemCompression") or (x.info['name'] in "chrome.exe"):
+            # second remove
             pass
         else:
             data_list.append([x.info['memory_percent'], x.info['name']])

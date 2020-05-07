@@ -108,7 +108,10 @@
 .live_graph>#graph_area {
     width: 70%;
     height: 100%;
-    margin-left: 2%;
+    margin-left: 3%;
+    margin-right: 5%;
+    padding-right: 10px;
+    background: white;
 }
 
 .live_graph>#doughnut_area {

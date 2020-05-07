@@ -10,6 +10,11 @@ function section01(param1) {
 
     now_prec = Number(param1);
 
+    if (dataArray.length % 10 == 0) {
+        dataArray = new Array();
+        xGroup = new Array();
+    }
+
     var ctx = document.getElementById("myChart");
 
     // 일시 데이터 정의
@@ -104,7 +109,7 @@ function section01(param1) {
         xGroup.length = 0;
     }
 
-    var myChart = new Chart(ctx, {
+    var myChart1 = new Chart(ctx, {
         type: 'line',
         data: {
             labels: xGroup,
@@ -125,6 +130,15 @@ function section01(param1) {
         },
         options: {
             maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 20,
+                    right: 100,
+                    top: 20,
+                    bottom: 20
+                }
+            },
+
             legend: {
                 display: true,
                 labels: {
@@ -196,6 +210,7 @@ function section01(param1) {
             }
         }
     });
+    myChart1.update();
 
 }
 
@@ -203,7 +218,7 @@ function doughnut_chart() {
     var ctx = document.getElementById("myChart2").getContext('2d');
     ctx.canvas.width = 400;
     ctx.canvas.height = 400;
-    var myChart = new Chart(ctx, {
+    var myChart2 = new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: ["경고", "주의","정상"],
@@ -234,6 +249,7 @@ function doughnut_chart() {
             cutoutPercentage: 80,
         }
     });
+    myChart2.update();
 }
 
 function printTime() {

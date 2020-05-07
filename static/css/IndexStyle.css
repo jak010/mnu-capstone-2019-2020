@@ -110,19 +110,18 @@
     height: 100%;
     margin-left: 3%;
     margin-right: 5%;
-    padding-right: 10px;
     background: white;
 }
 
 .live_graph>#doughnut_area {
     width: 30%;
     height: 100%;
-    margin-left: 15%;
+    margin-left: 2.5%;
     text-align: center;
-    font-size: x-large;
+    font-size: xx-large;
 }
 #myChart2 {
-    margin-left:10%;
+    margin-left:5%;
 }
 
 .signal_time_view {

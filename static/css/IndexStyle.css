@@ -1,65 +1,102 @@
+
 /* Text Log Declare */
+
 .text_log {
-    height: 80px;
+    height: 130px;
+    display: flex;
+    margin-left: 1.5%;
+    margin-right: 2%;
+}
+
+
+/* set */
+
+.green_text {
+    width: 30%;
+    height: 100%;
+    background: rgb(20, 20, 20);
+    margin-left: 3%;
+    margin-right: 2%;
     display: flex;
 }
 
-.green_text {
-    width: 31%;
-    height: 100%;
-    background: white;
-}
-
 .green_text>#green_signal {
-    width: 120px;
+    width: 150px;
     height: 100%;
-    background: blue;
+    background: #388e3c;
     float: left;
 }
 
 .green_text>#green_log_text {
-    text-align: right;
+    width: 100%;
+    font-family: 'fantasy';
+    font-weight: bold;
+    color: white;
+    padding-top: 5px;
+    padding-left: 10px;
+    background: #4CAF50;
+    text-align: left;
     font-size: xx-large;
 }
 
+
+/*end*/
+
 .caution_text {
-    width: 31%;
+    width: 30%;
     height: 100%;
-    background: white;
-    margin-left: 10%;
-    margin-right: 10%;
+    background: rgb(20, 20, 20);
+    margin-left: 1%;
+    margin-right: 2.5%;
+    display: flex;
 }
 
 .caution_text>#caution_signal {
-    width: 120px;
+    width: 150px;
     height: 100%;
-    background: yellow;
+    background: #f57f17;
     float: left;
 }
 
 .caution_text>#caution_log_text {
-    text-align: right;
+    width: 100%;
+    font-family: 'fantasy';
+    font-weight: bold;
+    color: white;
+    padding-top: 5px;
+    padding-left: 10px;
+    background: #F9A825;
+    text-align: left;
     font-size: xx-large;
 }
 
+
+/*end*/
+
 .warning_text {
-    width: 31%;
+    width: 30%;
     height: 100%;
-    background: white;
+    display: flex;
 }
 
 .warning_text>#warning_signal {
-    width: 120px;
+    width: 150px;
     height: 100%;
-    background: red;
+    background: #D32F2F;
     float: left;
 }
 
 .warning_text>#warning_log_text {
-    text-align: right;
-    font-size: xx-large;
+    width: 100%;
+    font-family: 'fantasy';
+    font-weight: bold;
+    color: white;
+    padding-top: 5px;
+    padding-left: 10px;
+    background: #F44236;
+    text-align: left;
+    font-size: 30px;
 }
-
 
 /* Graph Declare */
 

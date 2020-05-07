@@ -26,12 +26,22 @@ function section01(param1) {
     var cur_x = Current_Hour + " " + Current_Minutes + " " + Current_Seconds;
     var time_log = Current_month_ + " " + Current_Date + " " + Current_Hour + " " + Current_Minutes + " " + Current_Seconds + " ";
 
+    // total Value
+    var arraySum = totalSet[0] + totalSet[1] + totalSet[2];
+
     // 경고
     if(Number(param1) > 1.2){
-        totalSet[0] += 1;
-         var obj = document.getElementById("warning_log_text");
-        obj.innerHTML = totalSet[0]+"&nbsp;";
 
+        totalSet[0] = totalSet[0] + 1;
+        var obj = document.getElementById("green_log_text");
+        obj.innerHTML = "SYSTEM " + "<br> NORMAL " + totalSet[2] + "<br>TOTAL " + arraySum;
+
+        var obj = document.getElementById("warning_log_text");
+        obj.innerHTML = "SYSTEM WARNING" + "<br>WARNING " + totalSet[0] + "<br>TOTAL " + arraySum;
+
+        var obj = document.getElementById("caution_log_text");
+        arrayCaution = ((totalSet[1] / arraySum) * 100);
+        obj.innerHTML = "SYSTEM CAUTION" + "<br>WARNING " + totalSet[1] + "<br>TOTAL " + arraySum;
 
 
         // data Top Lanked call
@@ -57,15 +67,34 @@ function section01(param1) {
 
     // 주의
    } else if( Number(param1) > 0.8) {
-        totalSet[1] += 1;
+
+        totalSet[0] = totalSet[0] + 1;
+        var obj = document.getElementById("green_log_text");
+        obj.innerHTML = "SYSTEM " + "<br> NORMAL " + totalSet[2] + "<br>TOTAL " + arraySum;
+
+        var obj = document.getElementById("warning_log_text");
+        obj.innerHTML = "SYSTEM WARNING" + "<br>WARNING " + totalSet[0] + "<br>TOTAL " + arraySum;
+
         var obj = document.getElementById("caution_log_text");
-        obj.innerHTML = totalSet[1]+"&nbsp;";
+        arrayCaution = ((totalSet[1] / arraySum) * 100);
+        obj.innerHTML = "SYSTEM CAUTION" + "<br>WARNING " + totalSet[1] + "<br>TOTAL " + arraySum;
+
+        totalSet[1] = totalSet[1] + 1;
 
    // 정상
    } else {
-    totalSet[2] += 1;
-     var obj = document.getElementById("green_log_text");
-      obj.innerHTML = totalSet[2]+"&nbsp;";
+
+        var obj = document.getElementById("green_log_text");
+        obj.innerHTML = "SYSTEM " + "<br> NORMAL " + totalSet[2] + "<br>TOTAL " + arraySum;
+
+        var obj = document.getElementById("warning_log_text");
+        obj.innerHTML = "SYSTEM WARNING" + "<br>WARNING " + totalSet[0] + "<br>TOTAL " + arraySum;
+
+        var obj = document.getElementById("caution_log_text");
+        arrayCaution = ((totalSet[1] / arraySum) * 100);
+        obj.innerHTML = "SYSTEM CAUTION" + "<br>WARNING " + totalSet[1] + "<br>TOTAL " + arraySum;
+
+        totalSet[2] = totalSet[2] + 1;
    }
 
     dataArray.push(now_prec);

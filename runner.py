@@ -1,19 +1,26 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-from flask import *
+import psutil
+import tensorflow as tf
 
-from core.DataVisual.DataVisualized import *
-from core.DataCollect.DataCollect import *
-from core.MachineModel.Model_initialized.regression_model import *
+from flask import *
+from time import localtime
+
+from core.dataPackage.data_library import DataParsing
+from core.MachineModel.Model_initialized.regression_model import regression_init
 
 app = Flask(__name__)
+
+data_refer = DataParsing()
+create_model = regression_init()
 
 """ below app.route page_render setup """
 
 @app.route("/")
 def index_root():
-    """ 이 모듈은 서버 구동 시에 메인 화면에서 보여질 Web root 를 정의합니다
+    """
+    이 모듈은 서버 구동 시에 메인 화면에서 보여질 Web root 를 정의합니다
     Returns:
         index.html, template
     """
@@ -21,38 +28,38 @@ def index_root():
 
 @app.route("/dataCompare",methods=["GET"])
 def data_compare():
+    # 2020.05.04 구현 중
     return render_template("dataCompare.html")
-
 
 @app.route("/dataLearned",methods=["GET"])
 def dataLearning():
     return render_template("dataLearning.html")
 
+# 데이터 수집 Request 응답
 @app.route("/dataCollecting",methods=["GET"])
 def datCollectingExecute():
     value = request.args
-    dataCollecting(value['flag'])
+    data_refer.data_collecting(value['flag'])
     return render_template("dataCollecting.html")
 
+# 데이터 시각화 Request 응답
 @app.route("/dataVisual",methods=["GET"])
 def dataVisalized():
-    returnGraphXY = visualized_train_data()
+    returnGraphXY = data_refer.visualized_train_data()
     return render_template("dataVisualized.html",
                            graph_ = returnGraphXY
                            )
 
-
 """ below app.route library call setup """
-
 @app.route("/create_model",methods=["GET"])
 def create_new_model():
     value = request.args.get("current_value")
-    flag = model_initalized_create(value)
+    flag = create_model.model_initalized_create(value)
     return flag
 
 @app.route("/dataLanked",methods=["GET"])
 def get_dataLinked():
-    memoryLinked = warning_memory_singal()
+    memoryLinked =  data_refer.warning_memory_singal()
     return memoryLinked
 
 @app.route("/predict", methods=['POST', 'GET'])
@@ -128,7 +135,7 @@ def predictAjax():
 
         return str(return_value[0])
 
-    except Exception as e:
+    except Exception as err_msg:
         return str(0)
 
 if __name__ == "__main__":

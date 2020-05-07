@@ -73,5 +73,3 @@ with open(today_file_name) as fin_today:
 for process in processes_in_today:
     if process not in processes_in_yesterday:
         print(process)
- 
-

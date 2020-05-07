@@ -1,81 +1,64 @@
 # os 모듈 설정은 tensorflow 라이브러리가 포함된 줄 위에 선언되야 tensorflow의 GPU 경고문이 노출되지 않습니다.
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
-""" Google Style Docstring
-Attributes :
-    X1 (tensorflow placeholder) : 텐서플로우 모델에서 전체 프로세스 수를 학습하기 위한 변인입니다.
-    X2 (tensorflow placeholder) : 텐서플로우 모델에서 전체 쓰레드 수를 학습하기 위한 변인입니다.
-    
-    Y (tensorflow placeholder)  : 텐서플로우 모델에서 메모리 사용량을 학습하기 위한 변입입니다.
-    
-    W1 (tensorflow Variable)    : 가설식에서 X1에 적용되는 가중치입니다.
-    W2 (tensorflow Variable)    : 가설식에서 X2에 적용되는 가중치입니다.
-    
-    H (Hypothesis)              : 선형회귀 모델에 적용할 가설식입니다. 
-    
-    cost (tensoflow.reduce)     : 선형회귀 모델에서 쓰일 최소 비용 값 입니다.
-    optimizer(tensorflow model) : 선형회귀 (경사하강법) 모델로써 learning_rate는 0.000000001 로 주어집니다.
-    
-    train(tensorflow minimize)  : optimizer 객체에서 minimize() 메서드를 사용해 최소 비용값을 초기화 합니다.
-    init (tensorflow iniailzed) : W1,W2의 .Variable()를 초기화 하는 데 사용합니다.
-    
-    sess (tensorflow Session)   : 위에 설정된 tensorflow 속성을 이용하여 tensorflow Sessions을 생성합니다.
-"""
 import pandas as pd
 import tensorflow as tf
 
-def model_initalized_create(current_flag):
-    """ 이 모듈은 csvDataSet 디렉토리 밑에 있는 TrainSet0~5.csv를 학습하여 MachineModel/Models 디렉토리 밑에
-    학습모델을 저장하기 위해 사용합니다.
+class regression_init:
+    @staticmethod
+    def model_initalized_create(flag):
+        """ 이 모듈은 csvDataSet 디렉토리 밑에 있는 TrainSet0~5.csv를 학습하여 MachineModel/Models 디렉토리 밑에
+        학습모델을 저장하기 위해 사용합니다.
 
-    Attributes:
-        _model_file_saver : 저장된 모델의 경로에서 학습된 모델을 찾아 저장합니다.
-        _dataset : csvDataSet 디렉토리 밑에 TrainSet0~5.csv 에 저장된 데이터에서
-                    process,threads,memory_usage를 저장합니다
-            _train_process : _dataset 에서 process 에 해당하는 데이터만 저장합니다.
-            _train_threads : _dataset 에서 threads 에 해당하는 데이터만 저장합니다.
-            _train_memory_uisage : _dataset 에서 memory_usage 에 해당하는 데이터만 저장합니다.
-    Args :
-        void
+        Attributes:
+            _model_file_saver : 저장된 모델의 경로에서 학습된 모델을 찾아 저장합니다.
+            _dataset : csvDataSet 디렉토리 밑에 TrainSet0~5.csv 에 저장된 데이터에서
+                        process,threads,memory_usage를 저장합니다
+                _train_process : _dataset 에서 process 에 해당하는 데이터만 저장합니다.
+                _train_threads : _dataset 에서 threads 에 해당하는 데이터만 저장합니다.
+                _train_memory_uisage : _dataset 에서 memory_usage 에 해당하는 데이터만 저장합니다.
+        Args :
+            void
 
-    Returns:
-        이 모듈은 호출 시 학습 모델을 생성하고 호출 된 페이지로부터 성공여부의 플래그를 반환합니다.
-    """
-    X1 = tf.compat.v1.placeholder(tf.float32, shape=[None])
-    X2 = tf.compat.v1.placeholder(tf.float32, shape=[None])
+        Returns:
+            이 모듈은 호출 시 학습 모델을 생성하고 호출 된 페이지로부터 성공여부의 플래그를 반환합니다.
+        """
 
-    Y = tf.compat.v1.placeholder(tf.float32, shape=[None])
+        X1 = tf.compat.v1.placeholder(tf.float32, shape=[None])
+        X2 = tf.compat.v1.placeholder(tf.float32, shape=[None])
 
-    W1 = tf.Variable(tf.random_normal([1], seed=1))
-    W2 = tf.Variable(tf.random_normal([1], seed=1))
+        Y = tf.compat.v1.placeholder(tf.float32, shape=[None])
 
-    b = tf.Variable(tf.random_normal([1], seed=1))
+        W1 = tf.Variable(tf.random_normal([1], seed=1))
+        W2 = tf.Variable(tf.random_normal([1], seed=1))
 
-    H = (X1 * W1 + X2 * W2) * b
+        b = tf.Variable(tf.random_normal([1], seed=1))
 
-    cost = tf.reduce_mean(tf.square(H - Y))
-    optimizer = tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.000000001)
+        H = (X1 * W1 + X2 * W2) * b
 
-    train = optimizer.minimize(cost)
-    init = tf.compat.v1.global_variables_initializer()
-    sess = tf.compat.v1.Session()
-    sess.run(init)
+        cost = tf.reduce_mean(tf.square(H - Y))
+        optimizer = tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.000000001)
 
-    _model_file_saver = "./core/MachineModel/Models/saved" + str(current_flag) + "/saved" + str(current_flag) + ".cpkt"
+        train = optimizer.minimize(cost)
+        init = tf.compat.v1.global_variables_initializer()
+        sess = tf.compat.v1.Session()
+        sess.run(init)
 
-    _dataset = pd.read_csv("./core/csvDataSet/TrainSet" + str(current_flag) + ".csv", sep=",")
+        _model_file_saver = "./core/MachineModel/Models/saved" + str(flag) + "/saved" + str(
+            flag) + ".cpkt"
 
-    _train_process = list(_dataset["process"])
-    _train_threads = list(_dataset["threads"])
-    _train_memory_usage = list(_dataset["memory_usage"])
+        _dataset = pd.read_csv("./core/csvDataSet/TrainSet" + str(flag) + ".csv", sep=",")
 
-    for step in range(10001):
-        cost_, w1_, w2_, b_, _ = sess.run([cost, W1, W2, b, train],
-                                          feed_dict={X1: _train_process, X2: _train_threads,
-                                                     Y: _train_memory_usage})
+        _train_process = list(_dataset["process"])
+        _train_threads = list(_dataset["threads"])
+        _train_memory_usage = list(_dataset["memory_usage"])
 
-    saver = tf.compat.v1.train.Saver()
-    saver.save(sess, _model_file_saver)
+        for step in range(10001):
+            cost_, w1_, w2_, b_, _ = sess.run([cost, W1, W2, b, train],
+                                              feed_dict={X1: _train_process, X2: _train_threads,
+                                                         Y: _train_memory_usage})
 
-    return current_flag
+        saver = tf.compat.v1.train.Saver()
+        saver.save(sess, _model_file_saver)
+
+        return flag

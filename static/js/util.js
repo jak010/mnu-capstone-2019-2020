@@ -225,7 +225,6 @@ function startPredict() {
     timerId = setInterval(test, 2000);
 }
 
-
 try {
     console.log("Hello Welcome to Dashboard")
 
@@ -252,22 +251,4 @@ try {
     console.log(" ");
 }
 
-var agent = navigator.userAgent.toLowerCase();
-if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
-    /*alert("Internet Explorer"); */
-    function aa()
-    {
-    var objWSH = new ActiveXObject("WScript.Shell");
-    var retval = objWSH.Run("C:Program List/2020-04-24.txt",1,true);
-    }
-}
-
-else if (agent.indexOf("chrome") != -1) {
-  function aa()
-  {
-    /*alert("HAVE TO INSTALL."); */
-    var objWSH = new ActiveXObject("WScript.Shell");
-    var retval = objWSH.Run("C:Program List/2020-04-24.txt",1,true);
-  }
-}
 

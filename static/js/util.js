@@ -122,7 +122,7 @@ function section01(param1) {
                 fill: false,
 
                 borderColor: [
-                    'rgb(0, 0, 0, 1)',
+                      'rgb(135, 206, 236)',
                 ],
                 borderWidth: 2,
                 lineTension: 0.2,
@@ -170,7 +170,8 @@ function section01(param1) {
                     },
                     gridLines: {
                         color: 'rgb(0, 0, 0, 0.3)',
-                        lineWidth: 0.5
+                        lineWidth: 0.5,
+                        display : false,
                     },
 
                 }],

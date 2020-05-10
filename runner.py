@@ -9,6 +9,7 @@ from time import localtime
 
 from core.dataPackage.data_library import DataParsing
 from core.MachineModel.Model_initialized.regression_model import regression_init
+from core.ProcessCompare.ProcessTodayYesterdayCompare import DailyProcessCompare
 
 app = Flask(__name__)
 
@@ -29,6 +30,11 @@ def index_root():
 @app.route("/dataCompare",methods=["GET"])
 def data_compare():
     # 2020.05.04 구현 중
+    file_path = app.root_path + "/core/ProcessCompare"
+    dpc = DailyProcessCompare(file_path)
+    new_processes =  dpc.get_new_processes()
+    print(new_processes)
+    # view 로 보내기
     return render_template("dataCompare.html")
 
 @app.route("/dataLearned",methods=["GET"])

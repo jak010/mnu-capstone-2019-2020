@@ -13,7 +13,7 @@
         <h1>정보보호학과 캡스톤디자인</h1>
         <timer>
             <script>
-                function e() {
+                function printTime() {
                     var clock = document.getElementById("clock"); // 출력할 장소 선택
                     var now = new Date(); // 현재시간
                     var nowTime = now.getFullYear() + "년&nbsp;" + (now.getMonth() + 1) + "월&nbsp;" + now.getDate() + "일&nbsp;" + now.getHours() + "시&nbsp;" + now.getMinutes() + "분&nbsp;" + now.getSeconds() + "초";
@@ -42,90 +42,102 @@
 
     <h3> 사용량 통계 </h3>
 
-<section class="zeroToOne">
-    <article>
-        <canvas id="myChart0"></canvas>
-    </article>
-&nbsp; &nbsp; &nbsp; &nbsp;
-    <article>
-        <canvas id="myChart1"></canvas>
-    </article>
-</section>
-<br>
-  <section class="OneToTwo">
-    <article>
-        <canvas id="myChart2"></canvas>
-    </article>
-&nbsp; &nbsp; &nbsp; &nbsp;
-    <article>
-        <canvas id="myChart3"></canvas>
-    </article>
+  <br>
+    <h2>&nbsp; &nbsp; &nbsp;&nbsp;데이터 통계</h2>
+    <section class="dataGraphArea">
 
-</section>
-<br>
-  <section class="OneToTwo">
-    <article>
-        <canvas id="myChart4"></canvas>
-    </article>
-&nbsp; &nbsp; &nbsp; &nbsp;
-    <article>
-        <canvas id="myChart5"></canvas>
-    </article>
+        <article id="graph_area">
+            <canvas id="myChart1"></canvas>
+        </article>
 
-</section>
+        <article id="train_data_area">
+            <br><br><br><br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Minute</th>
+                        <th>평균 메모리 사용량</th>
+                        <th>데이터 수</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    <!-- 0 minute data -->
+                    <tr>
+                        <td>0~10 minute </td>
+                        <td>2</td>
+                        <td>3</td>
+
+                    </tr>
+
+                    <!-- 10 minute data -->
+                    <tr>
+                        <td>10~20 minute</td>
+                        <td>2</td>
+                        <td>3</td>
+
+                    </tr>
+
+                    <!-- 20 minute data -->
+                    <tr>
+                        <td>20~30 minute</td>
+                        <td>2</td>
+                        <td>3</td>
+
+                    </tr>
+                    <!-- 30 minute data -->
+                    <tr>
+                        <td>30~40 minute</td>
+                        <td>2</td>
+                        <td>3</td>
+
+                    </tr>
+                    <!-- 40 minute data -->
+                    <tr>
+                        <td>40~50 minute</td>
+                        <td>2</td>
+                        <td>3</td>
+
+                    </tr>
+                    <!-- 50 minute data -->
+                    <tr>
+                        <td>50~60 minute</td>
+                        <td>2</td>
+                        <td>3</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </article>
+
+    </section>
+    <br>
+
 
 
 </body>
+<script>
+MinuteZero = {{ train_infor[0][1] }}
+MinuteOne = {{ train_infor[1][1] }}
+MinuteTwo = {{ train_infor[2][1] }}
+MinuteThree = {{ train_infor[3][1] }}
+MinuteFour = {{ train_infor[4][1][0:10] }}
+console.log(MinuteFour);
+MinuteFive = {{ train_infor[5][1] }}
 
-    <script>
-    {% for item in range(0,6) %}
+var statical_set = {{ train_statical }}
+var td_find = document.getElementsByTagName("tbody");
 
-    var labelsData = {{ graph_[item][0] }};
-    var dataset = {{ graph_[item][1] }};
+for (var i=0; i<6; i++) {
+    td_find[0].getElementsByTagName("tr")[i].getElementsByTagName("td")[1].textContent =  statical_set[i][0] ;
+    td_find[0].getElementsByTagName("tr")[i].getElementsByTagName("td")[2].textContent =  statical_set[i][1] ;
+}
+</script>
 
-    {% if item == 0 %}
-    var label_text =" 0분 대 사용량";
-    {% else %}
-    var label_text ={{ item|string }} +"0분 대 사용량";
-    {% endif %}
-
-    param_value = 'myChart' + {{item|string}};
-
-var ctx = document.getElementById(param_value);
-
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: labelsData,
-        datasets: [{
-            label: label_text,
-            data: dataset,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                      min: 55,
-                      max: 80,
-                      stepSize: 5,
-                      fontSize: 12,
-                      fontColor: 'rgb(0, 0 0, 0.6)'
-                }
-            }]
-        }
-    }
-});
-
-    {% endfor %}
-    </script>
-
+<script src="{{ url_for('static' ,filename='js/statical.js') }}"></script>
 
 </html>

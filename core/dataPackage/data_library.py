@@ -228,6 +228,37 @@ class DataParsing:
                                     data_frame_visualized['memory_usage'].values.tolist()])
 
             else:
+
+                train_path = "./core/csvDataSet/TrainSet" + str(_) + ".csv"
+                data_frame = pd.read_csv(train_path)
+
+                data_frame['time'] = pd.to_numeric(data_frame['time'].str.slice(start=0, stop=2))
+                data_frame_visualized = data_frame.groupby(by=['time'], as_index=False).mean()
+                return_list.append([data_frame_visualized['time'].values.tolist(),
+                                    data_frame_visualized['memory_usage'].values.tolist()])
+
+        return return_list
+
+    @classmethod
+    def visualized_train_data_statical(cls):
+        """
+            이 함수는 core/csvDatset/ 경로의 train 데이터의 통계를 내는데 사용합니다.
+            Return:
+                return data : list
+        """
+        return_list = []
+        avg_list = []
+
+        for _ in range(0, 6):
+            if _ == 0:
+                train_path = "./core/csvDataSet/TrainSet" + str(_) + ".csv"
+                data_frame = pd.read_csv(train_path)
+                data_frame['time'] = pd.to_numeric(data_frame['time'].str.slice(start=0, stop=1))
+                data_frame_visualized = data_frame.groupby(by=['time'], as_index=False).mean()
+                return_list.append([data_frame_visualized['time'].values.tolist(),
+                                    data_frame_visualized['memory_usage'].values.tolist()])
+
+            else:
                 train_path = "./core/csvDataSet/TrainSet" + str(_) + ".csv"
                 data_frame = pd.read_csv(train_path)
                 data_frame['time'] = pd.to_numeric(data_frame['time'].str.slice(start=0, stop=2))
@@ -235,4 +266,10 @@ class DataParsing:
                 return_list.append([data_frame_visualized['time'].values.tolist(),
                                     data_frame_visualized['memory_usage'].values.tolist()])
 
-        return return_list
+        for _ in range(0, 6):
+            with open("./core/csvDataSet/TrainSet" + str(_) + ".csv", "r") as f:
+                fd = csv.reader(f)
+                row_cnt = len([row for row in fd])
+                avg_list.append([sum(return_list[_][1]) / 10, row_cnt])
+
+        return avg_list

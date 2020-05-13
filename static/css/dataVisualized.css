@@ -1,33 +1,47 @@
-/* grpah Viewer */
 
-.zeroToOne {
-    display:flex;
-    margin-top : 2%;
-    margin-left:2%;
-    margin-right: 1%;
-}
+/* === start 사용량 통계 스타일 영역 === */
 
-.zeroToOne > article{
-    width : 1500px;
+.dataGraphArea {
+    height: 500px;
+    display: flex;
 }
 
-
-.OneToTwo {
-    display:flex;
-    margin-top :1%;
-    margin-left:2%;
-    margin-right: 1%;
-}
-.OneToTwo > article{
-    width : 1500px;
+.dataGraphArea>#graph_area {
+    width: 50%;
+    height: 100%;
 }
 
-.threeTofour {
-    display:flex;
-    margin-top : 1%;
-    margin-left : 2%;
-    margin-right: 1%;
+.dataGraphArea>#train_data_area {
+    width: 50%;
+    height: 100%;
+    margin-left: 1.5%;
 }
-.threeTofour > article{
-    width : 1500px;
+
+
+/* table */
+
+.dataGraphArea>#train_data_area>table {
+    border-spacing: 0px;
 }
+
+.dataGraphArea>#train_data_area>table>tr,
+th {
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    background-color: #101001;
+    color: white;
+    border-spacing: 0px;
+}
+
+.dataGraphArea>#train_data_area>table>tbody>tr,
+td {
+    width: 300px;
+    height: 50px;
+    text-align: center;
+    border-spacing: 0px;
+    border-bottom: 1px solid;
+}
+
+
+/* ===  End 사용량 통계 스타일 영역 ===  */

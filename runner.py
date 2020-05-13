@@ -6,27 +6,69 @@ import tensorflow as tf
 
 from flask import *
 from time import localtime
-
 from core.dataPackage.data_library import DataParsing
 from core.MachineModel.Model_initialized.regression_model import regression_init
 from core.ProcessCompare.ProcessTodayYesterdayCompare import DailyProcessCompare
 
 app = Flask(__name__)
 
+"""
+    INSTANCE INITAILIZED
+"""
 data_refer = DataParsing()
 create_model = regression_init()
 
-""" below app.route page_render setup """
-
+"""
+    1. ROOT PAGE DECLARE 
+"""
 @app.route("/")
 def index_root():
-    """
-    이 모듈은 서버 구동 시에 메인 화면에서 보여질 Web root 를 정의합니다
-    Returns:
-        index.html, template
-    """
     return render_template("index.html")
+"""
+   DATA LANKED API DECLARE
+"""
+@app.route("/dataLanked",methods=["GET"])
+def get_dataLinked():
+    memoryLinked =  data_refer.warning_memory_singal()
+    return memoryLinked
+# =================================================================================
+"""
+   2. DATA COLLECT API DECLARE
+"""
+@app.route("/dataCollecting",methods=["GET"])
+def datCollectingExecute():
+    value = request.args
+    data_refer.data_collecting(value['flag'])
+    return render_template("dataCollecting.html")
+# =================================================================================
+""" 
+    3. DATA VISUALIZED API DECLARE
+"""
+@app.route("/dataVisual",methods=["GET"])
+def dataVisalized():
+    returnGraphXY = data_refer.visualized_train_data()
 
+    returnStatical = data_refer.visualized_train_data_statical()
+    return render_template("dataVisualized.html", train_infor=returnGraphXY,train_statical=returnStatical)
+
+# =================================================================================
+"""
+    4. NEW MODEL CREATE API DECLARE
+"""
+@app.route("/dataLearned",methods=["GET"])
+def dataLearning():
+    return render_template("dataLearning.html")
+
+@app.route("/create_model",methods=["GET"])
+def create_new_model():
+    value = request.args.get("current_value")
+    flag = create_model.model_initalized_create(value)
+    return flag
+
+# =================================================================================
+"""
+    5. DATA COMPARE API DECLARE
+"""
 @app.route("/dataCompare",methods=["GET"])
 def data_compare():
     # 2020.05.04 구현 중
@@ -37,39 +79,10 @@ def data_compare():
     # view 로 보내기
     return render_template("dataCompare.html" ,new_processes_list =  new_processes)
 
-@app.route("/dataLearned",methods=["GET"])
-def dataLearning():
-    return render_template("dataLearning.html")
-
-""" below app.route library call setup """
-@app.route("/create_model",methods=["GET"])
-def create_new_model():
-    value = request.args.get("current_value")
-    flag = create_model.model_initalized_create(value)
-    return flag
-
-
-# 데이터 수집 Request 응답
-@app.route("/dataCollecting",methods=["GET"])
-def datCollectingExecute():
-    value = request.args
-    data_refer.data_collecting(value['flag'])
-    return render_template("dataCollecting.html")
-
-# 데이터 시각화 Request 응답
-@app.route("/dataVisual",methods=["GET"])
-def dataVisalized():
-    returnGraphXY = data_refer.visualized_train_data()
-    return render_template("dataVisualized.html",
-                           graph_ = returnGraphXY
-                           )
-
-
-@app.route("/dataLanked",methods=["GET"])
-def get_dataLinked():
-    memoryLinked =  data_refer.warning_memory_singal()
-    return memoryLinked
-
+# =================================================================================
+"""
+   **MEMORY PREDICT API DECLARE 
+"""
 @app.route("/predict", methods=['POST', 'GET'])
 def predictAjax():
     """ 이 모돌은 index.html에서 요청한 데이터를 반환합니다. 모듈 동작 시 이 모듈에서 prcess, threads를 수집
@@ -140,7 +153,6 @@ def predictAjax():
             return_value = abs(memory_usage.percent - predict_memory_usage) %2
         else:
             return_value = (memory_usage.percent - predict_memory_usage) % 2
-
         return str(return_value[0])
 
     except Exception as err_msg:

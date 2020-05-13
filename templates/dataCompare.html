@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dataCompare.css')}}">
 </head>
+
 <body>
 <div class="header">
     <h1>정보보호학과 캡스톤디자인</h1>
@@ -27,7 +29,6 @@
         <body>
             <span id="clock"></span> <br/>
         </body>
-
     </timer>
 </div>
 
@@ -41,6 +42,9 @@
 
 <!-- Content -->
 <h3>sadasd</h3>
+{%  for x in new_processes_list %}
+{{ x['processes'] }}
+{% endfor %}
 
 </body>
 </html>

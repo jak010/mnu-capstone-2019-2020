@@ -4,14 +4,14 @@ from pathlib import Path
 
 class DailyProcessCompare:
     def __init__(self, file_path):
-        self.file_folderName = file_path+"/"
+        self.file_folderName = file_path + "/"
         pass
 
     # 프로세스 목록을 메모리 샤용량순으로 가져옴
     def getListOfProcessSortedByMemory(self):
-
         listOfProcObjects = []
         listUnique = []
+
         # 리스트를 반복
         for proc in psutil.process_iter():
             try:

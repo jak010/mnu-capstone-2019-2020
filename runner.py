@@ -35,11 +35,19 @@ def data_compare():
     new_processes =  dpc.get_new_processes()
     print(new_processes)
     # view 로 보내기
-    return render_template("dataCompare.html")
+    return render_template("dataCompare.html" ,new_processes_list =  new_processes)
 
 @app.route("/dataLearned",methods=["GET"])
 def dataLearning():
     return render_template("dataLearning.html")
+
+""" below app.route library call setup """
+@app.route("/create_model",methods=["GET"])
+def create_new_model():
+    value = request.args.get("current_value")
+    flag = create_model.model_initalized_create(value)
+    return flag
+
 
 # 데이터 수집 Request 응답
 @app.route("/dataCollecting",methods=["GET"])
@@ -56,12 +64,6 @@ def dataVisalized():
                            graph_ = returnGraphXY
                            )
 
-""" below app.route library call setup """
-@app.route("/create_model",methods=["GET"])
-def create_new_model():
-    value = request.args.get("current_value")
-    flag = create_model.model_initalized_create(value)
-    return flag
 
 @app.route("/dataLanked",methods=["GET"])
 def get_dataLinked():

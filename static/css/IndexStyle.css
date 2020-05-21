@@ -23,7 +23,7 @@
 .green_text>#green_signal {
     width: 150px;
     height: 100%;
-    background: #388e3c;
+    background: #0054ff;
     float: left;
 }
 
@@ -34,7 +34,7 @@
     color: white;
     padding-top: 5px;
     padding-left: 10px;
-    background: #4CAF50;
+    background: #2478ff;
     text-align: left;
     font-size: xx-large;
 }

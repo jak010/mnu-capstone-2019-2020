@@ -37,7 +37,7 @@ class regression_init:
         H = (X1 * W1 + X2 * W2) * b
 
         cost = tf.reduce_mean(tf.square(H - Y))
-        optimizer = tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.000000001)
+        optimizer = tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.00000001)
 
         train = optimizer.minimize(cost)
         init = tf.compat.v1.global_variables_initializer()

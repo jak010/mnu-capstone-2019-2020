@@ -74,6 +74,7 @@ def data_compare():
     # 2020.05.04 구현 중
     file_path = app.root_path + "/core/ProcessCompare"
     dpc = DailyProcessCompare(file_path)
+
     new_processes =  dpc.get_new_processes()
     print(new_processes)
     # view 로 보내기

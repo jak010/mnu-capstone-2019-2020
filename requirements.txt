@@ -2,4 +2,4 @@ csv
 psutil
 pandas
 matplotlib
-tenserflow==1.5.1
+tensorflow==1.15.1

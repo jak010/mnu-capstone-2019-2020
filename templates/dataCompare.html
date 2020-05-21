@@ -42,8 +42,14 @@
 
 <!-- Content -->
 <h3>sadasd</h3>
-{%  for x in new_processes_list %}
-{{ x['processes'] }}
+
+{% for _ in new_processes_list %}
+
+{{ _[0][1] }}
+{{ _[0][2] }}
+{{ _[0][3] }}
+{{ _[0][4] }}
+
 {% endfor %}
 
 </body>

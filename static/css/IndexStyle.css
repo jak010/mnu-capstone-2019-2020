@@ -23,7 +23,7 @@
 .green_text>#green_signal {
     width: 150px;
     height: 100%;
-    background: #0054ff;
+    background-image: url("laugh.png");
     float: left;
 }
 
@@ -54,7 +54,7 @@
 .caution_text>#caution_signal {
     width: 150px;
     height: 100%;
-    background: #f57f17;
+    background-image: url("sad.png");
     float: left;
 }
 
@@ -82,7 +82,7 @@
 .warning_text>#warning_signal {
     width: 150px;
     height: 100%;
-    background: #D32F2F;
+    background-image: url("sad.png");
     float: left;
 }
 

@@ -1,21 +1,32 @@
-.data_learned{
+.compare_tablea {
+    display : inline-blok;
+    float: left;
+    height : 100%;
+    margin-left: 5%;
+    width : 30%;
+    border : 1px;
+    text-align : left;
+    color : black;
+    background-color : white;
+    }
 
-width :100%;
-height: 400px;
-background:rgb(255,255,255);
+.compare_tableb {
+    display : inline-blok;
+    float: center;
+    height : 100%;
+    width : 30%;
+    border : 1px;
+    text-align : center;
+    color : black;
+    background : white;
+    }
 
-}
-
-.data_learned > div {
-    background: rgb(226, 226, 226);
-    width: 100%;
-    height: 30px;
-    margin-bottom: 1%;
-    font-size: x-large;
-}
-
-.data_learned > div > input {
-    float: right;
-    height: 20px;
-    width: 20px;
-}
+.compare_tablec {
+    display : inline-blok;
+    height : 100%;
+    width : 30%;
+    border : 1px;
+    text-align : center;
+    color : black;
+    background : white;
+    }

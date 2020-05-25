@@ -82,7 +82,7 @@
 .warning_text>#warning_signal {
     width: 150px;
     height: 100%;
-    background-image: url("sad.png");
+    background-image: url("danger.png");
     float: left;
 }
 

@@ -15,8 +15,27 @@ def verifyed_model_value():
     Returns:
         None
     """
+
+    cur_time = str(localtime().tm_min) + ":" + str(localtime().tm_sec)
+
+    train_path = str()
+
+    if len(cur_time.split(":")[0]) == 1:
+        train_path = "/saved0/saved0.cpkt"
+    elif len(cur_time.split(":")[0]) == 2:
+        if int(cur_time.split(":")[0][0]) == 1:
+            train_path = "/saved1/saved1.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 2:
+            train_path = "/saved2/saved2.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 3:
+            train_path = "/saved3/saved3.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 4:
+            train_path = "/saved4/saved4.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 5:
+            train_path = "/saved5/saved5.cpkt"
+
     for _ in range(0, 6):
-        save_path = "../Models/saved" + str(_) + "/saved" + str(_) + ".cpkt"
+        save_path = "../Models"+ train_path
         print(save_path)
 
         init = tf.compat.v1.global_variables_initializer()

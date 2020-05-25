@@ -74,11 +74,24 @@ def data_compare():
     # 2020.05.04 구현 중
     file_path = app.root_path + "/core/ProcessCompare"
     dpc = DailyProcessCompare(file_path)
-
     new_processes =  dpc.get_new_processes()
     print(new_processes)
     # view 로 보내기
     return render_template("dataCompare.html" ,new_processes_list =  new_processes)
+
+# =================================================================================
+"""
+    6. vulnerability API DECLARE
+"""
+@app.route("/vulnerability",methods=["GET"])
+def vulnerability():
+    # 2020.05.04 구현 중
+    file_path = app.root_path + "/core/vulnerability"
+    dpc = DailyProcessCompare(file_path)
+    new_processes =  dpc.get_new_processes()
+    print(new_processes)
+    # view 로 보내기
+    return render_template("vulnerability.html" ,new_processes_list =  new_processes)
 
 # =================================================================================
 """
@@ -150,8 +163,10 @@ def predictAjax():
         # predict_memory_usage
         predict_memory_usage = sess.run(H, feed_dict={X1: X1_process, X2: X2_threads})
 
-        return_value = abs(memory_usage.percent - predict_memory_usage) % 2
-
+        if abs(memory_usage.percent - predict_memory_usage) > 2:
+            return_value = abs(memory_usage.percent - predict_memory_usage) %2
+        else:
+            return_value = (memory_usage.percent - predict_memory_usage) % 2
         return str(return_value[0])
 
     except Exception as err_msg:

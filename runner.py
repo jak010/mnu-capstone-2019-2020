@@ -74,10 +74,11 @@ def data_compare():
     # 2020.05.04 구현 중
     file_path = app.root_path + "/core/ProcessCompare"
     dpc = DailyProcessCompare(file_path)
-    new_processes,processes_in_today,processes_in_yesterday =  dpc.get_new_processes()
-    print(new_processes)
+    processes =  dpc.get_new_processes()
+    print(processes)
+
     # view 로 보내기
-    return render_template("dataCompare.html" ,new_processes_list =  new_processes,today_list=processes_in_today,yesterday_list = processes_in_yesterday )
+    return render_template("dataCompare.html" , new_processes_list = processes )
 
 # =================================================================================
 """

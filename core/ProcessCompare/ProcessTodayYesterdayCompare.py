@@ -82,4 +82,4 @@ class DailyProcessCompare:
             if process not in processes_in_yesterday:
                 new_processes.append(process)
         result["processes"] = new_processes
-        return result
+        return result, processes_in_today ,processes_in_yesterday

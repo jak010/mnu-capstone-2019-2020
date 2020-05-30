@@ -1,0 +1,22 @@
+MapleStory.exe
+pycharm64.exe
+python.exe
+AYRTSrv.aye
+MicrosoftEdgeCP.exe
+chrome.exe
+SkypeApp.exe
+KakaoTalk.exe
+MicrosoftPdfReader.exe
+BlackCipher.aes
+audiodg.exe
+SearchUI.exe
+dwm.exe
+fas.exe
+wqesa.exe
+eqwescxz.exe
+ASDSvc.exe
+explorer.exe
+NVIDIA Share.exe
+Microsoft.Photos.exe
+WinStore.App.exe
+SearchIndexer.exe

@@ -14,7 +14,6 @@
 .green_text {
     width: 30%;
     height: 100%;
-    background: rgb(20, 20, 20);
     margin-left: 3%;
     margin-right: 2%;
     display: flex;
@@ -24,6 +23,8 @@
     width: 150px;
     height: 100%;
     background-image: url("laugh.png");
+    background-size: 100px 130px;
+    background-repeat: no-repeat;
     float: left;
 }
 
@@ -45,7 +46,6 @@
 .caution_text {
     width: 30%;
     height: 100%;
-    background: rgb(20, 20, 20);
     margin-left: 1%;
     margin-right: 2.5%;
     display: flex;
@@ -55,8 +55,12 @@
     width: 150px;
     height: 100%;
     background-image: url("sad.png");
+    background-repeat: no-repeat;
+    background-size: 100px 130px;
     float: left;
 }
+
+
 
 .caution_text>#caution_log_text {
     width: 100%;
@@ -83,6 +87,8 @@
     width: 150px;
     height: 100%;
     background-image: url("danger.png");
+    background-size: 100px 130px;
+    background-repeat:no-repeat;
     float: left;
 }
 

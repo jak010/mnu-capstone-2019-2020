@@ -3,7 +3,6 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import pandas as pd
 import tensorflow as tf
-from sklearn.preprocessing import MinMaxScaler
 
 class regression_init:
     @staticmethod
@@ -24,7 +23,6 @@ class regression_init:
         Returns:
             이 모듈은 호출 시 학습 모델을 생성하고 호출 된 페이지로부터 성공여부의 플래그를 반환합니다.
         """
-        tf.set_random_seed(777)
 
         X1 = tf.compat.v1.placeholder(tf.float32, shape=[None])
         X2 = tf.compat.v1.placeholder(tf.float32, shape=[None])
@@ -39,7 +37,7 @@ class regression_init:
         H = (X1 * W1 + X2 * W2) * b
 
         cost = tf.reduce_mean(tf.square(H - Y))
-        optimizer = tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.00000001)
+        optimizer = tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.000000001)
 
         train = optimizer.minimize(cost)
         init = tf.compat.v1.global_variables_initializer()
@@ -59,8 +57,6 @@ class regression_init:
             cost_, w1_, w2_, b_, _ = sess.run([cost, W1, W2, b, train],
                                               feed_dict={X1: _train_process, X2: _train_threads,
                                                          Y: _train_memory_usage})
-
-        print(" cost : [",cost,"] train : [",_,"]" )
 
         saver = tf.compat.v1.train.Saver()
         saver.save(sess, _model_file_saver)

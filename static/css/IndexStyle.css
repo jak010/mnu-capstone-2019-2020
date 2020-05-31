@@ -1,4 +1,3 @@
-
 /* Text Log Declare */
 
 .text_log {
@@ -17,6 +16,7 @@
     margin-left: 3%;
     margin-right: 2%;
     display: flex;
+    box-shadow: 7px 7px 7px;
 }
 
 .green_text>#green_signal {
@@ -49,6 +49,7 @@
     margin-left: 1%;
     margin-right: 2.5%;
     display: flex;
+    box-shadow: 7px 7px 7px;
 }
 
 .caution_text>#caution_signal {
@@ -59,8 +60,6 @@
     background-size: 100px 130px;
     float: left;
 }
-
-
 
 .caution_text>#caution_log_text {
     width: 100%;
@@ -81,6 +80,7 @@
     width: 30%;
     height: 100%;
     display: flex;
+    box-shadow: 7px 7px 7px;
 }
 
 .warning_text>#warning_signal {
@@ -88,7 +88,7 @@
     height: 100%;
     background-image: url("danger.png");
     background-size: 100px 130px;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     float: left;
 }
 
@@ -104,30 +104,53 @@
     font-size: 30px;
 }
 
+
 /* Graph Declare */
 
 .live_graph {
-    height: 500px;
+    height: 450px;
     display: flex;
 }
 
 .live_graph>#graph_area {
-    width: 70%;
+    width: 60%;
     height: 100%;
     margin-left: 3%;
-    margin-right: 5%;
+    margin-right: 3%;
     background: white;
+    font-size: xx-large;
+    box-shadow: 5px 5px 5px;
+}
+
+.live_graph>#graph_area>#line_graph_area_text {
+    position: relative;
+    top: -20px;
 }
 
 .live_graph>#doughnut_area {
     width: 30%;
     height: 100%;
-    margin-left: 2.5%;
+    margin: auto 0;
     text-align: center;
     font-size: xx-large;
+    background: white;
+    box-shadow: 5px 5px 5px;
 }
+
+.live_graph>#doughnut_area>#doughnut_area_text {
+    text-align: left;
+    position: relative;
+    top: -20px;
+}
+
 #myChart2 {
-    margin-left:5%;
+  position: relative;
+    top: -5;
+    left: 0;
+    bottom: ;
+    right: 0;
+    height: 85%;
+    margin: 5% auto;
 }
 
 .signal_time_view {

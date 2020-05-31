@@ -37,7 +37,6 @@ function section01(param1) {
     // 경고
     if(Number(param1) > 1.2){
 
-        totalSet[0] = totalSet[0] + 1;
         var obj = document.getElementById("green_log_text");
         obj.innerHTML = "SYSTEM " + "<br> NORMAL " + totalSet[2] + "<br>TOTAL " + arraySum;
 
@@ -48,6 +47,7 @@ function section01(param1) {
         arrayCaution = ((totalSet[1] / arraySum) * 100);
         obj.innerHTML = "SYSTEM CAUTION" + "<br>WARNING " + totalSet[1] + "<br>TOTAL " + arraySum;
 
+        totalSet[0] = totalSet[0] + 1;
 
         // data Top Lanked call
         var tempxhr = new XMLHttpRequest();
@@ -71,9 +71,8 @@ function section01(param1) {
 	    tempxhr.send();
 
     // 주의
-   } else if( Number(param1) > 0.8) {
+   } else if ((Number(param1) > 0.8) && (Number(param1) < 1.2)) {
 
-        totalSet[0] = totalSet[0] + 1;
         var obj = document.getElementById("green_log_text");
         obj.innerHTML = "SYSTEM " + "<br> NORMAL " + totalSet[2] + "<br>TOTAL " + arraySum;
 
@@ -134,8 +133,8 @@ function section01(param1) {
                 padding: {
                     left: 20,
                     right: 100,
-                    top: 20,
-                    bottom: 20
+                    top: 10,
+                    bottom: 70
                 }
             },
 
@@ -218,7 +217,7 @@ function section01(param1) {
 function doughnut_chart() {
     var ctx = document.getElementById("myChart2").getContext('2d');
     ctx.canvas.width = 400;
-    ctx.canvas.height = 400;
+    ctx.canvas.height = 350;
     var myChart2 = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -247,6 +246,10 @@ function doughnut_chart() {
                 }
 
             },
+
+
+
+
             cutoutPercentage: 80,
         }
     });
@@ -284,12 +287,13 @@ try {
                 result = predict_data;
                 section01(result);
 
+                doughnut_chart();
             }
         }
         xhr.open("GET", "http://127.0.0.1:5000/predict?request=1");
         xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8")
 	    xhr.send();
-    doughnut_chart();
+
 
 }, 1900);
 

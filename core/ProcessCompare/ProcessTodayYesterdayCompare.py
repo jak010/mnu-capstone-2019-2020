@@ -49,7 +49,7 @@ class DailyProcessCompare:
         yesterday_file = Path(yesterday_file_name)
         if yesterday_file.is_file():
             with open(yesterday_file_name, 'r') as fin_yesterday:
-                    processes_in_yesterday = set(line.strip() for line in fin_yesterday)
+                    processes_in_yesterday = list(line.strip() for line in fin_yesterday)
         else:
             Path(yesterday_file_name).touch()
 
@@ -58,7 +58,7 @@ class DailyProcessCompare:
         today_file = Path(today_file_name)
         if today_file.is_file():
             with open(today_file_name, 'r') as fin_today:
-                    processes_in_today = set(line.strip() for line in fin_today)
+                    processes_in_today = list(line.strip() for line in fin_today)
         else:
             Path(today_file_name).touch()
 
@@ -76,7 +76,7 @@ class DailyProcessCompare:
         # 오늘 실행한 프로세스 - 어제 실행한 프로세스 = 어제와 비교해 오늘만 실행한 프로세스만 출력
         processes_in_today = []
         with open(today_file_name) as fin_today:
-                processes_in_today = set(line.strip() for line in fin_today)
+                processes_in_today = list(line.strip() for line in fin_today)
         new_processes = []
         for process in processes_in_today:
             if process not in processes_in_yesterday:

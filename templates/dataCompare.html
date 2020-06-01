@@ -75,8 +75,8 @@
     <tr align="center">
     <th class="fline">
         <p><b>어제 실행한 프로세스</b></p>
-{% for x in new_processes_list %}
-{{ new_processes_list['processes'][0] }}<br>
+{% for x processes_in_today %}
+{{ processes_in_today['today_processes'][0] }}<br>
 {{ new_processes_list['processes'][1] }}<br>
 {{ new_processes_list['processes'][2] }}<br>
 {{ new_processes_list['processes'][3] }}<br>
@@ -163,8 +163,8 @@
         &nbsp;
         <th class="leftline">
         <p>오늘 실행한 프로세스</p>
-{% for x in new_processes_list %}
-{{ new_processes_list['processes'][0] }}<br>
+{% for x in today_processes %}
+{{ today_processes['processes_in_today'][0] }}<br>
 {{ new_processes_list['processes'][1] }}<br>
 {{ new_processes_list['processes'][2] }}<br>
 {{ new_processes_list['processes'][3] }}<br>

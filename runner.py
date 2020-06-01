@@ -40,6 +40,13 @@ def datCollectingExecute():
     value = request.args
     data_refer.data_collecting(value['flag'])
     return render_template("dataCollecting.html")
+
+@app.route("/dataCollectValue",methods=["GET"])
+def dataCollectValue():
+    value = request.args
+    retValue = data_refer.datacollectingChk(value['flag'])
+    return retValue
+
 # =================================================================================
 """ 
     3. DATA VISUALIZED API DECLARE

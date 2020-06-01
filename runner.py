@@ -76,9 +76,11 @@ def data_compare():
     dpc = DailyProcessCompare(file_path)
     processes =  dpc.get_new_processes()
     print(processes)
+    print(processes)
+
 
     # view 로 보내기
-    return render_template("dataCompare.html" , new_processes_list = processes )
+    return render_template("dataCompare.html" , new_processes_list = processes  )
 
 # =================================================================================
 """

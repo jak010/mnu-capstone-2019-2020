@@ -9,7 +9,7 @@ from time import localtime
 from core.dataPackage.data_library import DataParsing
 from core.MachineModel.Model_initialized.regression_model import regression_init
 from core.ProcessCompare.ProcessTodayYesterdayCompare import DailyProcessCompare
-
+from core.vulnerability.highestmemoryusage import TOP10Process
 app = Flask(__name__)
 
 """
@@ -83,8 +83,6 @@ def data_compare():
     dpc = DailyProcessCompare(file_path)
     processes =  dpc.get_new_processes()
     print(processes)
-    print(processes)
-
 
     # view 로 보내기
     return render_template("dataCompare.html" , new_processes_list = processes  )
@@ -97,11 +95,11 @@ def data_compare():
 def vulnerability():
     # 2020.05.04 구현 중
     file_path = app.root_path + "/core/vulnerability"
-    dpc = DailyProcessCompare(file_path)
-    new_processes =  dpc.get_new_processes()
-    print(new_processes)
+    tpc = TOP10Process(file_path)
+    top10 =  tpc.top10_processes()
+    print(top10)
     # view 로 보내기
-    return render_template("vulnerability.html" ,new_processes_list =  new_processes)
+    return render_template("vulnerability.html" ,top10_processes_list =  top10)
 
 # =================================================================================
 """

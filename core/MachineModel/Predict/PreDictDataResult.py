@@ -1,4 +1,5 @@
 import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import time
@@ -6,6 +7,7 @@ import psutil
 import tensorflow as tf
 
 from time import localtime
+
 
 def verifyed_model_value():
     """ 이 모듈은 학습된 모델의 메모리 사용량 예측 값의 결과를 검증하는데 사용합니다.
@@ -15,16 +17,35 @@ def verifyed_model_value():
     Returns:
         None
     """
+    cur_time = str(localtime(time.time()).tm_min) + ":" + "0" + str(localtime(time.time()).tm_sec)
+
+    train_path = str()
+    if len(cur_time.split(":")[0]) == 1:
+        train_path = "/saved0/saved0.cpkt"
+    elif len(cur_time.split(":")[0]) == 2:
+        if int(cur_time.split(":")[0][0]) == 1:
+            train_path = "/saved1/saved1.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 2:
+            train_path = "/saved2/saved2.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 3:
+            train_path = "/saved3/saved3.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 4:
+            train_path = "/saved4/saved4.cpkt"
+        elif int(cur_time.split(":")[0][0]) == 5:
+            train_path = "/saved5/saved5.cpkt"
+
+    model_path = "../Models" + train_path
+
     for _ in range(0, 6):
-        save_path = "../Models/saved" + str(_) + "/saved" + str(_) + ".cpkt"
-        print(save_path)
+
+        print(model_path)
 
         init = tf.compat.v1.global_variables_initializer()
         sess = tf.compat.v1.Session()
         sess.run(init)
 
         saver = tf.compat.v1.train.Saver()
-        saver.restore(sess, save_path)
+        saver.restore(sess, model_path)
 
         all_process = [x.pid for x in psutil.process_iter()]
         thread_count = 0
@@ -40,14 +61,12 @@ def verifyed_model_value():
 
         memory_usage = psutil.virtual_memory()
 
-        # _X1 과 _X2를 입력 값으로 하여 메모리 사용량 예측하기 위한 라인
+        # _X1 과 _X2를 입력 값으로 하여 메모리 사용량 예측하기 위함
         predict_memory_usage = sess.run(H, feed_dict={X1: _X1_process, X2: _X2_threads})
 
-        returnValue = (memory_usage.percent - predict_memory_usage) % 2
-
-        print("\nCurrent Usage: [", memory_usage.percent, "] Predict :",
-              sess.run(H, feed_dict={X1: _X1_process, X2: _X2_threads}), "returnvalue :", returnValue)
+        print("\n Predict :",sess.run(H, feed_dict={X1: _X1_process, X2: _X2_threads}),"Current Usage: [", memory_usage.percent, "]" )
         print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+
 
 if __name__ == '__main__':
     """ Google Style Docstring
@@ -82,7 +101,5 @@ if __name__ == '__main__':
     b = tf.Variable(tf.random_normal([1], seed=1))
 
     H = (X1 * W1 + X2 * W2) * b
-
-    cur_time = str(localtime(time.time()).tm_min) + ":" + "0" + str(localtime(time.time()).tm_sec)
 
     verifyed_model_value()

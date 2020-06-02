@@ -12,6 +12,27 @@ class DataParsing:
         pass
 
     @classmethod
+    def datacollectingChk(cls,req):
+        cur_time = str(localtime().tm_min) + ":" + str(localtime().tm_sec)
+
+        train_path = str()
+        if len(cur_time.split(":")[0]) == 1:
+            train_path = "0"
+        elif len(cur_time.split(":")[0]) == 2:
+            if int(cur_time.split(":")[0][0]) == 1:
+                train_path = "1"
+            elif int(cur_time.split(":")[0][0]) == 2:
+                train_path = "2"
+            elif int(cur_time.split(":")[0][0]) == 3:
+                train_path = "3"
+            elif int(cur_time.split(":")[0][0]) == 4:
+                train_path = "4"
+            elif int(cur_time.split(":")[0][0]) == 5:
+                train_path = "5"
+
+        return  train_path
+
+    @classmethod
     def data_collecting(cls,req_flag):
         cur_time = str(localtime().tm_min) + ":" + str(localtime().tm_sec)
         # 0~10분 까지

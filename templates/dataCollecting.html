@@ -76,7 +76,25 @@
         <a href="./vulnerability">Vulnerability</a>
     </div>
 
+    <table>
+        <thead>
+            <th>0min</th>
+            <th>10min</th>
+            <th>20min</th>
+            <th>30min</th>
+            <th>40min</th>
+            <th>5min</th>
+        </thead>
 
+        <
+
+
+    </table>
+
+    <div class="pieBox">
+
+        <canvas id="myChart" style="height:500px; width:500px;"></canvas>
+    </div>
 
     <div class="explainBox">
         <h1 data-text="Collecting TrainSet">Collecting TrainSet</h1>
@@ -86,4 +104,6 @@
 
 </body>
 
+<script src="{{ url_for('static' ,filename='js/dataCollectViewer.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </html>

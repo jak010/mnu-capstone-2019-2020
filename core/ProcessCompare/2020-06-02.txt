@@ -119,3 +119,8 @@ tv_x64.exe
 TeamViewer_Desktop.exe
 SearchProtocolHost.exe
 SearchFilterHost.exe
+Hwp.exe
+HncCommTCP.exe
+CompPkgSrv.exe
+HimTrayIcon.exe
+FlashUtil_ActiveX.exe

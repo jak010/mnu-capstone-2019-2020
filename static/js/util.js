@@ -6,6 +6,31 @@ var totalSet = [0, 0, 0];
 // [1] 주의
 // [2] 정상
 
+function async_text(param_lanked_data ,time_data) {
+
+    var warning_log_dyn_html = "<li class='timeline-item'>"
+    warning_log_dyn_html += "  <div class='timeline-badge danger'><i class='glyphicon glyphicon-check'></i></div>"
+    warning_log_dyn_html += "   <div class='timeline-panel'>"
+    warning_log_dyn_html += "       <div class='timeline-heading'>"
+    warning_log_dyn_html += "           <h4 class='timeline-title'> "+time_data+" </h4>"
+    warning_log_dyn_html += "       </div>"
+    warning_log_dyn_html += "       <div class='timeline-body'>"
+    warning_log_dyn_html += "           <p>"+param_lanked_data+"</p>"
+    warning_log_dyn_html += "       </div>"
+    warning_log_dyn_html += "   </div>"
+    warning_log_dyn_html += "</li>"
+
+   var doc = document.getElementsByClassName("timeline timeline-horizontal");
+   var doc_list = doc[0].getElementsByTagName("li");
+   doc[0].insertAdjacentHTML('beforeend',warning_log_dyn_html);
+
+   if(doc_list.length > 15) {
+        for( var i = doc_list.length; i >= 0; i--) {
+            doc[0].getElementsByTagName("li")[i].remove();
+        }
+   }
+}
+
 function section01(param1) {
 
     now_prec = Number(param1);
@@ -55,15 +80,7 @@ function section01(param1) {
         tempxhr.onreadystatechange = function() {
         if(tempxhr.readyState == 4 && tempxhr.status ==200) {
             var lanked_data = tempxhr.responseText;
-            var process_view = document.getElementById("warning_process_view");
-            process_view.innerHTML += "&nbsp;"+lanked_data + "<hr>";
-            process_view.scrollTop = process_view.scrollHeight;
-
-            // 경고 발생시 시간 보여줌
-            var time_view = document.getElementById("warning_time_view");
-            time_view.innerHTML += time_log + "<hr>";
-            time_view.scrollTop = time_view.scrollHeight;
-
+             async_text(lanked_data ,time_log);
             }
         }
         tempxhr.open("GET", "http://127.0.0.1:5000/dataLanked");

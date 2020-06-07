@@ -102,3 +102,16 @@ AsHidSrv64.exe
 fsnotifier64.exe
 System
 System Idle Process
+LeagueClientUxRender.exe
+Code.exe
+RiotClientServices.exe
+LeagueClient.exe
+LeagueClientUx.exe
+WindowsInternal.ComposableShell.Experiences.TextInput.InputApp.exe
+backgroundTaskHost.exe
+CodeHelper.exe
+notepad.exe
+dllhost.exe
+RiotClientCrashHandler.exe
+GameBarPresenceWriter.exe
+LeagueCrashHandler.exe

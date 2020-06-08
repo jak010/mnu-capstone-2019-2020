@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 MapleStory.exe
 pycharm64.exe
 python.exe
@@ -226,4 +225,3 @@ dllhost.exe
 RiotClientCrashHandler.exe
 GameBarPresenceWriter.exe
 LeagueCrashHandler.exe
->>>>>>> origin/master

@@ -6,6 +6,7 @@
     <title>캡스톤 디자인</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/IndexStyle.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/timeline.css')}}">
 </head>
 
 <body>
@@ -32,6 +33,8 @@
 <h2> 실시간 예측 현황 </h2>
 
 <div class="card">
+
+    <!-- Section 1 -->
     <section class="text_log">
 
         <article class="green_text">
@@ -55,6 +58,46 @@
     <br>
     <br>
 
+    <!-- Section 2 -->
+
+      <div class="container">
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="page-header">
+                        <h1>Horizontal timeline</h1>
+                    </div>
+
+                    <div style="display:inline-block;width:100%; overflow-y:auto;">
+
+                        <ul class="timeline timeline-horizontal">
+                            <li class="timeline-item">
+
+                                <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
+
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4 class="timeline-title">Time DATE</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p>경고 발생 시 타임 라인이 기록됩니다. 해당 프로세스는 메모리 점유율이 높은 순위 5개를 보여줍니다.</p>
+                                    </div>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- Section 3 -->
     <section class="live_graph">
         <article id="graph_area">
             <div id="line_graph_area_text">LINE CHART</div>
@@ -68,11 +111,7 @@
 
     </section>
     <br>
-    <h3>Warning Log</h3>
-    <section class="signal_time_view">
-        <article id="warning_time_view"> </article>
-        <article id="warning_process_view"></article>
-    </section>
+
 
 </div>
 

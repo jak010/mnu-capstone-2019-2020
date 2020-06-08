@@ -1,4 +1,5 @@
 import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 import psutil
@@ -10,6 +11,7 @@ from core.dataPackage.data_library import DataParsing
 from core.MachineModel.Model_initialized.regression_model import regression_init
 from core.ProcessCompare.ProcessTodayYesterdayCompare import DailyProcessCompare
 from core.vulnerability.highestmemoryusage import TOP10Process
+
 app = Flask(__name__)
 
 """
@@ -21,90 +23,117 @@ create_model = regression_init()
 """
     1. ROOT PAGE DECLARE 
 """
+
+
 @app.route("/")
 def index_root():
     return render_template("index.html")
+
+
 """
    DATA LANKED API DECLARE
 """
-@app.route("/dataLanked",methods=["GET"])
+
+
+@app.route("/dataLanked", methods=["GET"])
 def get_dataLinked():
-    memoryLinked =  data_refer.warning_memory_singal()
+    memoryLinked = data_refer.warning_memory_singal()
     return memoryLinked
-# =================================================================================
+
+
+
 """
    2. DATA COLLECT API DECLARE
 """
-@app.route("/dataCollecting",methods=["GET"])
+
+
+@app.route("/dataCollecting", methods=["GET"])
 def datCollectingExecute():
     value = request.args
     data_refer.data_collecting(value['flag'])
     return render_template("dataCollecting.html")
 
-@app.route("/dataCollectValue",methods=["GET"])
+
+@app.route("/dataCollectValue", methods=["GET"])
 def dataCollectValue():
     value = request.args
     retValue = data_refer.datacollectingChk(value['flag'])
     return retValue
 
-# =================================================================================
+
+
 """ 
     3. DATA VISUALIZED API DECLARE
 """
-@app.route("/dataVisual",methods=["GET"])
+
+
+@app.route("/dataVisual", methods=["GET"])
 def dataVisalized():
     returnGraphXY = data_refer.visualized_train_data()
 
     returnStatical = data_refer.visualized_train_data_statical()
-    return render_template("dataVisualized.html", train_infor=returnGraphXY,train_statical=returnStatical)
+    return render_template("dataVisualized.html", train_infor=returnGraphXY, train_statical=returnStatical)
 
-# =================================================================================
+
+
 """
     4. NEW MODEL CREATE API DECLARE
 """
-@app.route("/dataLearned",methods=["GET"])
+
+
+@app.route("/dataLearned", methods=["GET"])
 def dataLearning():
     return render_template("dataLearning.html")
 
-@app.route("/create_model",methods=["GET"])
+
+@app.route("/create_model", methods=["GET"])
 def create_new_model():
     value = request.args.get("current_value")
     flag = create_model.model_initalized_create(value)
     return flag
 
-# =================================================================================
+
+
 """
     5. DATA COMPARE API DECLARE
 """
-@app.route("/dataCompare",methods=["GET"])
+
+
+@app.route("/dataCompare", methods=["GET"])
 def data_compare():
     # 2020.05.04 구현 중
     file_path = app.root_path + "/core/ProcessCompare"
     dpc = DailyProcessCompare(file_path)
-    processes =  dpc.get_new_processes()
+    processes = dpc.get_new_processes()
     print(processes)
 
     # view 로 보내기
-    return render_template("dataCompare.html" , new_processes_list = processes  )
+    return render_template("dataCompare.html", new_processes_list=processes)
 
-# =================================================================================
+
+
 """
     6. vulnerability API DECLARE
 """
-@app.route("/vulnerability",methods=["GET"])
+
+
+@app.route("/vulnerability", methods=["GET"])
 def vulnerability():
     # 2020.05.04 구현 중
     file_path = app.root_path + "/core/vulnerability"
     tpc = TOP10Process(file_path)
-    top10 =  tpc.top10_processes()
+    top10 = tpc.top10_processes()
     print(top10)
     # view 로 보내기
-    return render_template("vulnerability.html" ,top10_processes_list =  top10)
+    return render_template("vulnerability.html", top10_processes_list=top10)
 
-# =================================================================================
+
+
 """
    **MEMORY PREDICT API DECLARE 
 """
+
+
 @app.route("/predict", methods=['POST', 'GET'])
 def predictAjax():
     """ 이 모돌은 index.html에서 요청한 데이터를 반환합니다. 모듈 동작 시 이 모듈에서 prcess, threads를 수집
@@ -172,13 +201,14 @@ def predictAjax():
         predict_memory_usage = sess.run(H, feed_dict={X1: X1_process, X2: X2_threads})
 
         if abs(memory_usage.percent - predict_memory_usage) > 2:
-            return_value = abs(memory_usage.percent - predict_memory_usage) %2
+            return_value = abs(memory_usage.percent - predict_memory_usage) % 2
         else:
             return_value = (memory_usage.percent - predict_memory_usage) % 2
         return str(return_value[0])
 
     except Exception as err_msg:
         return str(0)
+
 
 if __name__ == "__main__":
     app.run()

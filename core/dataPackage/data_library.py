@@ -6,6 +6,7 @@ import os
 import csv
 import psutil
 import pandas as pd
+from operator import itemgetter
 
 class DataParsing:
     def __init__(self):
@@ -196,36 +197,24 @@ class DataParsing:
 
     @classmethod
     def warning_memory_singal(cls):
-        data_list = list()
-        data_top_name = list()
+        processList = [(x.info['name'], x.info['memory_percent']) for x in
+                       psutil.process_iter(attrs=['name', 'memory_percent'])]
+        filterList = []
+        for x in range(0, len(processList)):
+            if "chrome.exe" in processList[x][0]: continue
+            if "pycharm64.exe" in processList[x][0]: continue
+            if "python.exe" in processList[x][0]: continue
+            if "MemCompression" in processList[x][0]: continue
+            if "System Idle Process" in processList[x][0]: continue
 
-        for process_ in psutil.process_iter(attrs=['name', 'username', 'memory_percent']):
-            # first remove
-            if (process_.info['name'] in "pycharm64.exe") \
-                    or \
-                    (process_.info['name'] in "python.exe"):
-                pass
+            filterList.append([processList[x][0], processList[x][1]])
 
-            # second remove
-            elif (process_.info["name"] in "MemCompression") \
-                    or \
-                    (process_.info['name'] in "chrome.exe"):
-                pass
+        test = sorted(filterList, key=itemgetter(1), reverse=True)
 
-            else:
-                data_list.append([process_.info['memory_percent'], process_.info['name']])
+        returnRank = [x[0] for x in test[0:5]]
+        returnRank = ' '.join(returnRank)
 
-        temp_list = [[str(data_list[y][0]), data_list[y][1]] for y in range(0, len(data_list))]
-        float_list = [[float(temp_list[z][0]), temp_list[z][1]] for z in range(0, len(temp_list))]
-
-        data_top = sorted(float_list, reverse=True)
-
-        for _ in range(0, 5):
-            data_top_name.append(data_top[_][1])
-
-        return_string_value = ", ".join(data_top_name)
-
-        return return_string_value
+        return returnRank
 
     @classmethod
     def visualized_train_data(cls):

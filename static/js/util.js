@@ -6,29 +6,64 @@ var totalSet = [0, 0, 0];
 // [1] 주의
 // [2] 정상
 
-function async_text(param_lanked_data ,time_data) {
+function async_text(param_lanked_data ,time_data, flag) {
+
+    var danger_log_dyn_html = "<li class='timeline-item'>"
+    danger_log_dyn_html += "  <div class='timeline-badge danger'><i class='glyphicon glyphicon-check'></i></div>"
+    danger_log_dyn_html += "   <div class='timeline-panel'>"
+    danger_log_dyn_html += "       <div class='timeline-heading'>"
+    danger_log_dyn_html += "           <h4 class='timeline-title'> "+time_data+" </h4>"
+    danger_log_dyn_html += "       </div>"
+    danger_log_dyn_html += "       <div class='timeline-body'>"
+    danger_log_dyn_html += "           <p>"+param_lanked_data+"</p>"
+    danger_log_dyn_html += "       </div>"
+    danger_log_dyn_html += "   </div>"
+    danger_log_dyn_html += "</li>"
+
 
     var warning_log_dyn_html = "<li class='timeline-item'>"
-    warning_log_dyn_html += "  <div class='timeline-badge danger'><i class='glyphicon glyphicon-check'></i></div>"
+    warning_log_dyn_html += "  <div class='timeline-badge warning'><i class='glyphicon glyphicon-check'></i></div>"
     warning_log_dyn_html += "   <div class='timeline-panel'>"
     warning_log_dyn_html += "       <div class='timeline-heading'>"
-    warning_log_dyn_html += "           <h4 class='timeline-title'> "+time_data+" </h4>"
+    warning_log_dyn_html += "           <h4 class='timeline-title'> "+param_lanked_data+" </h4>"
     warning_log_dyn_html += "       </div>"
     warning_log_dyn_html += "       <div class='timeline-body'>"
-    warning_log_dyn_html += "           <p>"+param_lanked_data+"</p>"
+    warning_log_dyn_html += "           <p> Caution </p>"
     warning_log_dyn_html += "       </div>"
     warning_log_dyn_html += "   </div>"
     warning_log_dyn_html += "</li>"
 
+    var green_log_dyn_html = "<li class='timeline-item'>"
+    green_log_dyn_html += "  <div class='timeline-badge primary'><i class='glyphicon glyphicon-check'></i></div>"
+    green_log_dyn_html += "   <div class='timeline-panel'>"
+    green_log_dyn_html += "       <div class='timeline-heading'>"
+    green_log_dyn_html += "           <h4 class='timeline-title'> "+time_data+" </h4>"
+    green_log_dyn_html += "       </div>"
+    green_log_dyn_html += "       <div class='timeline-body'>"
+    green_log_dyn_html += "           <p> Normal </p>"
+    green_log_dyn_html += "       </div>"
+    green_log_dyn_html += "   </div>"
+    green_log_dyn_html += "</li>"
+
+
    var doc = document.getElementsByClassName("timeline timeline-horizontal");
    var doc_list = doc[0].getElementsByTagName("li");
-   doc[0].insertAdjacentHTML('beforeend',warning_log_dyn_html);
+
+   if( flag > 1.2) {
+        doc[0].insertAdjacentHTML('beforeend',danger_log_dyn_html);
+   } else if ((Number(flag) > 0.8) && (Number(flag) < 1.2)) {
+        doc[0].insertAdjacentHTML('beforeend',warning_log_dyn_html);
+    } else {
+        doc[0].insertAdjacentHTML('beforeend',green_log_dyn_html);
+    }
 
    if(doc_list.length > 15) {
-        for( var i = doc_list.length; i >= 0; i--) {
-            doc[0].getElementsByTagName("li")[i].remove();
+        for( var i = doc_list.length-1; i >= 0; i--) {
+//            doc_list[0].getElementsByTagName("li")[i].remove();
+            doc_list[i].remove();
         }
    }
+
 }
 
 function section01(param1) {
@@ -80,7 +115,8 @@ function section01(param1) {
         tempxhr.onreadystatechange = function() {
         if(tempxhr.readyState == 4 && tempxhr.status ==200) {
             var lanked_data = tempxhr.responseText;
-             async_text(lanked_data ,time_log);
+            console.log(lanked_data)
+             async_text(lanked_data ,time_log, Number(param1));
             }
         }
         tempxhr.open("GET", "http://127.0.0.1:5000/dataLanked");
@@ -102,6 +138,20 @@ function section01(param1) {
 
         totalSet[1] = totalSet[1] + 1;
 
+        // data Top Lanked call
+        var tempxhr = new XMLHttpRequest();
+
+        tempxhr.onreadystatechange = function() {
+        if(tempxhr.readyState == 4 && tempxhr.status ==200) {
+            var lanked_data = tempxhr.responseText;
+            console.log(lanked_data)
+             async_text(lanked_data ,time_log, Number(param1));
+            }
+        }
+        tempxhr.open("GET", "http://127.0.0.1:5000/dataLanked");
+        tempxhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8")
+	    tempxhr.send();
+
    // 정상
    } else {
 
@@ -115,6 +165,7 @@ function section01(param1) {
         arrayCaution = ((totalSet[1] / arraySum) * 100);
         obj.innerHTML = "SYSTEM CAUTION" + "<br>WARNING " + totalSet[1] + "<br>TOTAL " + arraySum;
 
+        async_text("Stability" ,time_log, Number(param1));
         totalSet[2] = totalSet[2] + 1;
    }
 

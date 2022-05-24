@@ -1,4 +1,4 @@
 psutil
 pandas
 matplotlib
-tensorflow==1.15
+tensorflow==2.6.4
